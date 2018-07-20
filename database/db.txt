@@ -1,0 +1,26 @@
+CREATE TABLE guestbook CHARACTER SET utf8 COLLATE utf8_bin;
+
+CREATE TABLE users(
+  user_id INTEGER NOT NULL AUTO_INCREMENT KEY,
+  name VARCHAR(128),
+  email VARCHAR(128),
+  INDEX(email)
+)ENGINE=InnoDB Charset=utf8;
+
+CREATE TABLE messages(
+  message_id INTEGER NOT NULL AUTO_INCREMENT KEY,
+  theme VARCHAR(128),
+  text TEXT,
+  pictures VARCHAR(128),
+  filepath VARCHAR(255),
+  date DATE,
+  ip VARCHAR(128),
+  browser VARCHAR(128),
+  id_user INTEGER NOT NULL,
+  INDEX(theme),
+  INDEX(date),
+  FOREIGN KEY id_user
+)ENGINE=InnoDB Charset=utf8;
+
+INSERT INTO users (name, email) VALUES ('Volha', 'volha@email.com');
+INSERT INTO users (name, email) VALUES ('Ivan', 'ivan@email.com');
