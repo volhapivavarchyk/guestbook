@@ -1,0 +1,70 @@
+body{
+  font-family: Arial, sans-serif;
+  color: maroon;
+  font-size: 14px;
+  background-color: white;
+}
+
+p{
+  color: #333;
+  font-family: Georgia;
+  padding: 10px 2px 5px 3px;
+  margin: 6px 10px 5px 12px;
+}
+
+h1 {
+  color: #004E89;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 3px;
+  padding-right: 2px;
+}
+
+h2 {
+  color: #AAA;
+  font-family: cursive;
+}
+
+div.container {
+  background-color: #9DD1F1;
+  color: #004E89;
+  min-width: 400px;
+  padding: 10px;
+  border: 1px solid rgb(22,77,100);
+  border-radius: 3px;
+  margin: 10px;
+  background: grey;
+  color: white;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.title {
+  text-transform: uppercase;
+  color: gray;
+}
+
+.grid {
+  border: 2px blue solid;
+  width: 400px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: 100px 50% 200px;
+}
+
+.box {
+  background-color: beige;
+  color: black;
+  border-radius: 5px;
+  border: 2px dodgerblue solid;
+}
+
+#form {
+
+}
+
+#record_title {
+
+}
