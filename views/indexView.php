@@ -35,19 +35,27 @@
 
     <!-- Вывод списка сообщений с учетом заданной сортировки -->
     <div class="box list-messages">
-        <div class="title">
-          <form>
-            <h4> Имя </h4>
-            <input class="ascending" type="image" src="images/double-down.png" name = "sort" value="name_ascending" width="10" height="10" />
-            <input class="descending" type="image" src="images/double-up.png"  name = "sort" value="name_descending" width="10" height="10"/>
-            <h4> E-mail </h4>
-            <input class="ascending" type="image" src="images/double-down.png" name = "sort" value="mail_ascending" width="10" height="10" />
-            <input class="descending" type="image" src="images/double-up.png"  name = "sort" value="mail_descending" width="10" height="10"/>
-            <h4> Дата добавления </h4>
-            <input class="ascending" type="image" src="images/double-down.png" name = "sort" value="date_ascending" width="10" height="10" />
-            <input class="descending" type="image" src="images/double-up.png"  name = "sort" value="date_descending" width="10" height="10"/>
-          </form>
+      <form>
+        <div class="title-message">
+          <h4> Имя </h4>
+          <div class="arrows-title-message">
+            <div><input type="image" src=<? $sort=="name_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="name_descending" width="10" height="10"/></div>
+            <div><input type="image" src=<? $sort=="name_ascending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_ascending" width="10" height="10" /></div>
+          </div>
+
+          <h4> E-mail </h4>
+          <div class="arrows-title-message">
+            <div><input type="image" src=<? $sort=="mail_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="mail_descending" width="10" height="10"/></div>
+            <div><input type="image" src=src=<? $sort=="mail_ascending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="mail_ascending" width="10" height="10" /></div>
+          </div>
+
+          <h4> Дата добавления </h4>
+          <div class="arrows-title-message">
+            <div><input type="image" src=src=<? $sort=="date_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_descending" width="10" height="10"/></div>
+            <div><input type="image" src=src=<? $sort=="name_descending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_ascending" width="10" height="10" /></div>
+          </div>
         </div>
+      </form>
      <? //foreach($messages as message) :?>
         <div class="text-message">
           <div class="title-message"><? //=$message[title]; ?></div>

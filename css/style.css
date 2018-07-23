@@ -35,16 +35,20 @@ body {
 }
 
 /* кнопки сортировки */
-input[type=submit].ascending  {
-    background: url(images/double-down.png);
-    border: 0;
-    display: block;
-    height: _the_image_height;
-    width: _the_image_width;
+.title-message {
+  display:flex;
+  align-items:center;
+  justify-content: flex-end;
+  height:20px;
 }
+.arrows-title-message {
+  margin-left: 4px;
+  margin-right: 8px;
+  flex-direction: column;
+}
+
 .ascending {
 
 }
 .descending {
-
 }
