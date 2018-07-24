@@ -39,40 +39,40 @@
         <div class="title-message">
           <h4> Имя </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<? $sort=="name_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="name_descending" width="10" height="10"/></div>
-            <div><input type="image" src=<? $sort=="name_ascending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_ascending" width="10" height="10" /></div>
+            <div><input type="image" src=<?php echo $sort=="name_desc" ? "images/double-up.png": "images/double-up-not.png"; ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?php echo $sort=="name_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="name_asc" width="10" height="10" /></div>
           </div>
 
           <h4> E-mail </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<? $sort=="mail_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="mail_descending" width="10" height="10"/></div>
-            <div><input type="image" src=src=<? $sort=="mail_ascending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="mail_ascending" width="10" height="10" /></div>
+            <div><input type="image" src=<?php echo $sort=="email_desc" ? "images/double-up.png":"images/double-up-not.png"; ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?php echo $sort=="email_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="email_asc" width="10" height="10" /></div>
           </div>
 
           <h4> Дата добавления </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=src=<? $sort=="date_descending" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_descending" width="10" height="10"/></div>
-            <div><input type="image" src=src=<? $sort=="name_descending" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_ascending" width="10" height="10" /></div>
+            <div><input type="image" src=<?php echo $sort=="date_desc" ? "images/double-up.png":"images/double-up-not.png"; ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?php echo $sort=="date_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="date_asc" width="10" height="10" /></div>
           </div>
         </div>
       </form>
-     <? //foreach($messages as message) :?>
+     <? foreach($messages as message) :?>
         <div class="text-message">
-          <div class="title-message"><? //=$message[title]; ?></div>
+          <div class="title-message"><? =$message['theme']; ?></div>
           <div class="title-message">
-            <? //=$message[name]; ?>&nbsp;&brvbar;&nbsp;
-            <? //=$message[email]; ?>&nbsp;&brvbar;&nbsp;
-            <? //=$message[date]; ?>
+            <?=$message['name'];?>&nbsp;&brvbar;&nbsp;
+            <?=$message['email'];?>&nbsp;&brvbar;&nbsp;
+            <?=$message['date'];?>
           </div>
           <div>
-            <p><? //=$message['fulltext']; ?></p>
-            <p> <img src=" <? //=$message[imgpath]; ?> " alt=" <? //=$message[imgpath]]; ?> ">
-                &brvbar;
-                <? //=$message[filepatn]; ?>
+            <p><? =$message[text]; ?></p>
+            <p> <img src=" <?=$message['pictures']; ?> " alt=" <?=$message['pictures']; ?> ">
+                &nbsp;&brvbar;&nbsp;
+                <? =$message['filepatn']; ?>
             </p>
           </div>
         </div>
-      <? //endforeach; ?>
+      <? endforeach; ?>
 
     </div>
 
