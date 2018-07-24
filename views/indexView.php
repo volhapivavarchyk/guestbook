@@ -17,19 +17,25 @@
 
     <!-- Форма для ввода нового сообщения -->
     <div class="box add-message">
-      <form>
-        <h4>Имя пользователя *</h4>
-        <input class='username' />
-        <h4>e-mail*</h4>
-        <input class='email' />
-        <h4>Текст *</h4>
-        <input class='text' />
-        <input class='captcha' />
-        <h4>Изображение </h4>
-        <input class='image' />
-        <h4>Файл </h4>
-        <input class='file' type='file' />
-        <input class='sign-in-button' type='submit' value='Sign In' />
+      <form method="post" action="">
+        <p><label for="name">Имя пользователя* </label>
+        <input type="text" name="name" id="name" /></p>
+        <p><label for="email">E-mail* </label>
+        <input type="email" name="email" id="email" /></p>
+        <p><label for="email">Домашняя страница </label>
+        <input type="url" name="homepage" id="homepage" /></p>
+        <p><label for="text">Текст* </label>
+        <input type="text" name="text" id="text" values="<?php htmlentities($oldtext); ?>" /></p>
+        <p><label for="pictures">Изображение </label>
+        <input type='file' name="pictures" id="pictures"/></p>
+        <p><label for="file">Файл </label>
+        <input type='file' name="filepath" id="filepath"/></p>
+        <p><label for="file">Captcha </label>
+        <input type='text' name="captcha" id="captcha"/></p>
+        <input type='hidden' name="ip" id="ip" value="<?php echo $_SERVER['REMOTE_ADDR']?>"/>
+        <input type='hidden' name="browser" id="browser" value="<?php echo $_SERVER['HTTP_USER_AGENT']?>"/>
+        <input type='hidden' name="date" id="date" value="<?php echo date("m.d.y H:i:s") ?>"/>
+        <input type='submit' value='Отравить' name="send" />
       </form>
     </div>
 
@@ -56,24 +62,25 @@
           </div>
         </div>
       </form>
-     <? foreach($messages as message) :?>
-        <div class="text-message">
-          <div class="title-message"><? =$message['theme']; ?></div>
+     <?php foreach($messages as $message): ?>
+        <div class="box-message">
           <div class="title-message">
-            <?=$message['name'];?>&nbsp;&brvbar;&nbsp;
-            <?=$message['email'];?>&nbsp;&brvbar;&nbsp;
-            <?=$message['date'];?>
+            <div><?php echo $message['theme'];?></div>
+            <div class="push"><?php echo $message['name'];?></div>
+            &nbsp;&brvbar;&nbsp;
+            <div><?php echo $message['email'];?></div>
+            &nbsp;&brvbar;&nbsp;
+            <div><?php echo $message['date'];?></div>
           </div>
-          <div>
-            <p><? =$message[text]; ?></p>
-            <p> <img src=" <?=$message['pictures']; ?> " alt=" <?=$message['pictures']; ?> ">
+          <div class="text-message">
+            <p><?php echo $message[text]; ?></p>
+            <p> <img src=" <?php echo $message['pictures']; ?> " alt=" <?php echo $message['pictures']; ?> ">
                 &nbsp;&brvbar;&nbsp;
-                <? =$message['filepatn']; ?>
+                <?php echo $message['filepatn']; ?>
             </p>
           </div>
         </div>
-      <? endforeach; ?>
-
+      <?php endforeach; ?>
     </div>
 
     <!-- Подвал -->

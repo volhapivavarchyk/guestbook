@@ -1,5 +1,5 @@
 <?php
-class DBTable {
+abstract class ADBTable {
 
   public $db;
 
@@ -9,6 +9,10 @@ class DBTable {
     if ($db==NULL)
       exit('Нет соединенения с базой данных');
   }
+
+  abstract public function getAllItems($sort);
+  abstract public function getIdItem($params);
+  abstract public function addItem($params);
 
 }
 ?>

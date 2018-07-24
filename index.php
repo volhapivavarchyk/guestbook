@@ -19,12 +19,13 @@
     $sort=$_GET['sort'];
     echo $init->get_body($_GET['sort']);
   }
-  elseif (isset($_POST['name'])) {
-    // code...
+  elseif (isset($_POST)) {
+    $init->addMessage($_POST);
+    $sort = 'date_desc';
+    echo $init->get_body($sort);
   }
   else{
     $sort = 'date_desc';
-    echo $sort.'111';
     echo $init->get_body($sort);
   }
 

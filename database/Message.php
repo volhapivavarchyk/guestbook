@@ -1,12 +1,12 @@
 <?php
 
-class Message extends DBTable {
+class Message extends ADBTable {
 
   public function __construct($host, $port, $db, $user, $pass){
     parent::__construct($host, $port, $db, $user, $pass);
   }
 
-  public function get_all_messages($sort){
+  public function getAllItems($sort){
     $messages=array();
     $sort_elems = explode('_', $sort);
     $str  ="SELECT messages.*, users.name, users.email
@@ -23,5 +23,32 @@ class Message extends DBTable {
     return $messages;
   }
 
+  public function getIdItem($params) {
+  }
+
+  public function addItem($params){
+
+    $t_user = new User(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
+    extract($params);
+    $user_id = $t_user->getIdItem(['name'=>$name, 'email'=>$email]);
+    if($user_id==NULL)
+      $user_id=$t_user->addItem(['name'=>$name, 'email'=>$email]);
+
+    $sql = "INSERT INTO
+           messages (theme, text, pictures, filepath, date, ip, browser, user_id)
+           VALUE
+           (:theme, :text, :pictures, :filepath, :date, :ip, :browser, :user_id);";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(
+                    ':theme'=>$theme,
+                    ':text'=>$text,
+                    ':pictures'=>$pictures,
+                    ':filepath'=>$filepath,
+                    ':date'=>$date,
+                    ':ip'=>$ip,
+                    ':browser'=>$browser,
+                    ':user_id'=>$user_id
+    ));
+  }
 }
 ?>
