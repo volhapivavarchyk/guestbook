@@ -18,14 +18,14 @@
     <!-- Форма для ввода нового сообщения -->
     <div class="box add-message">
       <form method="post" action="">
-        <p><label for="name">Имя пользователя* </label>
-        <input type="text" name="name" id="name" /></p>
+        <div class="field"><label for="name">Имя пользователя* </label>
+        <input type="text" name="name" id="name" /></div>
         <p><label for="email">E-mail* </label>
         <input type="email" name="email" id="email" /></p>
         <p><label for="email">Домашняя страница </label>
         <input type="url" name="homepage" id="homepage" /></p>
         <p><label for="text">Текст* </label>
-        <input type="text" name="text" id="text" values="<?php htmlentities($oldtext); ?>" /></p>
+        <input type="textarea" name="text" id="text" values="<?php htmlentities($oldtext); ?>" /></p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures"/></p>
         <p><label for="file">Файл </label>

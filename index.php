@@ -14,19 +14,18 @@
   spl_autoload_register('myAutoloader');
 
   $init = new IndexController();
-
+  
   if (isset($_GET['sort'])){
     $sort=$_GET['sort'];
-    echo $init->get_body($_GET['sort']);
   }
   elseif (isset($_POST)) {
     $init->addMessage($_POST);
     $sort = 'date_desc';
-    echo $init->get_body($sort);
   }
   else{
     $sort = 'date_desc';
-    echo $init->get_body($sort);
   }
+
+  echo $init->get_body($sort);
 
 ?>

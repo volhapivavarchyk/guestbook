@@ -63,3 +63,13 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+div .field {
+  display:flex;
+  align-items: baseline;
+  justify-content: spase-between;
+  padding: 5px;
+  margin-top: 10px;
+}
+div .field>*:first-child {
+    align-self: stretch;
+}
