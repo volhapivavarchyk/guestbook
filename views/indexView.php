@@ -17,15 +17,15 @@
 
     <!-- Форма для ввода нового сообщения -->
     <div class="box add-message">
-      <form method="post" action="">
-        <div class="field"><label for="name">Имя пользователя* </label>
-        <input type="text" name="name" id="name" /></div>
-        <p><label for="email">E-mail* </label>
+      <form method="post" action="" class="add-message">
+        <p><label for="name">Имя пользователя * </label>
+        <input type="text" name="name" id="name" /></p>
+        <p><label for="email">E-mail * </label>
         <input type="email" name="email" id="email" /></p>
         <p><label for="email">Домашняя страница </label>
         <input type="url" name="homepage" id="homepage" /></p>
-        <p><label for="text">Текст* </label>
-        <input type="textarea" name="text" id="text" values="<?php htmlentities($oldtext); ?>" /></p>
+        <p><label for="text">Текст * </label>
+        <input type="text" name="text" id="text" values="<?php //htmlentities($oldtext); ?>" /></p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures"/></p>
         <p><label for="file">Файл </label>
@@ -35,8 +35,11 @@
         <input type='hidden' name="ip" id="ip" value="<?php echo $_SERVER['REMOTE_ADDR']?>"/>
         <input type='hidden' name="browser" id="browser" value="<?php echo $_SERVER['HTTP_USER_AGENT']?>"/>
         <input type='hidden' name="date" id="date" value="<?php echo date("m.d.y H:i:s") ?>"/>
-        <input type='submit' value='Отравить' name="send" />
-      </form>
+        <div class="button">
+          <input type='submit' value='Отравить' name="send" />
+          <input type='submit' value='Сбросить' name="throw" />
+        </div>
+    </form>
     </div>
 
     <!-- Вывод списка сообщений с учетом заданной сортировки -->

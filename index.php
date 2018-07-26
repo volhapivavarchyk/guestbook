@@ -14,11 +14,13 @@
   spl_autoload_register('myAutoloader');
 
   $init = new IndexController();
-  
+
   if (isset($_GET['sort'])){
     $sort=$_GET['sort'];
   }
-  elseif (isset($_POST)) {
+  elseif (isset($_POST['send'])) {
+    print_r($_POST);
+    echo '111';
     $init->addMessage($_POST);
     $sort = 'date_desc';
   }

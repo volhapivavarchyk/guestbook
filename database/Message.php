@@ -18,8 +18,7 @@ class Message extends ADBTable {
       echo 'В базе данных нет сообщений';
       return $messages;
     }
-    while($message = $stmt->fetch(PDO::FETCH_ASSOC))
-      $messages[]=$message;
+    $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $messages;
   }
 

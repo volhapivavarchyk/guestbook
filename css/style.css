@@ -42,7 +42,56 @@ body {
   border: 2px dodgerblue solid;
 }
 
-/* Раскладка элементов сообщения */
+/* Выравнивание полей формы*/
+form .add-message {
+  width: 600px;
+  overflow:hidden;
+  padding: 2px;
+}
+form label {
+  float:left;
+  width:200px;
+  text-align: right;
+  font-style: oblique;
+  font-weight: bold;
+  position: relative;
+  top: 2px;
+  margin-right: 5px;
+}
+form input[type=text], form input[type=url] {
+  width: 200px;
+  background: #fff;
+  border: 1px solid #7f9db9;
+  height: 20px;
+}
+.button {
+  margin-left: 100px;
+}
+form input[type=submit] {
+  display: inline-block;
+  background-color: #CCCCCC;
+  border:1px solid #999999;
+  border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  width: 100;
+  height: 25;
+  color: #000000;
+  font-family: Arial;
+  font-size: 12px;
+}
+form input[type=submit]:hover {
+  border:1px solid #777777;
+  background-color: #999999;
+}
+form input[type=submit]:active {
+  border:1px solid #777777;
+  background-color: #999999;
+}
+input: focus + label, textarea: focus + label {
+  color: #993;
+}
+/* Выравнивание элементов сообщения */
 .title-message {
   display:flex;
   align-items:center;
@@ -52,7 +101,7 @@ body {
 .push {
   margin-left: auto;
 }
-/* кнопки сортировки */
+/* Выравнивание кнопок сортировки */
 .arrows-title-message {
   margin-left: 4px;
   margin-right: 8px;
@@ -62,14 +111,4 @@ body {
   display:flex;
   flex-direction: column;
   justify-content: space-between;
-}
-div .field {
-  display:flex;
-  align-items: baseline;
-  justify-content: spase-between;
-  padding: 5px;
-  margin-top: 10px;
-}
-div .field>*:first-child {
-    align-self: stretch;
 }
