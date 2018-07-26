@@ -22,15 +22,15 @@
         <input type="text" name="name" id="name" /></p>
         <p><label for="email">E-mail * </label>
         <input type="email" name="email" id="email" /></p>
-        <p><label for="email">Домашняя страница </label>
+        <p><label for="homepage">Домашняя страница </label>
         <input type="url" name="homepage" id="homepage" /></p>
         <p><label for="text">Текст * </label>
         <input type="text" name="text" id="text" values="<?php //htmlentities($oldtext); ?>" /></p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures"/></p>
-        <p><label for="file">Файл </label>
+        <p><label for="filepath">Файл </label>
         <input type='file' name="filepath" id="filepath"/></p>
-        <p><label for="file">Captcha </label>
+        <p><label for="captcha">Captcha </label>
         <input type='text' name="captcha" id="captcha"/></p>
         <input type='hidden' name="ip" id="ip" value="<?php echo $_SERVER['REMOTE_ADDR']?>"/>
         <input type='hidden' name="browser" id="browser" value="<?php echo $_SERVER['HTTP_USER_AGENT']?>"/>
