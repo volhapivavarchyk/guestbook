@@ -6,6 +6,28 @@
   <meta name="keywords" content="гостевая книга, сообщения" />
   <meta name="description" content="Гостевая книга" />
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script>
+  function isFileImg(){
+    var pictures = document.getElementById("pictures").files[0];
+    if (!(pictures.type == "image/jpeg") && !(pictures.type == "image/png") && !(pictures.type == "image/gif")){
+      event.target.value='';
+      document.getElementById("fileinfo-img").innerHTML = "<span style='color: red; font-size: 10px;'>Допустимые форматы файлов jpg, gif, png</span> ";
+    }
+  }
+
+  function isFile(){
+    var filepath = document.getElementById("filepath").files[0];
+    if (!(filepath.type == "text/plain")){
+      event.target.value='';
+      document.getElementById("fileinfo-file").innerHTML = "<span style='color: red; font-size: 10px;'>Допустимый формат файла txt.</span> ";
+    }
+    if (!(filepath.size >100*1024)){
+      event.target.value='';
+      document.getElementById("fileinfo-file").innerHTML += "<span style='color: red; font-size: 10px;'>Допустимый размер файла 100 Кб</span> ";
+    }
+  }
+  </script>
+
 </head>
 <body>
 
@@ -19,28 +41,31 @@
     <div class="box add-message">
       <form method="post" action="" class="add-message">
         <p><label for="name">Имя пользователя * </label>
-        <input type="text" name="name" id="name" /></p>
+        <input type="text" name="name" id="name" required  /></p>
         <p><label for="email">E-mail * </label>
-        <input type="email" name="email" id="email" /></p>
-        <p><label for="homepage">Домашняя страница </label>
-        <input type="url" name="homepage" id="homepage" /></p>
+        <input type="email" name="email" id="email" required /></p>
+        <p><label for="theme">Тема *</label>
+        <input type="text" name="theme" id="theme" required/></p>
         <p><label for="text">Текст * </label>
-        <input type="text" name="text" id="text" values="<?php //htmlentities($oldtext); ?>" /></p>
+        <textarea rows="8" cols="46" name="text" id="text" required ></textarea></p>
         <p><label for="pictures">Изображение </label>
-        <input type='file' name="pictures" id="pictures"/></p>
+        <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
+        <div id="fileinfo-img" style="margin-left: 200px;"></div></p>
         <p><label for="filepath">Файл </label>
-        <input type='file' name="filepath" id="filepath"/></p>
-        <p><label for="captcha">Captcha </label>
-        <input type='text' name="captcha" id="captcha"/></p>
+        <input type='file' name="filepath" id="filepath" value="" onchange="isFile()"/>
+        <div id="fileinfo-file" style="margin-left: 200px;"></div></p>
+        <p><label for="captcha">Текст на изображении *</label>
+        <input type='text' name="captcha" id="captcha" /></p>
         <input type='hidden' name="ip" id="ip" value="<?php echo $_SERVER['REMOTE_ADDR']?>"/>
         <input type='hidden' name="browser" id="browser" value="<?php echo $_SERVER['HTTP_USER_AGENT']?>"/>
-        <input type='hidden' name="date" id="date" value="<?php echo date("m.d.y H:i:s") ?>"/>
+        <input type='hidden' name="date" id="date" value="<?php echo date("Y-m-d H:i:s") ?>"/>
         <div class="button">
           <input type='submit' value='Отравить' name="send" />
           <input type='submit' value='Сбросить' name="throw" />
         </div>
     </form>
     </div>
+
 
     <!-- Вывод списка сообщений с учетом заданной сортировки -->
     <div class="box list-messages">
@@ -76,10 +101,10 @@
             <div><?php echo $message['date'];?></div>
           </div>
           <div class="text-message">
-            <p><?php echo $message[text]; ?></p>
+            <p><?php //echo $message[text]; ?></p>
             <p> <img src=" <?php echo $message['pictures']; ?> " alt=" <?php echo $message['pictures']; ?> ">
                 &nbsp;&brvbar;&nbsp;
-                <?php echo $message['filepatn']; ?>
+                <?php //echo $message['filepatn']; ?>
             </p>
           </div>
         </div>

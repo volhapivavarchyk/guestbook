@@ -10,21 +10,26 @@ class User extends ADBTable {
 
   public function getIdItem($params) {
     extract($params);
-    $str = "SELECT user_id
-            FROM users
-            WHERE name=".$name." AND email=".$email.";";
+    $str = "SELECT * FROM users WHERE name=".$name." AND email=".$email.";";
     $stmt=$this->db->query($str);
-    return $user_id=$stmt->fetch(PDO::FETCH_ASSOC);
+    if ( $stmt!=FALSE){
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $result['user_id'];
+    }
+    else {
+      return FALSE;
+    }
   }
 
   public function addItem($params) {
     extract($params);
-    $sql = "INSERT INTO user (name, email)
+    $sql = "INSERT INTO users (name, email)
             VALUE (:name, :email);";
-    $stmt = $pdo->prepare($sql);
+    $stmt = $this->db->prepare($sql);
     $stmt->execute(array(':name'=>$name,
                           ':email'=>$email
                           ));
+    return  $this->db->lastInsertId();
   }
 }
 ?>

@@ -29,15 +29,12 @@ class Message extends ADBTable {
 
     $t_user = new User(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
     extract($params);
-    $user_id = $t_user->getIdItem(['name'=>$name, 'email'=>$email]);
-    if($user_id==NULL)
-      $user_id=$t_user->addItem(['name'=>$name, 'email'=>$email]);
-
-    $sql = "INSERT INTO
-           messages (theme, text, pictures, filepath, date, ip, browser, user_id)
-           VALUE
-           (:theme, :text, :pictures, :filepath, :date, :ip, :browser, :user_id);";
-    $stmt = $pdo->prepare($sql);
+    $user_id = (int)$t_user->getIdItem(['name'=>$name, 'email'=>$email]);
+    if($user_id==FALSE)
+      $user_id=(int)$t_user->addItem(['name'=>$name, 'email'=>$email]);
+    $sql = "INSERT INTO messages (theme, text, pictures, filepath, date, ip, browser, id_user)
+           VALUE (:theme, :text, :pictures, :filepath, :date, :ip, :browser, :id_user);";
+    $stmt = $this->db->prepare($sql);
     $stmt->execute(array(
                     ':theme'=>$theme,
                     ':text'=>$text,
@@ -46,8 +43,8 @@ class Message extends ADBTable {
                     ':date'=>$date,
                     ':ip'=>$ip,
                     ':browser'=>$browser,
-                    ':user_id'=>$user_id
-    ));
+                    ':id_user'=>$user_id
+                  ));
   }
 }
 ?>
