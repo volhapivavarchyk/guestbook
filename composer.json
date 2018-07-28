@@ -1,0 +1,9 @@
+{
+    "name": "piv/guestbook",
+    "description": "The guest book.",
+    "keywords": ["guest", "book"],
+    "type": "project",
+    "require": {
+        "zendframework/zend-captcha": "^2.8"
+    }
+}

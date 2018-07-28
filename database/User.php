@@ -10,9 +10,9 @@ class User extends ADBTable {
 
   public function getIdItem($params) {
     extract($params);
-    $str = "SELECT * FROM users WHERE name=".$name." AND email=".$email.";";
-    $stmt=$this->db->query($str);
-    if ( $stmt!=FALSE){
+    $sql = "SELECT * FROM users WHERE name=:name AND email=:email;";
+    $stmt=$this->db->prepare($sql);
+    if ( $stmt->execute(array(':name'=>$name, ':email'=>$email))) {
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       return $result['user_id'];
     }

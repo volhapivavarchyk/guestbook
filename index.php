@@ -1,6 +1,6 @@
 <?php
-  include 'config.php';
-  header("Content-Type:text/html; charset = 'utf8'");
+  require 'vendor/autoload.php'
+  require 'config.php';
 
   function myAutoloader($nameClass){
     if(file_exists('app/'.$nameClass.'.php')){
