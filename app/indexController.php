@@ -1,8 +1,8 @@
 <?php
-namespace Pi\Guesbook\App;
+namespace Pi\Guestbook\App;
 
-use Pi\Guesbook\App\AController as AController;
-use Pi\Guesbook\Database\Message;
+use Pi\Guestbook\App\AController as AController;
+use Pi\Guestbook\Database\Message;
 
 class IndexController extends AController
 {
@@ -10,7 +10,7 @@ class IndexController extends AController
 
     public function __construct()
     {
-        $this->tMessage = new Message(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
+        $this->tMessage = new Message();
     }
 
     public function getBody($sort)

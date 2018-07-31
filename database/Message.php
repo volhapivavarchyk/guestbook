@@ -1,14 +1,14 @@
 <?php
-namespace Pi\Guesbook\Database;
+namespace Pi\Guestbook\Database;
 
-use Pi\Guestbook\ADBTable as ADBTable;
+use Pi\Guestbook\Database\ADBTable as ADBTable;
 
 class Message extends ADBTable
 {
 
-    public function __construct($host, $port, $db, $user, $pass)
+    public function __construct()
     {
-        parent::__construct($host, $port, $db, $user, $pass);
+        parent::__construct();
     }
 
     public function getAllItems($sort)

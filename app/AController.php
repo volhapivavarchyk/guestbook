@@ -1,5 +1,5 @@
 <?php
-namespace Pi\Guesbook\App;
+namespace Pi\Guestbook\App;
 
 abstract class AController
 {
