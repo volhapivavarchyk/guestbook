@@ -1,11 +1,13 @@
 <?php
-abstract class AController{
+namespace Pi\Guesbook\App;
 
-  abstract public function get_body($sort);
+abstract class AController
+{
+    abstract public function getBody($sort);
 
-  protected function render($file, $params){
-    extract($params);
-    return include('views/'.$file.'.php');
-  }
+    protected function render($file, $params)
+    {
+        extract($params);
+        return include('views/'.$file.'.php');
+    }
 }
-?>

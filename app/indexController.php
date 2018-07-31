@@ -1,22 +1,29 @@
 <?php
+namespace Pi\Guesbook\App;
 
-class IndexController extends AController {
-  public $t_message;
+use Pi\Guesbook\App\AController as AController;
+use Pi\Guesbook\Database\Message;
 
-  public function __construct(){
-      $this->t_message = new Message(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
-  }
+class IndexController extends AController
+{
+    public $tMessage;
 
-  public function get_body($sort){
+    public function __construct()
+    {
+        $this->tMessage = new Message(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
+    }
 
-    $messages = $this->t_message->getAllItems($sort);
-    $this->render('indexView', ['sort'=>$sort,
-                                'messages'=>$messages
-                               ]);
-  }
+    public function getBody($sort)
+    {
+        $messages = $this->tMessage->getAllItems($sort);
+        $this->render('indexView', [
+            'sort' => $sort,
+            'messages' => $messages
+        ]);
+    }
 
-  public function addMessage($params){
-    $messages = $this->t_message->addItem($params);
-  }
+    public function addMessage($params)
+    {
+        $messages = $this->tMessage->addItem($params);
+    }
 }
-?>
