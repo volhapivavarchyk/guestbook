@@ -9,8 +9,9 @@ abstract class ADBTable
 
     public function __construct()
     {
-        $params = include('config/db.php');
+        $params = require_once('config/db.php');
         $this->db = new PDO('mysql:host = '.DB_HOST.';port = '.DB_PORT.';dbname = '.DB_DATABASE, DB_USER, DB_PASSWORD);
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     abstract public function getAllItems($sort);

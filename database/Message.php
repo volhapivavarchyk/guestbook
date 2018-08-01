@@ -2,6 +2,7 @@
 namespace Pi\Guestbook\Database;
 
 use Pi\Guestbook\Database\ADBTable as ADBTable;
+use PDO;
 
 class Message extends ADBTable
 {
@@ -15,13 +16,24 @@ class Message extends ADBTable
     {
         $messages = array();
         $sort_elems = explode('_', $sort);
-        $sql  = "SELECT messages.*, users.name, users.email
-            FROM messages
-            INNER JOIN users
+
+        // формирование sql-запроса 
+        $sql  = "SELECT messages.*, users.name AS name, users.email AS email
+            FROM guestbook.messages
+            INNER JOIN guestbook.users
             ON messages.id_user = users.user_id
-            ORDER BY :what :how ; ";
+            ORDER BY ";
+        if (!strcmp($sort_elems[0], 'name')) {
+          $sql .= " name";
+        } elseif (!strcmp($sort_elems[0], 'email')) {
+          $sql .= " email";
+        } elseif (!strcmp($sort_elems[0], 'date')) {
+          $sql .= " date";
+        }
+        $sql = strcmp($sort_elems[1], 'desc') ? $sql." ASC;" : $sql." DESC;";
+        // end формирование sql-запроса
         $stmt = $this->db->prepare($sql);
-        if ($stmt->execute([':what' => $sort_elems[0], ':how' => $sort_elems[1]])) {
+        if ($stmt->execute()) {
             $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $messages;
         }
@@ -35,13 +47,13 @@ class Message extends ADBTable
 
     public function addItem($params)
     {
-        $t_user = new User(DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD);
+        $t_user = new User();
         extract($params);
         $user_id = (int)$t_user->getIdItem(['name' => $name, 'email' => $email]);
         if ($user_id == false){
             $user_id = (int)$t_user->addItem(['name' => $name, 'email' => $email]);
         }
-        $sql = "INSERT INTO messages
+        $sql = "INSERT INTO guestbook.messages
             (theme, text, pictures, filepath, date, ip, browser, id_user)
             VALUE
             (:theme, :text, :pictures, :filepath, :date, :ip, :browser, :id_user);";

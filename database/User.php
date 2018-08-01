@@ -2,6 +2,7 @@
 namespace Pi\Guestbook\Database;
 
 use Pi\Guestbook\Database\ADBTable as ADBTable;
+use PDO;
 
 class User extends ADBTable
 {
@@ -17,7 +18,7 @@ class User extends ADBTable
     public function getIdItem($params)
     {
         extract($params);
-        $sql = "SELECT * FROM users WHERE name=:name AND email=:email;";
+        $sql = "SELECT * FROM guestbook.users WHERE name=:name AND email=:email;";
         $stmt = $this->db->prepare($sql);
         if ($stmt->execute(array(':name'=>$name, ':email'=>$email))) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -30,9 +31,9 @@ class User extends ADBTable
     public function addItem($params)
     {
         extract($params);
-        $sql = "INSERT INTO users (name, email) VALUE (:name, :email);";
+        $sql = "INSERT INTO guestbook.users (name, email) VALUE (:name, :email);";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(array(':name'=>$name, ':email'=>$email));
+        $stmt->execute([':name'=>$name, ':email'=>$email]);
         return  $this->db->lastInsertId();
     }
 }

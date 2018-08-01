@@ -2,6 +2,8 @@
 require 'vendor/autoload.php';
 
 use Pi\Guestbook\App\IndexController;
+use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\Response;
 
 spl_autoload_register(function ($class) {
     $prefix_app = 'Pi\\Guestbook\\App\\';
@@ -20,10 +22,18 @@ spl_autoload_register(function ($class) {
 
 $init = new IndexController();
 
-if (isset($_GET['sort'])) {
-    $sort = $_GET['sort'];
-} elseif (isset($_POST['send'])) {
-    $init->addMessage($_POST);
+$request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
+$get = $request->getQueryParams();
+$post = $request->getParsedBody();
+$server = $request->getServerParams();
+
+if (isset($get['sort'])) {
+    $sort = $get['sort'];
+} elseif (isset($post['send'])) {
+    $post['ip']  = $server['REMOTE_ADDR'];
+    $post['browser'] = $server['HTTP_USER_AGENT'];
+    $post['date'] = date("Y-m-d H:i:s");
+    $init->addMessage($post);
     $sort = 'date_desc';
 } else {
     $sort = 'date_desc';

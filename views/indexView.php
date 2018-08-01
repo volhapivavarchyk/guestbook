@@ -56,9 +56,6 @@
         <div id="fileinfo-file" style="margin-left: 200px;"></div></p>
         <p><label for="captcha">Текст на изображении *</label>
         <input type='text' name="captcha" id="captcha" /></p>
-        <input type='hidden' name="ip" id="ip" value="<?php echo $_SERVER['REMOTE_ADDR']?>"/>
-        <input type='hidden' name="browser" id="browser" value="<?php echo $_SERVER['HTTP_USER_AGENT']?>"/>
-        <input type='hidden' name="date" id="date" value="<?php echo date("Y-m-d H:i:s") ?>"/>
         <div class="button">
           <input type='submit' value='Отравить' name="send" />
           <input type='submit' value='Сбросить' name="throw" />
@@ -73,38 +70,38 @@
         <div class="title-message">
           <h4> Имя </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?php echo $sort=="name_desc" ? "images/double-up.png": "images/double-up-not.png"; ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?php echo $sort=="name_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="name_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?=$sort == "name_desc" ? "images/double-up.png": "images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?=$sort == "name_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
           </div>
 
           <h4> E-mail </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?php echo $sort=="email_desc" ? "images/double-up.png":"images/double-up-not.png"; ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?php echo $sort=="email_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="email_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?= $sort == "email_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?= $sort == "email_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
           </div>
 
           <h4> Дата добавления </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?php echo $sort=="date_desc" ? "images/double-up.png":"images/double-up-not.png"; ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?php echo $sort=="date_asc" ? "images/double-down.png":"images/double-down-not.png"; ?> name = "sort" value="date_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?= $sort == "date_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?= $sort == "date_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
           </div>
         </div>
       </form>
      <?php foreach($messages as $message): ?>
         <div class="box-message">
           <div class="title-message">
-            <div><?php echo $message['theme'];?></div>
-            <div class="push"><?php echo $message['name'];?></div>
+            <div><?= $message['theme']?></div>
+            <div class="push"><?= $message['name']?></div>
             &nbsp;&brvbar;&nbsp;
-            <div><?php echo $message['email'];?></div>
+            <div><?= $message['email'] ?></div>
             &nbsp;&brvbar;&nbsp;
-            <div><?php echo $message['date'];?></div>
+            <div><?= $message['date'] ?></div>
           </div>
           <div class="text-message">
-            <p><?php //echo $message[text]; ?></p>
-            <p> <img src=" <?php echo $message['pictures']; ?> " alt=" <?php echo $message['pictures']; ?> ">
+            <p><?= $message['text'] ?></p>
+            <p> <img src=" <?= $message['pictures'] ?> " alt=" <?= $message['pictures'] ?> ">
                 &nbsp;&brvbar;&nbsp;
-                <?php //echo $message['filepatn']; ?>
+                <?= $message['filepath'] ?>
             </p>
           </div>
         </div>
