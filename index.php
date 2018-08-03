@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+require 'included/captcha.php';
 
 use Pi\Guestbook\App\IndexController;
 use Zend\Diactoros\ServerRequestFactory;
@@ -26,6 +27,7 @@ $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, 
 $get = $request->getQueryParams();
 $post = $request->getParsedBody();
 $server = $request->getServerParams();
+$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
 
 if (isset($get['sort'])) {
     $sort = $get['sort'];

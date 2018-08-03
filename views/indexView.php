@@ -6,8 +6,9 @@
   <meta name="keywords" content="гостевая книга, сообщения" />
   <meta name="description" content="Гостевая книга" />
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script>
-  function isFileImg(){
+<script>
+  function isFileImg()
+  {
     var pictures = document.getElementById("pictures").files[0];
     if (!(pictures.type == "image/jpeg") && !(pictures.type == "image/png") && !(pictures.type == "image/gif")){
       event.target.value='';
@@ -15,7 +16,8 @@
     }
   }
 
-  function isFile(){
+  function isFile()
+  {
     var filepath = document.getElementById("filepath").files[0];
     if (!(filepath.type == "text/plain")){
       event.target.value='';
@@ -26,7 +28,22 @@
       document.getElementById("fileinfo-file").innerHTML += "<span style='color: red; font-size: 10px;'>Допустимый размер файла 100 Кб</span> ";
     }
   }
-  </script>
+
+  function viewMessages(rank, count)
+  {
+    for (i=1; i<=count; i++) {
+      if (i != rank) {
+        document.getElementById('visability'+i).className = 'displayNone';
+        document.getElementById('number'+i).style.color = 'black';
+        document.getElementById('number_foot'+i).style.color = 'black';
+      } else {
+        document.getElementById('visability'+i).className = '';
+        document.getElementById('number'+i).style.color = '#006699';
+        document.getElementById('number_foot'+i).style.color = '#006699';
+      }
+    }
+  }
+</script>
 
 </head>
 <body>
@@ -46,16 +63,15 @@
         <input type="email" name="email" id="email" required /></p>
         <p><label for="theme">Тема *</label>
         <input type="text" name="theme" id="theme" required/></p>
-        <p><label for="text">Текст * </label>
+        <p><label for="text">Содержание * </label>
         <textarea rows="8" cols="46" name="text" id="text" required ></textarea></p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
-        <div id="fileinfo-img" style="margin-left: 200px;"></div></p>
+        <span id="fileinfo-img"></span></p>
         <p><label for="filepath">Файл </label>
         <input type='file' name="filepath" id="filepath" value="" onchange="isFile()"/>
-        <div id="fileinfo-file" style="margin-left: 200px;"></div></p>
-        <p><label for="captcha">Текст на изображении *</label>
-        <input type='text' name="captcha" id="captcha" /></p>
+        <span id="fileinfo-file"></span></p>
+        <div class="g-recaptcha" style="margin-left: 200px; margin-bottom: 10px;" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
         <div class="button">
           <input type='submit' value='Отравить' name="send" />
           <input type='submit' value='Сбросить' name="throw" />
@@ -87,8 +103,32 @@
           </div>
         </div>
       </form>
-     <?php foreach($messages as $message): ?>
-        <div class="box-message">
+
+      <!-- Номера страниц для отображения выборки постранично -->
+      <div class="title-message">
+       <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+         <?php if ($i == 1): ?>
+           <div id="number<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
+         <?php else: ?>
+            <div id="number<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
+         <?php endif;?>
+         <a href=# onClick=viewMessages(<?=$i ?>,<?=count($blocksOfMessages)?>) style = "color:unset; text-decoration:none;">
+            <?= $i; ?>
+         </a>
+         &nbsp;&nbsp;
+         </div>
+       <?php endfor;?>
+      </div>
+      <!-- End Номера страниц для отображения выборки постранично -->
+
+     <?php
+         $i=1;
+         $visable="";
+     ?>
+     <?php foreach($blocksOfMessages as $blockOfMessages): ?>
+        <div id="visability<?= $i; ?>" <?= $visable; ?>>
+        <?php foreach ($blockOfMessages as $message): ?>
+          <div class = "box-message">
           <div class="title-message">
             <div><?= $message['theme']?></div>
             <div class="push"><?= $message['name']?></div>
@@ -104,8 +144,32 @@
                 <?= $message['filepath'] ?>
             </p>
           </div>
+          </div>
+        <?php endforeach; ?>
+        <?php
+            $i += 1;
+            $visable = "class = 'displayNone'";
+        ?>
         </div>
       <?php endforeach; ?>
+      <form>
+        <!-- Номера страниц для отображения выборки постранично -->
+        <div class="title-message">
+         <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+           <?php if ($i == 1): ?>
+             <div id="number_foot<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
+           <?php else: ?>
+              <div id="number_foot<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
+           <?php endif;?>
+           <a href=# onClick=viewMessages(<?=$i ?>,<?=count($blocksOfMessages)?>) style = "color:unset; text-decoration:none;">
+              <?= $i; ?>
+           </a>
+           &nbsp;&nbsp;
+           </div>
+         <?php endfor;?>
+        </div>
+        <!-- End Номера страниц для отображения выборки постранично -->
+      </form>
     </div>
 
     <!-- Подвал -->
@@ -115,4 +179,6 @@
   </div>
 
 </body>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

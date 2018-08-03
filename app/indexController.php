@@ -16,9 +16,19 @@ class IndexController extends AController
     public function getBody($sort)
     {
         $messages = $this->tMessage->getAllItems($sort);
+        $i = 0;
+        $j = 0;
+        foreach ($messages as $message) {
+            $blocksOfMessages[$i][$j] = $message;
+            if ($j == 25) {
+                $i += 1;
+                $j = 0;
+            }
+            $j += 1;
+        }
         $this->render('indexView', [
             'sort' => $sort,
-            'messages' => $messages
+            'blocksOfMessages' => $blocksOfMessages
         ]);
     }
 
