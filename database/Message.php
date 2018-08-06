@@ -17,7 +17,7 @@ class Message extends ADBTable
         $messages = array();
         $sort_elems = explode('_', $sort);
 
-        // формирование sql-запроса 
+        // формирование sql-запроса
         $sql  = "SELECT messages.*, users.name AS name, users.email AS email
             FROM guestbook.messages
             INNER JOIN guestbook.users
@@ -59,8 +59,8 @@ class Message extends ADBTable
             (:theme, :text, :pictures, :filepath, :date, :ip, :browser, :id_user);";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
-            ':theme' => $theme,
-            ':text' => $text,
+            ':theme' => strip_tags($theme),
+            ':text' => strip_tags($text),
             ':pictures' => $pictures,
             ':filepath' => $filepath,
             ':date' => $date,

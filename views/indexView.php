@@ -1,10 +1,10 @@
 <!DOCTTYPE html>
 <html>
 <head>
-  <title> Гостевая книга </title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="keywords" content="гостевая книга, сообщения" />
   <meta name="description" content="Гостевая книга" />
+  <title> Гостевая книга </title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 <script>
   function isFileImg()
@@ -58,7 +58,7 @@
     <div class="box add-message">
       <form method="post" action="" class="add-message">
         <p><label for="name">Имя пользователя * </label>
-        <input type="text" name="name" id="name" required  /></p>
+        <input type="text" name="name" id="name" required minlength="1" maxlength="150" pattern="[A-Za-z0-9]" /></p>
         <p><label for="email">E-mail * </label>
         <input type="email" name="email" id="email" required /></p>
         <p><label for="theme">Тема *</label>
@@ -130,18 +130,18 @@
         <?php foreach ($blockOfMessages as $message): ?>
           <div class = "box-message">
           <div class="title-message">
-            <div><?= $message['theme']?></div>
-            <div class="push"><?= $message['name']?></div>
+            <div><?= htmlentities($message['theme']) ?></div>
+            <div class="push"><?= htmlentities($message['name']) ?></div>
             &nbsp;&brvbar;&nbsp;
-            <div><?= $message['email'] ?></div>
+            <div><?= htmlentities($message['email']) ?></div>
             &nbsp;&brvbar;&nbsp;
-            <div><?= $message['date'] ?></div>
+            <div><?=htmlentities($message['date']) ?></div>
           </div>
           <div class="text-message">
-            <p><?= $message['text'] ?></p>
-            <p> <img src=" <?= $message['pictures'] ?> " alt=" <?= $message['pictures'] ?> ">
+            <p><?= htmlentities($message['text']) ?></p>
+            <p> <img src=" <?= htmlentities($message['pictures']) ?> " alt=" <?= htmlentities($message['pictures']) ?> ">
                 &nbsp;&brvbar;&nbsp;
-                <?= $message['filepath'] ?>
+                <?= htmlentities($message['filepath']) ?>
             </p>
           </div>
           </div>
@@ -161,7 +161,7 @@
            <?php else: ?>
               <div id="number_foot<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
            <?php endif;?>
-           <a href=# onClick=viewMessages(<?=$i ?>,<?=count($blocksOfMessages)?>) style = "color:unset; text-decoration:none;">
+           <a href=# onClick=viewMessages(<?= $i ?>,<?= count($blocksOfMessages) ?>) style = "color:unset; text-decoration:none;">
               <?= $i; ?>
            </a>
            &nbsp;&nbsp;
