@@ -5,7 +5,7 @@
   <meta name="keywords" content="гостевая книга, сообщения" />
   <meta name="description" content="Гостевая книга" />
   <title> Гостевая книга </title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="views/css/style.css">
 <script>
   function isFileImg()
   {
@@ -16,7 +16,7 @@
     }
   }
 
-  function isFile()
+  function isFileTxt()
   {
     var filepath = document.getElementById("filepath").files[0];
     if (!(filepath.type == "text/plain")){
@@ -69,7 +69,7 @@
         <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
         <span id="fileinfo-img"></span></p>
         <p><label for="filepath">Файл </label>
-        <input type='file' name="filepath" id="filepath" value="" onchange="isFile()"/>
+        <input type='file' name="filepath" id="filepath" value="" onchange="isFileTxt()" accept=".txt"/>
         <span id="fileinfo-file"></span></p>
         <div class="g-recaptcha" style="margin-left: 200px; margin-bottom: 10px;" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
         <div class="button">
@@ -86,20 +86,20 @@
         <div class="title-message">
           <h4> Имя </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?=$sort == "name_desc" ? "images/double-up.png": "images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?=$sort == "name_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?=$sort == "name_desc" ? "views/images/double-up.png": "views/images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?=$sort == "name_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
           </div>
 
           <h4> E-mail </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?= $sort == "email_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?= $sort == "email_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?= $sort == "email_desc" ? "views/images/double-up.png":"views/images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?= $sort == "email_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
           </div>
 
           <h4> Дата добавления </h4>
           <div class="arrows-title-message">
-            <div><input type="image" src=<?= $sort == "date_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
-            <div><input type="image" src=<?= $sort == "date_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
+            <div><input type="image" src=<?= $sort == "date_desc" ? "views/images/double-up.png":"views/images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
+            <div><input type="image" src=<?= $sort == "date_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
           </div>
         </div>
       </form>

@@ -18,6 +18,7 @@ class IndexController extends AController
         $messages = $this->tMessage->getAllItems($sort);
         $i = 0;
         $j = 0;
+        $blocksOfMessages = array();
         foreach ($messages as $message) {
             $blocksOfMessages[$i][$j] = $message;
             if ($j == 25) {

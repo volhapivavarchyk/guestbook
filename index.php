@@ -1,6 +1,5 @@
 <?php
 require 'vendor/autoload.php';
-require 'included/captcha.php';
 
 use Pi\Guestbook\App\IndexController;
 use Zend\Diactoros\ServerRequestFactory;
