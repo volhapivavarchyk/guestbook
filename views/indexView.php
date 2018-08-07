@@ -19,11 +19,11 @@
   function isFileTxt()
   {
     var filepath = document.getElementById("filepath").files[0];
-    if (!(filepath.type == "text/plain")){
+    if (filepath.type != "text/plain"){
       event.target.value='';
       document.getElementById("fileinfo-file").innerHTML = "<span style='color: red; font-size: 10px;'>Допустимый формат файла txt.</span> ";
     }
-    if (!(filepath.size >100*1024)){
+    if (filepath.size > 100*1024){
       event.target.value='';
       document.getElementById("fileinfo-file").innerHTML += "<span style='color: red; font-size: 10px;'>Допустимый размер файла 100 Кб</span> ";
     }
@@ -56,7 +56,7 @@
 
     <!-- Форма для ввода нового сообщения -->
     <div class="box add-message">
-      <form method="post" action="" class="add-message">
+      <form method="post" action="" class="add-message" enctype="multipart/form-data">
         <p><label for="name">Имя пользователя * </label>
         <input type="text" name="name" id="name" required minlength="1" maxlength="150" pattern="[A-Za-z0-9]" /></p>
         <p><label for="email">E-mail * </label>

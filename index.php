@@ -26,7 +26,9 @@ $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, 
 $get = $request->getQueryParams();
 $post = $request->getParsedBody();
 $server = $request->getServerParams();
-$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
+$files = $request->getUploadedFiles();
+var_dump($files);
+//$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
 
 if (isset($get['sort'])) {
     $sort = $get['sort'];
@@ -34,6 +36,15 @@ if (isset($get['sort'])) {
     $post['ip']  = $server['REMOTE_ADDR'];
     $post['browser'] = $server['HTTP_USER_AGENT'];
     $post['date'] = date("Y-m-d H:i:s");
+    //$post['pictures'] = resizeImg ($post['pictures']);
+    $fileTxt = $files['filepath'];
+    var_dump($fileTxt->getClientFilename());
+    $fileTxt->moveTo("/upload/".$fileTxt->getClientFilename());
+    if (is_uploaded_file($fileTxt->getClientFilename())){
+      echo '11';
+    } else {
+      echo '22';
+    }
     $init->addMessage($post);
     $sort = 'date_desc';
 } else {

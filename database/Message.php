@@ -49,6 +49,7 @@ class Message extends ADBTable
     {
         $t_user = new User();
         extract($params);
+        var_dump($params);
         $user_id = (int)$t_user->getIdItem(['name' => $name, 'email' => $email]);
         if ($user_id == false){
             $user_id = (int)$t_user->addItem(['name' => $name, 'email' => $email]);
