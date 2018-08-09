@@ -6,7 +6,9 @@
   <meta name="description" content="Гостевая книга" />
   <title> Гостевая книга </title>
   <link rel="stylesheet" type="text/css" href="views/css/style.css">
-<script>
+  <link rel="stylesheet" type="text/css" href="views/css/lightbox.min.css">
+  <script src="views/js/lightbox-plus-jquery.min.js"></script>
+  <script>
   function isFileImg()
   {
     var pictures = document.getElementById("pictures").files[0];
@@ -43,8 +45,7 @@
       }
     }
   }
-</script>
-
+  </script>
 </head>
 <body>
 
@@ -139,7 +140,10 @@
           </div>
           <div class="text-message">
             <p><?= htmlentities($message['text']) ?></p>
-            <p> <img src=" <?= htmlentities($message['pictures']) ?> " alt=" <?= htmlentities($message['pictures']) ?> ">
+            <p>
+              <a class="example-image-link" href="upload/img/<?= htmlentities($message['pictures']) ?>" data-lightbox="example-1">
+              <img class="example-image"  src="upload/img/small/<?= htmlentities($message['pictures']) ?>" alt=" <?= htmlentities($message['pictures']) ?> " />
+              </a>
                 &nbsp;&brvbar;&nbsp;
                 <?= htmlentities($message['filepath']) ?>
             </p>

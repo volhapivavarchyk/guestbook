@@ -34,40 +34,59 @@ if (isset($get['sort'])) {
     $post['ip']  = $server['REMOTE_ADDR'];
     $post['browser'] = $server['HTTP_USER_AGENT'];
     $post['date'] = date("Y-m-d H:i:s");
-    var_dump($files);
     // обработка изображения
     $fileImg = $files['pictures'];
     $filename = "upload/img/".$fileImg->getClientFilename();
     $fileImg->moveTo($filename);
+
+    list($width, $height, $type) = getimagesize($filename);
+    $new_width = 320;
+    $new_height = 240;
     $size = getimagesize($filename);
-    if ($size) {
-      $new_width = 320;
-      $new_height = 240;
-      header("Content-type: {$size['mime']}");
-      list($width, $height) = getimagesize($filename);
-      if (($width > $width) || ($height_orig > $height)) {
-        $w_index = $new_width / $width;
-        $h_index = $new_height / $height;
-        $new_width = $w_index>$h_index ? $width*$w_index : $width*$h_index;
-        $new_height = $w_index>$h_index ? $height*$w_index : $height*$h_index;
-      }
-      $image_p = imagecreatetruecolor($width, $height);
-      $image = imagecreatefromjpg($filename);
-      imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-      imagejpeg($image_p, "upload/small_img/".$fileImg->getClientFilename());
-      unlink($filename);
-      $post['pictures'] = "upload/small_img/".$fileImg->getClientFilename();
+    if (($width > $new_width) || ($height > $new_height)) {
+      $w_index = $new_width / $width;
+      $h_index = $new_height / $height;
+      $new_width = $w_index>$h_index ? $width*$h_index : $width*$w_index;
+      $new_height = $w_index>$h_index ? $height*$h_index : $height*$w_index;
     }
-    //$post['pictures'] = resizeImg ($post['pictures']);
+    $new_image = imagecreatetruecolor($new_width, $new_height);
+    switch ($type) {
+      case 3:
+          $image = imagecreatefrompng($filename);
+          break;
+      case 2:
+          $image = imagecreatefromjpg($filename);
+          break;
+      case 1:
+          $image = imagecreatefromgif($filename);
+          break;
+      default:
+          // 'error';
+    }
+    imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    switch ($type) {
+      case 3:
+          //header("Content-type: image/png");
+          imagepng($new_image, "upload/img/small/".$fileImg->getClientFilename());
+          break;
+      case 2:
+          //header("Content-type: image/jpeg");
+          imagejpeg($new_image, "upload/img/small/".$fileImg->getClientFilename());
+          break;
+      case 1:
+          //header("Content-type: image/gif");
+          imagegif($new_image, "upload/img/small/".$fileImg->getClientFilename());
+          break;
+      default:
+          // error;
+    }
+    $post['pictures'] = $fileImg->getClientFilename();
+    //unlink($filename);
     // обработка текстового файла
     $fileTxt = $files['filepath'];
     $filename = "upload/txt/".$fileTxt->getClientFilename();
     $fileTxt->moveTo($filename);
     $post['filepath'] = $filename;
-    if (is_uploaded_file($fileTxt->getClientFilename())){
-      echo '11';
-    } else {
-    }
     $init->addMessage($post);
     $sort = 'date_desc';
 } else {
