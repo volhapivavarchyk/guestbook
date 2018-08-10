@@ -7,45 +7,9 @@
   <title> Гостевая книга </title>
   <link rel="stylesheet" type="text/css" href="views/css/style.css">
   <link rel="stylesheet" type="text/css" href="views/css/lightbox.min.css">
-  <script src="views/js/lightbox-plus-jquery.min.js"></script>
-  <script>
-  function isFileImg()
-  {
-    var pictures = document.getElementById("pictures").files[0];
-    if (!(pictures.type == "image/jpeg") && !(pictures.type == "image/png") && !(pictures.type == "image/gif")){
-      event.target.value='';
-      document.getElementById("fileinfo-img").innerHTML = "<span style='color: red; font-size: 10px;'>Допустимые форматы файлов jpg, gif, png</span> ";
-    }
-  }
-
-  function isFileTxt()
-  {
-    var filepath = document.getElementById("filepath").files[0];
-    if (filepath.type != "text/plain"){
-      event.target.value='';
-      document.getElementById("fileinfo-file").innerHTML = "<span style='color: red; font-size: 10px;'>Допустимый формат файла txt.</span> ";
-    }
-    if (filepath.size > 100*1024){
-      event.target.value='';
-      document.getElementById("fileinfo-file").innerHTML += "<span style='color: red; font-size: 10px;'>Допустимый размер файла 100 Кб</span> ";
-    }
-  }
-
-  function viewMessages(rank, count)
-  {
-    for (i=1; i<=count; i++) {
-      if (i != rank) {
-        document.getElementById('visability'+i).className = 'displayNone';
-        document.getElementById('number'+i).style.color = 'black';
-        document.getElementById('number_foot'+i).style.color = 'black';
-      } else {
-        document.getElementById('visability'+i).className = '';
-        document.getElementById('number'+i).style.color = '#006699';
-        document.getElementById('number_foot'+i).style.color = '#006699';
-      }
-    }
-  }
-  </script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript" src="views/js/lightbox-plus-jquery.min.js"></script>
+  <script type="text/javascript" src="views/js/functions.js"></script>
 </head>
 <body>
 
@@ -59,13 +23,20 @@
     <div class="box add-message">
       <form method="post" action="" class="add-message" enctype="multipart/form-data">
         <p><label for="name">Имя пользователя * </label>
-        <input type="text" name="name" id="name" required minlength="1" maxlength="150" pattern="[A-Za-z0-9]" /></p>
+        <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9]" required /></p>
         <p><label for="email">E-mail * </label>
-        <input type="email" name="email" id="email" required /></p>
+        <input type="email" name="email" id="email" placeholder="mailbox@hostname" required /></p>
         <p><label for="theme">Тема *</label>
-        <input type="text" name="theme" id="theme" required/></p>
+        <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/></p>
         <p><label for="text">Содержание * </label>
-        <textarea rows="8" cols="46" name="text" id="text" required ></textarea></p>
+        <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" required ></textarea>
+        <br />
+        <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px;" />
+        <input type="button" value="code" onClick="formatTextArea('code')" />
+        <input type="button" value="italic" onClick="formatTextArea('i')" />
+        <input type="button" value="strike" onClick="formatTextArea('strike')" />
+        <input type="button" value="strong" onClick="formatTextArea('strong')" />
+        </p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
         <span id="fileinfo-img"></span></p>
