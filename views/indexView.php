@@ -7,7 +7,7 @@
   <title> Гостевая книга </title>
   <link rel="stylesheet" type="text/css" href="views/css/style.css">
   <link rel="stylesheet" type="text/css" href="views/css/lightbox.min.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="views/js/lightbox-plus-jquery.min.js"></script>
   <script type="text/javascript" src="views/js/functions.js"></script>
 </head>
@@ -29,13 +29,15 @@
         <p><label for="theme">Тема *</label>
         <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/></p>
         <p><label for="text">Содержание * </label>
-        <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" required ></textarea>
+        <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" onkeyup="viewText()" onfocus="previewMessage()" required ></textarea>
+        <div id="preview-message" style="display:none">11</div>
         <br />
         <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px;" />
         <input type="button" value="code" onClick="formatTextArea('code')" />
         <input type="button" value="italic" onClick="formatTextArea('i')" />
         <input type="button" value="strike" onClick="formatTextArea('strike')" />
         <input type="button" value="strong" onClick="formatTextArea('strong')" />
+        <input type="button" value="preview" id="preview-button" />
         </p>
         <p><label for="pictures">Изображение </label>
         <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>

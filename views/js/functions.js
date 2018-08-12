@@ -42,25 +42,55 @@ function formatTextArea(tag)
   var selected = value.substring(field.selectionStart, field.selectionEnd);
   var before = value.substring(0, field.selectionStart);
   var after = value.substring(field.selectionEnd, field.length);
-  field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']';
+  if (tag == 'a') {
+    field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']';
+    //field.value = '${before} [${tag} href = "" title = ""] ${selected} [/${tag}]';
+  } else {
+    field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']';
+    //field.value = '${before} [${tag}] ${selected} [/${tag}]';
+  }
 }
 
-
 /* Предпросмотр комментария*/
-$(document).ready(function() {
-	$('#text').on('focus',function() {
-		$('#text').parent().after('<div id="ctext"></div>');
-	});
+function previewMessage()
+{
+  var $text = document.getElementById('text');
+  $text.parent().after('<div id="viewtext"></div>');
+}
 
-	//var a = document.documentElement.innerHTML; - ýòî âðîäå êàê äëÿ èñõîäíîãî êîäà, íî òî÷íî íå çíàþ, êòî ïðèäóìàåò êàê ñäåëàòü ïðåäïðîñìîòð èñõîäíîãî êîäà - îòïèøèòå â ICQ 817233
+function viewText()
+{
+  var $viewtext = document.getElementById('viewtext');
+  var $text = document.getElementById('text').value;
+  $viewtext.innerHTML = $text;
+  /*
+  $viewtext.innerHTML = $text
+    .replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
+    .replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
+    .replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
+    .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>');
+  */
+}
 
-	var comment = '';
-	$('#text').keyup(function() {
-		comment = $j(this).val();
-		comment = comment.
-		.replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
-		.replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
-		.replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
-		.replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>');
-		$('#ctext').html(comment);
-	});
+function preview()
+{
+  var $viewtext = document.getElementById('preview-message');
+  var $text = document.getElementById('text').value;
+  console.log($text);
+  $viewtext.innerHTML = $text
+    .replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
+    .replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
+    .replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
+    .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>');
+
+}
+
+jQuery(document).ready(() => {
+  const $previewButton = jQuery('#preview-button');
+  const $previewMessage = jQuery('#preview-message');
+
+  $previewButton.on('click', () => {
+    //$previewMessage.html(jQuery(#text).val());
+    $previewMessage.toggle();
+  });
+});
