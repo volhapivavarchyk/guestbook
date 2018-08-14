@@ -85,12 +85,22 @@ function preview()
 
 }
 
-jQuery(document).ready(() => {
-  const $previewButton = jQuery('#preview-button');
-  const $previewMessage = jQuery('#preview-message');
+$(document).ready(() => {
+  const $previewButton = $('#preview-button');
+  const $previewMessage = $('.preview-message');
 
   $previewButton.on('click', () => {
-    //$previewMessage.html(jQuery(#text).val());
-    $previewMessage.toggle();
+    $text = $('#text').val()
+      .replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
+      .replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
+      .replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
+      .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>')
+      .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
+    $previewMessage.html($text);
+    if ($previewMessage.css('opacity') == 0) {
+      $previewMessage.toggle().animate({opacity:1});
+    } else {
+      $previewMessage.toggle().animate({opacity:0});
+    }
   });
 });

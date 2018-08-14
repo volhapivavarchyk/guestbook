@@ -11,24 +11,24 @@ body {
   grid-template: 100px 500px 1fr 50px / 1fr 10fr 1fr;
   grid-row-gap: 10px;
 }
-.header {
+.grid-header {
   grid-row: 1 / 2;
   grid-column: 1 / 4;
 }
-.add-message {
+.grid-add-message {
   grid-row: 2 / span 1;
   grid-column: 2 /span 1;
 }
-.list-messages {
+.grid-list-messages {
   grid-row: 3 / span 1;
   grid-column: 2 / span 1;
 }
-.footer {
+.grid-footer {
   grid-row: 4 /  span 1;
   grid-column: 1 / span 3;
 }
-
-/* Блоки */
+/*-----------------------*/
+/* отображение блоков */
 .box {
   background-color: #F5F5F5;
   color: black;
@@ -42,14 +42,39 @@ body {
   border: 1px #DCDCDC solid;
   margin: 4px 4px;
 }
-.displayNone {
-  display: none;
-}
-/* Выравнивание полей формы*/
+/*-----------------------*/
+/* Выравнивание полей формы */
 form .add-message {
   width: 600px;
   overflow:hidden;
   padding: 2px;
+}
+form .add-message-box-field {
+  display:flex;
+  display: inline-flex;
+  align-items: stretch;
+}
+form .add-message-field {
+  margin: 10px 10px;
+}
+form .preview-message {
+  margin: 10px 10px;
+  border: 1px #A9A9A9 solid;
+  width: 300px;
+  height: 130px;
+  border-radius: 5px;
+  flex: auto;
+  padding: 7px;
+  display:none;
+  opacity: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+form .add-message-button {
+  margin-left: 115px;
+}
+form .add-message-captcha {
+  margin-left: 215px;
+  margin-bottom: 10px;
 }
 form label {
   float:left;
@@ -61,14 +86,11 @@ form label {
   top: 2px;
   margin-right: 5px;
 }
-form input[type=text], form input[type=url] {
+form input[type=text], form input[type=email] {
   width: 200px;
   background: #fff;
   border: 1px solid #7f9db9;
   height: 20px;
-}
-.button {
-  margin-left: 100px;
 }
 form input[type=submit] {
   display: inline-block;
@@ -94,28 +116,28 @@ form input[type=submit]:active {
 input: focus + label, textarea: focus + label {
   color: #993;
 }
-/* Выравнивание элементов сообщения */
+/*-----------------------*/
+/* Выравнивание элементов списка сообщений */
 .title-message {
   display:flex;
   align-items:center;
   justify-content: flex-end;
   height:20px;
 }
-.push {
-  margin-left: auto;
-}
-/* Выравнивание кнопок сортировки */
 .arrows-title-message {
+  flex-direction: column;
   margin-left: 4px;
   margin-right: 8px;
-  flex-direction: column;
 }
 .text-message {
   display:flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
+/*-----------------------------------*/
+.displayNone {
+  display: none;
+}
 #fileinfo-img, #fileinfo-file {
   margin-left: 5px;
 }

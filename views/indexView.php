@@ -1,5 +1,6 @@
 <!DOCTTYPE html>
 <html>
+
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="keywords" content="гостевая книга, сообщения" />
@@ -11,42 +12,55 @@
   <script type="text/javascript" src="views/js/lightbox-plus-jquery.min.js"></script>
   <script type="text/javascript" src="views/js/functions.js"></script>
 </head>
-<body>
 
+<body>
   <div class="grid">
     <!-- Заголовок -->
-    <div class="box header">
+    <div class="box grid-header">
       <h1>Гостевая книга</h1>
     </div>
 
     <!-- Форма для ввода нового сообщения -->
-    <div class="box add-message">
+    <div class="box grid-add-message">
       <form method="post" action="" class="add-message" enctype="multipart/form-data">
-        <p><label for="name">Имя пользователя * </label>
-        <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9]" required /></p>
-        <p><label for="email">E-mail * </label>
-        <input type="email" name="email" id="email" placeholder="mailbox@hostname" required /></p>
-        <p><label for="theme">Тема *</label>
-        <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/></p>
-        <p><label for="text">Содержание * </label>
-        <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" onkeyup="viewText()" onfocus="previewMessage()" required ></textarea>
-        <div id="preview-message" style="display:none">11</div>
-        <br />
-        <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px;" />
-        <input type="button" value="code" onClick="formatTextArea('code')" />
-        <input type="button" value="italic" onClick="formatTextArea('i')" />
-        <input type="button" value="strike" onClick="formatTextArea('strike')" />
-        <input type="button" value="strong" onClick="formatTextArea('strong')" />
-        <input type="button" value="preview" id="preview-button" />
-        </p>
-        <p><label for="pictures">Изображение </label>
-        <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
-        <span id="fileinfo-img"></span></p>
-        <p><label for="filepath">Файл </label>
-        <input type='file' name="filepath" id="filepath" value="" onchange="isFileTxt()" accept=".txt"/>
-        <span id="fileinfo-file"></span></p>
-        <div class="g-recaptcha" style="margin-left: 200px; margin-bottom: 10px;" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
-        <div class="button">
+        <div class = "add-message-field">
+          <label for="name">Имя пользователя * </label>
+          <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9]" required />
+        </div>
+        <div class = "add-message-field">
+          <label for="email">E-mail * </label>
+          <input type="email" name="email" id="email" placeholder="mailbox@hostname" required />
+        </div>
+        <div class = "add-message-field">
+          <label for="theme">Тема *</label>
+          <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/>
+        </div>
+        <div class="add-message-box-field">
+        <div class = "add-message-field">
+          <label for="text">Содержание * </label>
+          <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" onkeyup="viewText()" onfocus="previewMessage()" required ></textarea>
+          <br />
+          <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px;" />
+          <input type="button" value="code" onClick="formatTextArea('code')" />
+          <input type="button" value="italic" onClick="formatTextArea('i')" />
+          <input type="button" value="strike" onClick="formatTextArea('strike')" />
+          <input type="button" value="strong" onClick="formatTextArea('strong')" />
+          <input type="button" value="preview" id="preview-button" />
+        </div>
+        <div id="preview-message" class = "add-message-field preview-message"></div>
+      </div>
+        <div class = "add-message-field">
+          <label for="pictures">Изображение </label>
+          <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
+          <span id="fileinfo-img"></span>
+        </div>
+        <div class = "add-message-field">
+          <label for="filepath">Файл </label>
+          <input type='file' name="filepath" id="filepath" value="" onchange="isFileTxt()" accept=".txt"/>
+          <span id="fileinfo-file"></span>
+        </div>
+        <div class="g-recaptcha add-message-captcha" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
+        <div class="add-message-button">
           <input type='submit' value='Отравить' name="send" />
           <input type='submit' value='Сбросить' name="throw" />
         </div>
@@ -55,7 +69,7 @@
 
 
     <!-- Вывод списка сообщений с учетом заданной сортировки -->
-    <div class="box list-messages">
+    <div class="box grid-list-messages">
       <form>
         <div class="title-message">
           <h4> Имя </h4>
@@ -105,7 +119,7 @@
           <div class = "box-message">
           <div class="title-message">
             <div><?= htmlentities($message['theme']) ?></div>
-            <div class="push"><?= htmlentities($message['name']) ?></div>
+            <div style = "margin-left: auto;"><?= htmlentities($message['name']) ?></div>
             &nbsp;&brvbar;&nbsp;
             <div><?= htmlentities($message['email']) ?></div>
             &nbsp;&brvbar;&nbsp;
@@ -150,7 +164,7 @@
     </div>
 
     <!-- Подвал -->
-    <div class="box footer">
+    <div class="box grid-footer">
       <h3>контакты: иван иванов +111 11 1111111</h3>
     </div>
   </div>
