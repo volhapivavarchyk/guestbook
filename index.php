@@ -42,13 +42,10 @@ if (isset($get['sort'])) {
     // обработка изображения
     $fileImg = $files['pictures'];
     $filename = "upload/temp/".$fileImg->getClientFilename();
-    var_dump($filename);
-    var_dump($fileImg);
     $fileImg->moveTo($filename);
-    //var_dump($fileImg);
-    //echo '11';
     resizeAndMoveImage($fileImg, $filename, "upload/img/", 320, 240);
     resizeAndMoveImage($fileImg, $filename, "upload/img/small/", 60, 50);
+    unlink($filename);
     $post['pictures'] = $fileImg->getClientFilename();
     // обработка текстового файла
     $fileTxt = $files['filepath'];

@@ -60,5 +60,4 @@ function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height)
     default:
         // error;
   }
-  unlink($filename);
 }

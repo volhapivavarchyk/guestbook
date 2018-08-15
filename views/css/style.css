@@ -128,11 +128,13 @@ input: focus + label, textarea: focus + label {
   flex-direction: column;
   margin-left: 4px;
   margin-right: 8px;
+  padding: 5px;
 }
 .text-message {
   display:flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 5px;
 }
 /*-----------------------------------*/
 .displayNone {
