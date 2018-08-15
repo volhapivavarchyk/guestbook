@@ -25,7 +25,7 @@
       <form method="post" action="" class="add-message" enctype="multipart/form-data">
         <div class = "add-message-field">
           <label for="name">Имя пользователя * </label>
-          <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9]" required />
+          <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9]*" required />
         </div>
         <div class = "add-message-field">
           <label for="email">E-mail * </label>
@@ -38,25 +38,26 @@
         <div class="add-message-box-field">
         <div class = "add-message-field">
           <label for="text">Содержание * </label>
-          <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" onkeyup="viewText()" onfocus="previewMessage()" required ></textarea>
+          <textarea name="text" id="text" placeholder="содержание сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" required ></textarea>
           <br />
           <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px;" />
           <input type="button" value="code" onClick="formatTextArea('code')" />
           <input type="button" value="italic" onClick="formatTextArea('i')" />
           <input type="button" value="strike" onClick="formatTextArea('strike')" />
           <input type="button" value="strong" onClick="formatTextArea('strong')" />
-          <input type="button" value="preview" id="preview-button" />
+          &nbsp;&nbsp;
+          <input type="button" value="отобразить" id="preview-button" />
         </div>
         <div id="preview-message" class = "add-message-field preview-message"></div>
       </div>
         <div class = "add-message-field">
           <label for="pictures">Изображение </label>
-          <input type='file' name="pictures" id="pictures" value="" onchange="isFileImg()"/>
+          <input type='file' name="pictures" id="pictures" value="" />
           <span id="fileinfo-img"></span>
         </div>
         <div class = "add-message-field">
           <label for="filepath">Файл </label>
-          <input type='file' name="filepath" id="filepath" value="" onchange="isFileTxt()" accept=".txt"/>
+          <input type='file' name="filepath" id="filepath" value="" accept=".txt"/>
           <span id="fileinfo-file"></span>
         </div>
         <div class="g-recaptcha add-message-captcha" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>

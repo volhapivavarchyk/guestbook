@@ -28,9 +28,11 @@ $get = $request->getQueryParams();
 $post = $request->getParsedBody();
 $server = $request->getServerParams();
 $files = $request->getUploadedFiles();
+var_dump($files);
 //$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
 if (isset($get['sort'])) {
     $sort = $get['sort'];
+    var_dump($sort);
 } elseif (isset($post['send'])) {
     $post['ip']  = $server['REMOTE_ADDR'];
     $post['browser'] = $server['HTTP_USER_AGENT'];
@@ -39,9 +41,14 @@ if (isset($get['sort'])) {
     $post['text'] = changeTags($post['text']);
     // обработка изображения
     $fileImg = $files['pictures'];
-    $filename = "upload/img/".$fileImg->getClientFilename();
+    $filename = "upload/temp/".$fileImg->getClientFilename();
+    var_dump($filename);
+    var_dump($fileImg);
     $fileImg->moveTo($filename);
-    resizeImage($fileImg, $filename);
+    //var_dump($fileImg);
+    //echo '11';
+    resizeAndMoveImage($fileImg, $filename, "upload/img/", 320, 240);
+    resizeAndMoveImage($fileImg, $filename, "upload/img/small/", 60, 50);
     $post['pictures'] = $fileImg->getClientFilename();
     // обработка текстового файла
     $fileTxt = $files['filepath'];
