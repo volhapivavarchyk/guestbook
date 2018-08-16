@@ -10,54 +10,48 @@ function changeTags($text)
      return $text;
 }
 
-function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height) {
-  list($width, $height, $type) = getimagesize($filename);
-  var_dump($width);
-  var_dump($height);
-  var_dump($type);
-  $size = getimagesize($filename);
-  if (($width > $max_width) || ($height > $max_height)) {
-    $w_index = $max_width / $width;
-    $h_index = $max_height / $height;
-    $new_width = $w_index>$h_index ? $width*$h_index : $width*$w_index;
-    $new_height = $w_index>$h_index ? $height*$h_index : $height*$w_index;
-  } else {
-    $new_width = $width;
-    $new_height = $height;
-  }
-  var_dump($width);
-  var_dump($new_width);
-  var_dump($height);
-  var_dump($new_height);
-  $new_image = imagecreatetruecolor($new_width, $new_height);
-  switch ($type) {
-    case 3:
-        $image = imagecreatefrompng($filename);
-        break;
-    case 2:
-        $image = imagecreatefromjpeg($filename);
-        break;
-    case 1:
-        $image = imagecreatefromgif($filename);
-        break;
-    default:
-        // 'error';
-  }
-  imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-  switch ($type) {
-    case 3:
-        //header("Content-type: image/png");
-        imagepng($new_image, $path.$fileImg->getClientFilename());
-        break;
-    case 2:
-        //header("Content-type: image/jpeg");
-        imagejpeg($new_image, $path.$fileImg->getClientFilename());
-        break;
-    case 1:
-        //header("Content-type: image/gif");
-        imagegif($new_image, $path.$fileImg->getClientFilename());
-        break;
-    default:
-        // error;
-  }
+function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height)
+{
+    list($width, $height, $type) = getimagesize($filename);
+    $size = getimagesize($filename);
+    if (($width > $max_width) || ($height > $max_height)) {
+        $w_index = $max_width / $width;
+        $h_index = $max_height / $height;
+        $new_width = $w_index>$h_index ? $width*$h_index : $width*$w_index;
+        $new_height = $w_index>$h_index ? $height*$h_index : $height*$w_index;
+    } else {
+        $new_width = $width;
+        $new_height = $height;
+    }
+    $new_image = imagecreatetruecolor($new_width, $new_height);
+    switch ($type) {
+        case 3:
+            $image = imagecreatefrompng($filename);
+            break;
+        case 2:
+            $image = imagecreatefromjpeg($filename);
+            break;
+        case 1:
+            $image = imagecreatefromgif($filename);
+            break;
+        default:
+            // 'error';
+    }
+    imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    switch ($type) {
+        case 3:
+            //header("Content-type: image/png");
+            imagepng($new_image, $path.$fileImg->getClientFilename());
+            break;
+        case 2:
+            //header("Content-type: image/jpeg");
+            imagejpeg($new_image, $path.$fileImg->getClientFilename());
+            break;
+        case 1:
+            //header("Content-type: image/gif");
+            imagegif($new_image, $path.$fileImg->getClientFilename());
+            break;
+        default:
+            // error;
+    }
 }

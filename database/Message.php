@@ -59,7 +59,7 @@ class Message extends ADBTable
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':theme' => strip_tags($theme),
-            ':text' => strip_tags($text),
+            ':text' => strip_tags($text, '<i><strong><strike><code><a>'),
             ':pictures' => $pictures,
             ':filepath' => $filepath,
             ':date' => $date,

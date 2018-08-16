@@ -20,7 +20,7 @@ $(document).ready(() => {
 
     $text.on('change keyup paste', () => {
         $textMessage = $text.val()
-            .replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
+            .replace(/\[italic\](.+?)\[\/italic\]/g, '<i>$1</i>')
             .replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
             .replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
             .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>')
@@ -30,7 +30,7 @@ $(document).ready(() => {
 
     $previewButton.on('click', () => {
         $textMessage = $text.val()
-            .replace(/\[i\](.+?)\[\/i\]/g, '<i>$1</i>')
+            .replace(/\[italic\](.+?)\[\/italic\]/g, '<i>$1</i>')
             .replace(/\[code\](.+?)\[\/code\]/g, '<code>$1</code>')
             .replace(/\[strike\](.+?)\[\/strike\]/g, '<strike>$1</strike>')
             .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>')
@@ -103,10 +103,10 @@ function formatTextArea(tag)
     var before = value.substring(0, field.selectionStart);
     var after = value.substring(field.selectionEnd, field.length);
     if (tag == 'a') {
-        field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']';
+        field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']' + after;
         //field.value = '${before} [${tag} href = "" title = ""] ${selected} [/${tag}]';
     } else {
-        field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']';
+        field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']' + after;
         //field.value = '${before} [${tag}] ${selected} [/${tag}]';
     }
 }

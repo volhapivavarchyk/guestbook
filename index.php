@@ -28,11 +28,9 @@ $get = $request->getQueryParams();
 $post = $request->getParsedBody();
 $server = $request->getServerParams();
 $files = $request->getUploadedFiles();
-var_dump($files);
-//$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
+$secret = "6LfK42cUAAAAAEm7_FF32qRlCijXs1kkyqAEYSYb";
 if (isset($get['sort'])) {
     $sort = $get['sort'];
-    var_dump($sort);
 } elseif (isset($post['send'])) {
     $post['ip']  = $server['REMOTE_ADDR'];
     $post['browser'] = $server['HTTP_USER_AGENT'];
@@ -40,18 +38,26 @@ if (isset($get['sort'])) {
     // обработка текста сообщения
     $post['text'] = changeTags($post['text']);
     // обработка изображения
-    $fileImg = $files['pictures'];
-    $filename = "upload/temp/".$fileImg->getClientFilename();
-    $fileImg->moveTo($filename);
-    resizeAndMoveImage($fileImg, $filename, "upload/img/", 320, 240);
-    resizeAndMoveImage($fileImg, $filename, "upload/img/small/", 60, 50);
-    unlink($filename);
-    $post['pictures'] = $fileImg->getClientFilename();
+    if ($files['pictures']->getClientFilename() != ''){
+        $fileImg = $files['pictures'];
+        $filename = "upload/temp/".$fileImg->getClientFilename();
+        $fileImg->moveTo($filename);
+        resizeAndMoveImage($fileImg, $filename, "upload/img/", 320, 240);
+        resizeAndMoveImage($fileImg, $filename, "upload/img/small/", 60, 50);
+        unlink($filename);
+        $post['pictures'] = $fileImg->getClientFilename();
+    } else {
+        $post['pictures'] = '';
+    }
     // обработка текстового файла
-    $fileTxt = $files['filepath'];
-    $filename = "upload/txt/".$fileTxt->getClientFilename();
-    $fileTxt->moveTo($filename);
-    $post['filepath'] = $filename;
+    if ($files['filepath']->getClientFilename() != ''){
+        $fileTxt = $files['filepath'];
+        $filename = "upload/txt/".$fileTxt->getClientFilename();
+        $fileTxt->moveTo($filename);
+        $post['filepath'] = $filename;
+    } else {
+        $post['filepath'] = '';
+    }
     // добавление записи
     $init->addMessage($post);
     $sort = 'date_desc';
