@@ -3,7 +3,7 @@ namespace Pi\Guestbook\App;
 
 abstract class AController
 {
-    abstract public function getBody($sort);
+    abstract public function getBody($sort, $added);
 
     protected function render($file, $params)
     {

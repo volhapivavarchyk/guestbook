@@ -13,7 +13,7 @@ class IndexController extends AController
         $this->tMessage = new Message();
     }
 
-    public function getBody($sort)
+    public function getBody($sort, $added)
     {
         $messages = $this->tMessage->getAllItems($sort);
         $i = 0;
@@ -27,9 +27,20 @@ class IndexController extends AController
             }
             $j += 1;
         }
+        switch ($added) {
+          case 'yes':
+              $added_message = 'сообщение добавлено';
+              break;
+          case 'no':
+              $added_message = 'сообщение не добавлено';
+              break;
+          default:
+              $added_message = '';
+        }
         $this->render('indexView', [
             'sort' => $sort,
-            'blocksOfMessages' => $blocksOfMessages
+            'blocksOfMessages' => $blocksOfMessages,
+            'added_message' => $added_message
         ]);
     }
 

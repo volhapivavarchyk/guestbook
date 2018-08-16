@@ -64,6 +64,7 @@
                     <input type='submit' value='Отравить' name="send" />
                     <input type='submit' value='Сбросить' name="throw" />
                 </div>
+                <div class = "add-message-field service-info"><?= $added_message ?></div>
             </form>
         </div>
     <!-- Вывод списка сообщений с учетом заданной сортировки -->

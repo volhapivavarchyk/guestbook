@@ -189,3 +189,10 @@ input: focus + label, textarea: focus + label {
 #fileinfo-img, #fileinfo-file {
   margin-left: 5px;
 }
+.service-info {
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  text-align: left;
+  color: red;
+  padding-right: 10px;
+}
