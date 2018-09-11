@@ -13,30 +13,45 @@ class IndexController extends AController
         $this->tMessage = new Message();
     }
 
+    public function getListMessages($sort, $added)
+    {
+      $messages = $this->tMessage->getAllItems($sort);
+      $i = 0;
+      $j = 0;
+      $blocksOfMessages = array();
+      foreach ($messages as $message) {
+          $blocksOfMessages[$i][$j] = $message;
+          if ($j == 25) {
+              $i += 1;
+              $j = 0;
+          }
+          $j += 1;
+      }
+      switch ($added) {
+        case 'yes':
+            $added_message = 'сообщение добавлено';
+            break;
+        case 'no':
+            $added_message = 'сообщение не добавлено';
+            break;
+        default:
+            $added_message = '';
+      }
+    }
+
+    public function setMessage($post)
+    {
+        $messages = $this->tMessage->addItem($params);
+        if ($messages) {
+            return 'yes';
+        }
+        else {
+            return 'no';
+        }
+    }
+
     public function getBody($sort, $added)
     {
-        $messages = $this->tMessage->getAllItems($sort);
-        $i = 0;
-        $j = 0;
-        $blocksOfMessages = array();
-        foreach ($messages as $message) {
-            $blocksOfMessages[$i][$j] = $message;
-            if ($j == 25) {
-                $i += 1;
-                $j = 0;
-            }
-            $j += 1;
-        }
-        switch ($added) {
-          case 'yes':
-              $added_message = 'сообщение добавлено';
-              break;
-          case 'no':
-              $added_message = 'сообщение не добавлено';
-              break;
-          default:
-              $added_message = '';
-        }
         $this->render('indexView', [
             'sort' => $sort,
             'blocksOfMessages' => $blocksOfMessages,
