@@ -1,7 +1,7 @@
 <?php
 namespace Pi\Guestbook\App;
 
-use Pi\Guestbook\App\AController as AController;
+use Pi\Guestbook\App\AController;
 use Pi\Guestbook\Database\Message;
 
 class IndexController extends AController
@@ -37,6 +37,12 @@ class IndexController extends AController
         default:
             $added_message = '';
       }
+
+      return $this->render('indexView', [
+          'sort' => $sort,
+          'blocksOfMessages' => $blocksOfMessages,
+          'added_message' => $added_message
+      ]);
     }
 
     public function setMessage($post)
@@ -50,17 +56,4 @@ class IndexController extends AController
         }
     }
 
-    public function getBody($sort, $added)
-    {
-        $this->render('indexView', [
-            'sort' => $sort,
-            'blocksOfMessages' => $blocksOfMessages,
-            'added_message' => $added_message
-        ]);
-    }
-
-    public function addMessage($params)
-    {
-        $messages = $this->tMessage->addItem($params);
-    }
 }

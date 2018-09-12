@@ -1,9 +1,8 @@
 <?php
-require_once 'vendor/autoload.php';
-require_once 'libs/functions.php';
-
 use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Response;
+use Pi\Guestbook\App\AppKernel;
+
+require_once 'vendor/autoload.php';
 
 spl_autoload_register( function ($class) {
     $prefix_app = 'Pi\\Guestbook\\App\\';
@@ -21,8 +20,7 @@ spl_autoload_register( function ($class) {
 });
 
 $kernel = new AppKernel();
-//$request = Request::createFromGlobals();
 $request = ServerRequestFactory::fromGlobals($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
 $response = $kernel->handle($request);
-$response->send();
+$response->sendResponse();
 //$kernel->terminate($request, $response);

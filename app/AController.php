@@ -3,7 +3,8 @@ namespace Pi\Guestbook\App;
 
 abstract class AController
 {
-    abstract public function getBody($sort, $added);
+    abstract public function setMessage($post);
+    abstract public function getListMessages($sort, $added);
 
     protected function render($file, $params)
     {
