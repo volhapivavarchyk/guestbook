@@ -5,12 +5,12 @@
     <meta name="keywords" content="гостевая книга, сообщения" />
     <meta name="description" content="Гостевая книга" />
     <title> Гостевая книга </title>
-    <link rel="stylesheet" type="text/css" href="views/css/style.css">
-    <link rel="stylesheet" type="text/css" href="views/css/lightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= DIR_PUBLIC ?>css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= DIR_PUBLIC ?>css/lightbox.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="views/js/lightbox-plus-jquery.min.js"></script>
-    <script type="text/javascript" src="views/js/functions.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="<?= DIR_PUBLIC ?>js/lightbox.js"></script>
+    <script type="text/javascript" src="<?= DIR_PUBLIC ?>js/functions.js"></script>
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
     <div class="grid">
@@ -73,18 +73,18 @@
                 <div class="title-message">
                     <h4 class = "title-message-fields"> Имя </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?=$sort == "name_desc" ? "views/images/double-up.png": "views/images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?=$sort == "name_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?=$sort == "name_desc" ? "images/double-up.png": "images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?=$sort == "name_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
                     </div>
                     <h4 class = "title-message-fields"> E-mail </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?= $sort == "email_desc" ? "views/images/double-up.png":"views/images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?= $sort == "email_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "email_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "email_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
                     </div>
                     <h4 class = "title-message-fields"> Дата добавления </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?= $sort == "date_desc" ? "views/images/double-up.png":"views/images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?= $sort == "date_asc" ? "views/images/double-down.png":"views/images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "date_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "date_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
                     </div>
                 </div>
             </form>
@@ -113,18 +113,18 @@
                                <div><?= htmlentities($message['theme']) ?></div>
                                <div class = "title-message-fields" style = "margin-left: auto;"><?= htmlentities($message['name']) ?></div>&nbsp;&brvbar;&nbsp;
                                <div class = "title-message-fields"><?= htmlentities($message['email']) ?></div>&nbsp;&brvbar;&nbsp;
-                               <div class = "title-message-fields"><?=htmlentities($message['date']) ?></div>
+                               <div class = "title-message-fields"><?= htmlentities($message['date']) ?></div>
                            </div>
                            <div class="text-message">
                                <p><?= $message['text'] ?></p>
                                <?php if ($message['pictures'] || $message['filepath']): ?>
                                    <p style = "padding: 2px; margin: 0px;">
                                        <?php if ($message['pictures']): ?>
-                                           <a href="upload/img/<?= htmlentities($message['pictures']) ?>" class="example-image-link" data-lightbox="example-1">
-                                           <img src="upload/img/small/<?= htmlentities($message['pictures'])?>" alt="<?= htmlentities($message['pictures'])?>" /></a>&nbsp;&nbsp;
+                                           <a href="<?= DIR_PUBLIC ?>upload/img/<?= htmlentities($message['pictures']) ?>" class="example-image-link" data-lightbox="image-1">
+                                           <img class="example-image" src="<?= DIR_PUBLIC ?>upload/img/small/<?= htmlentities($message['pictures'])?>" alt="<?= htmlentities($message['pictures'])?>" /></a>&nbsp;&nbsp;
                                        <?php endif; ?>
-                                       <?php if ($message['pictures']): ?>
-                                           <a href = "<?= htmlentities($message['filepath']) ?>" type="application/file" style = "text-decoration: none;"><?= htmlentities(basename($message['filepath'])) ?></a>
+                                       <?php if ($message['filepath']): ?>
+                                           <a href = "<?= DIR_PUBLIC ?><?= htmlentities($message['filepath']) ?>" type="application/file" style = "text-decoration: none;"><?= htmlentities(basename($message['filepath'])) ?></a>
                                        <?php endif; ?>
                                    </p>
                               <?php endif; ?>

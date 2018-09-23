@@ -1,7 +1,7 @@
 <?php
-namespace Pi\Guestbook\Database;
+namespace Guestbook\App\Database;
 
-use Pi\Guestbook\Database\ADBTable as ADBTable;
+use Guestbook\App\Database\ADBTable as ADBTable;
 use PDO;
 
 class Message extends ADBTable
@@ -40,6 +40,23 @@ class Message extends ADBTable
         return $messages;
     }
 
+    public function getAllItems25($sort)
+    {
+        $messages = $this->getAllItems($sort);
+        $i = 0;
+        $j = 0;
+        $blocksOfMessages = array();
+        foreach ($messages as $message) {
+            $blocksOfMessages[$i][$j] = $message;
+            if ($j == 25) {
+                $i += 1;
+                $j = 0;
+            }
+            $j += 1;
+        }
+        return $blocksOfMessages;
+    }
+
     public function getIdItem($params)
     {
     }
@@ -67,5 +84,6 @@ class Message extends ADBTable
             ':browser' => $browser,
             ':id_user' => $user_id
         ]);
+        return $this->db->lastInsertId() ? 'сообщение добавлено' : 'сообщение не добавлено';
     }
 }

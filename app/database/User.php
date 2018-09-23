@@ -1,7 +1,7 @@
 <?php
-namespace Pi\Guestbook\Database;
+namespace Guestbook\App\Database;
 
-use Pi\Guestbook\Database\ADBTable as ADBTable;
+use Guestbook\App\Database\ADBTable as ADBTable;
 use PDO;
 
 class User extends ADBTable
