@@ -1,9 +1,4 @@
 /vendor
-/modules
-/arch
-/public/css
 /public/upload
-/public/images
-/public/js
-config.php
-config.php.dist
+/config/config.php
+/config/guestbook.sql

@@ -1,0 +1,10 @@
+<?php
+  // connect to database
+const DB_HOST = 'localhost';
+const DB_PORT='3306';
+const DB_DATABASE = 'guestbook';
+
+//directories
+const DIR_UP = '../';
+const DIR_PUBLIC = '../public/';
+const DIR_APP = '../app/';

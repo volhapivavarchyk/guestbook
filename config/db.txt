@@ -1,0 +1,32 @@
+CREATE DATABASE guestbook DEFAULT CHARACTER SET utf8;
+
+USE guestbook;
+
+CREATE TABLE users(
+  user_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(128),
+  email VARCHAR(128),
+  PRIMARY KEY(user_id),
+  INDEX(email)
+)ENGINE=InnoDB CHARSET=utf8;
+
+CREATE TABLE messages(
+  message_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  theme VARCHAR(128),
+  text TEXT,
+  pictures VARCHAR(128),
+  filepath VARCHAR(255),
+  date TIMESTAMP,
+  ip VARCHAR(128),
+  browser VARCHAR(128),
+  id_user INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(message_id),
+  INDEX(theme),
+  INDEX(date),
+  CONSTRAINT FOREIGN KEY (id_user) REFERENCES users(user_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+)ENGINE=InnoDB CHARSET=utf8;
+
+INSERT INTO users (name, email) VALUES ('Volha', 'volha@email.com');
+INSERT INTO users (name, email) VALUES ('Ivan', 'ivan@email.com');
