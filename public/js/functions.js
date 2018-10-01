@@ -7,6 +7,7 @@ $(document).ready(() => {
     const $previewButton = $('#preview-button');
     const $pictures = $('#pictures');
     const $filepath = $('#filepath');
+    let $textMessage;
 
     $text.on('focusin', () => {
         $previewMessage.show().animate({opacity:1});
@@ -36,7 +37,7 @@ $(document).ready(() => {
             .replace(/\[strong\](.+?)\[\/strong\]/g, '<strong>$1</strong>')
             .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
         $previewMessage.html($textMessage);
-        if ($previewMessage.css('opacity') == 0) {
+        if ($previewMessage.css('opacity') === 0) {
             $previewMessage.show().animate({opacity:1});
             $('#preview-button').val('скрыть');
         } else {
@@ -45,7 +46,7 @@ $(document).ready(() => {
         }
     });
 
-    $pictures.on('change', () => {
+    $pictures.on('change', (event) => {
         const $pictures = $("#pictures").get(0).files[0];
         if (!($pictures.type == "image/jpeg") && !($pictures.type == "image/png") && !($pictures.type == "image/gif")){
             event.target.value='';
@@ -55,7 +56,7 @@ $(document).ready(() => {
         }
     });
 
-    $filepath.on('change', () => {
+    $filepath.on('change', (event) => {
         var $filepath = $("#filepath").get(0).files[0];
         if ($filepath.type != "text/plain"){
             event.target.value='';
@@ -78,7 +79,7 @@ $(document).ready(() => {
 */
 function viewMessages(rank, count)
 {
-    for (i=1; i<=count; i++) {
+    for (let i=1; i<=count; i++) {
         if (i != rank) {
             document.getElementById('visability'+i).className = 'displayNone';
             document.getElementById('number'+i).style.color = 'black';
@@ -102,7 +103,7 @@ function formatTextArea(tag)
     var selected = value.substring(field.selectionStart, field.selectionEnd);
     var before = value.substring(0, field.selectionStart);
     var after = value.substring(field.selectionEnd, field.length);
-    if (tag == 'a') {
+    if (tag === 'a') {
         field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']' + after;
         //field.value = '${before} [${tag} href = "" title = ""] ${selected} [/${tag}]';
     } else {

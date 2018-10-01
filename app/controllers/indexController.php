@@ -124,24 +124,19 @@ class IndexController extends ABaseController
                 $image = imagecreatefromgif($filename);
                 break;
             default:
-                // 'error';
         }
         imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
         switch ($type) {
             case 3:
-                //header("Content-type: image/png");
                 imagepng($new_image, $path.$fileImg->getClientFilename());
                 break;
             case 2:
-                //header("Content-type: image/jpeg");
                 imagejpeg($new_image, $path.$fileImg->getClientFilename());
                 break;
             case 1:
-                //header("Content-type: image/gif");
                 imagegif($new_image, $path.$fileImg->getClientFilename());
                 break;
             default:
-                // error;
         }
     }
 }

@@ -14,7 +14,6 @@ class AppKernel implements RequestHandlerInterface
         $init = new IndexController();
         $content = $init->show($request);
         $response = new Response ($content['content'], $content['params']);
-
         return $response;
     }
 }

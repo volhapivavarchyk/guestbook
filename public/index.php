@@ -3,7 +3,7 @@ use Zend\Diactoros\ServerRequestFactory;
 use Psr\Http\Message\ServerRequestInterface;
 use Guestbook\App\AppKernel;
 
-require_once '../config.php';
+require_once '../config/config.php';
 
 require_once '../vendor/autoload.php';
 

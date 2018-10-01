@@ -31,7 +31,7 @@ class Message extends ADBTable
           $sql .= " date";
         }
         $sql = strcmp($sort_elems[1], 'desc') ? $sql." ASC;" : $sql." DESC;";
-        // end формирование sql-запроса
+        // формирование sql-запроса
         $stmt = $this->db->prepare($sql);
         if ($stmt->execute()) {
             $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -66,6 +66,7 @@ class Message extends ADBTable
         $t_user = new User();
         extract($params);
         $user_id = (int)$t_user->getIdItem(['name' => $name, 'email' => $email]);
+        var_dump($user_id);
         if ($user_id == false){
             $user_id = (int)$t_user->addItem(['name' => $name, 'email' => $email]);
         }
