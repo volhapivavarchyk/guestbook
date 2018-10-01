@@ -3,12 +3,6 @@ namespace Guestbook\App\Http;
 
 use Psr\Http\Message\ResponseInterface;
 
-use function gettype;
-use function is_float;
-use function is_numeric;
-use function is_scalar;
-use function sprintf;
-
 class Response implements ResponseInterface
 {
     use MessageTrait;
