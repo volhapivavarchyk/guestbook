@@ -4,7 +4,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Guestbook\App\AppKernel;
 
 require_once '../config/config.php';
-
 require_once '../vendor/autoload.php';
 
 spl_autoload_register( function ($class) {
