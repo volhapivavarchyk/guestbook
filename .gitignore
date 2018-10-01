@@ -2,4 +2,3 @@
 /public/upload
 /config/config.php
 /config/guestbook.sql
-composer.lock
