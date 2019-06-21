@@ -57,10 +57,6 @@ class Message extends ADBTable
         return $blocksOfMessages;
     }
 
-    public function getIdItem($params)
-    {
-    }
-
     public function addItem($params)
     {
         $t_user = new User();

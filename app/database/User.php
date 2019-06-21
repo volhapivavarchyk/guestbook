@@ -11,10 +11,6 @@ class User extends ADBTable
         parent::__construct();
     }
 
-    public function getAllItems($sort)
-    {
-    }
-
     public function getIdItem($params)
     {
         extract($params);

@@ -40,7 +40,7 @@ class IndexController extends ABaseController
                   // обработка текста сообщения
                   $post['text'] = $this->changeTags($post['text']);
                   // обработка изображения
-                  if ($files['pictures']->getClientFilename() != ''){
+                  if ($files['pictures']->getClientFilename() !== ''){
                       $fileImg = $files['pictures'];
                       $filename = DIR_PUBLIC."upload/temp/".$fileImg->getClientFilename();
                       $fileImg->moveTo($filename);
@@ -52,7 +52,7 @@ class IndexController extends ABaseController
                       $post['pictures'] = '';
                   }
                   // обработка текстового файла
-                  if ($files['filepath']->getClientFilename() != ''){
+                  if ($files['filepath']->getClientFilename() !== ''){
                       $fileTxt = $files['filepath'];
                       $filename = DIR_PUBLIC."upload/txt/".$fileTxt->getClientFilename();
                       $fileTxt->moveTo($filename);

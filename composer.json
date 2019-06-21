@@ -1,5 +1,5 @@
 {
-    "name": "guestbook",
+    "name": "pi/guesbook",
     "description": "The guest book",
     "keywords": ["guest", "book"],
     "type": "project",

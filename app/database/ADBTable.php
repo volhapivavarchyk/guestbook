@@ -17,7 +17,5 @@ abstract class ADBTable
         }
     }
 
-    abstract public function getAllItems($sort);
-    abstract public function getIdItem($params);
     abstract public function addItem($params);
 }
