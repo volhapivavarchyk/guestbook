@@ -25,27 +25,39 @@
             <h2>Отправить сообщение</h2>
             <form method="post" action="" class="add-message" enctype="multipart/form-data">
                 <div class = "add-message-field">
-                    <label for="name">Имя пользователя * </label>
-                    <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9\s]*" required />
+                    <div class="tooltip">
+                        <label for="name">Имя пользователя * </label>
+                        <input type="text" name="name" id="name" placeholder="name" minlength="1" maxlength="150" pattern="[A-Za-z0-9\s]*" required />
+                        <span class="tooltiptext">Латинские буквы и цифры </span>
+                    </div>
                 </div>
                 <div class = "add-message-field">
-                    <label for="email">E-mail * </label>
-                    <input type="email" name="email" id="email" placeholder="mailbox@hostname" required />
+                    <div class="tooltip">
+                        <label for="email">E-mail * </label>
+                        <input type="email" name="email" id="email" placeholder="mailbox@hostname" required />
+                        <span class="tooltiptext">Введите e-mail</span>
+                    </div>
                 </div>
                 <div class = "add-message-field">
-                    <label for="theme">Тема *</label>
-                    <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/>
+                    <div class="tooltip">
+                        <label for="theme">Тема *</label>
+                        <input type="text" name="theme" id="theme" placeholder="тема сообщения" required/>
+                        <span class="tooltiptext">Не более 20 символов</span>
+                    </div>
                 </div>
                 <div class="add-message-box-field">
                     <div class = "add-message-field">
-                        <label for="text">Текст сообщения * </label>
-                        <textarea name="text" id="text" placeholder="текст сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" required ></textarea><br />
-                        <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px; margin-top: 3px;" />
-                        <input type="button" value="code" onClick="formatTextArea('code')" />
-                        <input type="button" value="italic" onClick="formatTextArea('italic')" />
-                        <input type="button" value="strike" onClick="formatTextArea('strike')" />
-                        <input type="button" value="strong" onClick="formatTextArea('strong')" />&nbsp;&nbsp;
-                        <input type="button" value="отобразить" id="preview-button" />
+                        <div class="tooltip">
+                            <label for="text">Текст сообщения * </label>
+                            <textarea name="text" id="text" placeholder="текст сообщения" rows="8" cols="46" pattern="[/<\/?[a-z][a-z0-9]*>/i]" required ></textarea><br />
+                            <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px; margin-top: 3px;" />
+                            <input type="button" value="code" onClick="formatTextArea('code')" />
+                            <input type="button" value="italic" onClick="formatTextArea('italic')" />
+                            <input type="button" value="strike" onClick="formatTextArea('strike')" />
+                            <input type="button" value="strong" onClick="formatTextArea('strong')" />&nbsp;&nbsp;
+                            <input type="button" value="отобразить" id="preview-button" />
+                            <span class="tooltiptext">Не более 2000 символов</span>
+                        </div>
                     </div>
                     <div id="preview-message" class = "add-message-field preview-message"></div>
                 </div>
