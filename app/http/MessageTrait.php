@@ -7,7 +7,6 @@ trait MessageTrait
 {
     protected $headers = [];
     protected $headerNames = [];
-    protected $body;
     private $protocol = '1.1';
 
     public function getProtocolVersion()
@@ -92,11 +91,6 @@ trait MessageTrait
         $new = clone $this;
         unset($new->headers[$original], $new->headerNames[$normalized]);
         return $new;
-    }
-
-    public function getBody()
-    {
-        return $this->body;
     }
 
     public function withBody(StreamInterface $body)

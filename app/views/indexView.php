@@ -5,11 +5,11 @@
     <meta name="keywords" content="гостевая книга, сообщения" />
     <meta name="description" content="Гостевая книга" />
     <title> Гостевая книга </title>
-    <link rel="stylesheet" type="text/css" href="<?= DIR_PUBLIC ?>css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= DIR_PUBLIC ?>css/lightbox.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/lightbox.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="<?= DIR_PUBLIC ?>js/lightbox.js"></script>
-    <script type="text/javascript" src="<?= DIR_PUBLIC ?>js/functions.js"></script>
+    <script type="text/javascript" src="js/lightbox.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
     <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
@@ -85,30 +85,30 @@
                 <div class="title-message">
                     <h4 class = "title-message-fields"> Имя </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?=$sort == "name_desc" ? "images/double-up.png": "images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?=$sort == "name_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?=$sort == "name_desc" ? "images/double-up.png": "images/double-up-not.png" ?>  name = "sort" value="name_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?=$sort == "name_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="name_asc" width="10" height="10" /></div>
                     </div>
                     <h4 class = "title-message-fields"> E-mail </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "email_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "email_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?= $sort == "email_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="email_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?= $sort == "email_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="email_asc" width="10" height="10" /></div>
                     </div>
                     <h4 class = "title-message-fields"> Дата добавления </h4>
                     <div class="arrows-title-message">
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "date_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
-                        <div><input type="image" src=<?= DIR_PUBLIC ?><?= $sort == "date_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
+                        <div><input type="image" src=<?= $sort == "date_desc" ? "images/double-up.png":"images/double-up-not.png" ?>  name = "sort" value="date_desc" width="10" height="10"/></div>
+                        <div><input type="image" src=<?= $sort == "date_asc" ? "images/double-down.png":"images/double-down-not.png" ?> name = "sort" value="date_asc" width="10" height="10" /></div>
                     </div>
                 </div>
             </form>
             <!-- Номера страниц для отображения выборки постранично -->
             <div class="title-message">
-                <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+                <?php for($i=1; $i<=$countOfMessages; $i++): ?>
                     <?php if ($i == 1): ?>
                         <div id="number<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
                     <?php else: ?>
                         <div id="number<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
                     <?php endif;?>
-                        <a href=# onClick=viewMessages(<?=$i ?>,<?=count($blocksOfMessages)?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
+                        <a href=# onClick=viewMessages(<?=$i ?>,<?= $countOfMessages ?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
                         </div>
                <?php endfor;?>
            </div>
@@ -132,11 +132,11 @@
                                <?php if ($message['pictures'] || $message['filepath']): ?>
                                    <p style = "padding: 2px; margin: 0px;">
                                        <?php if ($message['pictures']): ?>
-                                           <a href="<?= DIR_PUBLIC ?>upload/img/<?= htmlentities($message['pictures']) ?>" class="example-image-link" data-lightbox="image-1">
-                                           <img class="example-image" src="<?= DIR_PUBLIC ?>upload/img/small/<?= htmlentities($message['pictures'])?>" alt="<?= htmlentities($message['pictures'])?>" /></a>&nbsp;&nbsp;
+                                           <a href="upload/img/<?= htmlentities($message['pictures']) ?>" class="example-image-link" data-lightbox="image-1">
+                                           <img class="example-image" src="upload/img/small/<?= htmlentities($message['pictures'])?>" alt="<?= htmlentities($message['pictures'])?>" /></a>&nbsp;&nbsp;
                                        <?php endif; ?>
                                        <?php if ($message['filepath']): ?>
-                                           <a href = "<?= DIR_PUBLIC ?><?= htmlentities($message['filepath']) ?>" type="application/file" style = "text-decoration: none;"><?= htmlentities(basename($message['filepath'])) ?></a>
+                                           <a href = "<?= htmlentities($message['filepath']) ?>" type="application/file" style = "text-decoration: none;"><?= htmlentities(basename($message['filepath'])) ?></a>
                                        <?php endif; ?>
                                    </p>
                               <?php endif; ?>
@@ -152,13 +152,13 @@
            <form>
            <!-- Номера страниц для отображения выборки постранично -->
                <div class="title-message">
-                   <?php for($i=1; $i<=count($blocksOfMessages); $i++): ?>
+                   <?php for($i=1; $i<=$countOfMessages; $i++): ?>
                        <?php if ($i == 1): ?>
                            <div id="number_foot<?= $i; ?>" style="color:#006699; font-size: 0.8em; font-weight: bold; ">
                        <?php else: ?>
                            <div id="number_foot<?= $i; ?>" style="color:black; font-size: 0.8em; font-weight: bold;">
                        <?php endif;?>
-                           <a href=# onClick=viewMessages(<?= $i ?>,<?= count($blocksOfMessages) ?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
+                           <a href=# onClick=viewMessages(<?= $i ?>,<?= $countOfMessages ?>) style = "color:unset; text-decoration:none;"><?= $i; ?></a>&nbsp;&nbsp;
                            </div>
                    <?php endfor;?>
                </div>

@@ -3,6 +3,9 @@ namespace Guestbook\App\Controllers;
 
 use Guestbook\App\Controllers\ABaseController;
 use Guestbook\App\Database\Message;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class IndexController extends ABaseController
 {
@@ -71,7 +74,7 @@ class IndexController extends ABaseController
       }
 
       $this->params['blocksOfMessages'] = $this->getListMessages($this->params['sort']);
-
+      $this->params['countOfMessages'] = count($this->params['blocksOfMessages']);
       return [
           'params'=>$this->params,
           'content'=>$this->content

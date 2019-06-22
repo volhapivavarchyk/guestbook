@@ -38,6 +38,11 @@ class Response implements ResponseInterface
         return $this->reasonPhrase;
     }
 
+    public function getBody()
+    {
+        return $this->content;
+    }
+
     public function withStatus($code, $reasonPhrase = '')
     {
         $new = clone $this;
