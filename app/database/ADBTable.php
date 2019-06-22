@@ -2,6 +2,7 @@
 namespace Guestbook\App\Database;
 
 use PDO;
+use PDOException;
 
 abstract class ADBTable
 {

@@ -6,6 +6,7 @@ use Guestbook\App\Database\Message;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\UploadedFile;
 
 class IndexController extends ABaseController
 {

@@ -3,6 +3,7 @@ namespace Guestbook\App\Database;
 
 use Guestbook\App\Database\ADBTable as ADBTable;
 use PDO;
+use PDOStatement;
 
 class User extends ADBTable
 {
