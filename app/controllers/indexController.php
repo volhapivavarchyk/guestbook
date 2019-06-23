@@ -3,16 +3,14 @@ namespace Guestbook\App\Controllers;
 
 use Guestbook\App\Controllers\ABaseController;
 use Guestbook\App\Database\Message;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\UploadedFile;
 use Zend\Diactoros\ServerRequest;
 
 class IndexController extends ABaseController
 {
-
     public $message;
+    public $content;
+    public $params;
 
     public function __construct()
     {
@@ -24,63 +22,63 @@ class IndexController extends ABaseController
 
     public function show($request)
     {
-      $get = $request->getQueryParams();
-      $post = $request->getParsedBody();
-      $server = $request->getServerParams();
-      $files = $request->getUploadedFiles();
+        $get = $request->getQueryParams();
+        $post = $request->getParsedBody();
+        $server = $request->getServerParams();
+        $files = $request->getUploadedFiles();
 
-      $this->params['sort'] = 'date_desc';
+        $this->params['sort'] = 'date_desc';
 
-      if (isset($post['send'])) {
-          $this->params['added_message'] = 'сообщение не добавлено';
-          $response = $post["g-recaptcha-response"];
-          if (!empty($response)) {
-              $url = CAPTCHA_URL."?secret=".CAPTCHA_SECRET."&response=".$response."&remoteip=".$server['REMOTE_ADDR'];
-              $rsp = file_get_contents($url);
-              $arr = json_decode($rsp, TRUE);
-              if($arr['success']) {
-                  $post['ip']  = $server['REMOTE_ADDR'];
-                  $post['browser'] = $server['HTTP_USER_AGENT'];
-                  $post['date'] = date("Y-m-d H:i:s");
-                  // обработка текста сообщения
-                  $post['text'] = $this->changeTags($post['text']);
-                  // обработка изображения
-                  if ($files['pictures']->getClientFilename() !== ''){
-                      $fileImg = $files['pictures'];
-                      $filename = DIR_PUBLIC."upload/temp/".$fileImg->getClientFilename();
-                      $fileImg->moveTo($filename);
-                      $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/", 320, 240);
-                      $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/small/", 60, 50);
-                      unlink($filename);
-                      $post['pictures'] = $fileImg->getClientFilename();
-                  } else {
-                      $post['pictures'] = '';
-                  }
-                  // обработка текстового файла
-                  if ($files['filepath']->getClientFilename() !== ''){
-                      $fileTxt = $files['filepath'];
-                      $filename = DIR_PUBLIC."upload/txt/".$fileTxt->getClientFilename();
-                      $fileTxt->moveTo($filename);
-                      $post['filepath'] = $filename;
-                  } else {
-                      $post['filepath'] = '';
-                  }
-                  // добавление записи
-                  $this->params['added_message'] = $this->addMessage($post);
-              }
-          }
-      }
+        if (isset($post['send'])) {
+            $this->params['added_message'] = 'сообщение не добавлено';
+            $response = $post["g-recaptcha-response"];
+            if (!empty($response)) {
+                $url = CAPTCHA_URL."?secret=".CAPTCHA_SECRET."&response=".$response."&remoteip=".$server['REMOTE_ADDR'];
+                $rsp = file_get_contents($url);
+                $arr = json_decode($rsp, TRUE);
+                if($arr['success']) {
+                    $post['ip']  = $server['REMOTE_ADDR'];
+                    $post['browser'] = $server['HTTP_USER_AGENT'];
+                    $post['date'] = date("Y-m-d H:i:s");
+                    // обработка текста сообщения
+                    $post['text'] = $this->changeTags($post['text']);
+                    // обработка изображения
+                    if ($files['pictures']->getClientFilename() !== ''){
+                        $fileImg = $files['pictures'];
+                        $filename = DIR_PUBLIC."upload/temp/".$fileImg->getClientFilename();
+                        $fileImg->moveTo($filename);
+                        $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/", 320, 240);
+                        $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/small/", 60, 50);
+                        unlink($filename);
+                        $post['pictures'] = $fileImg->getClientFilename();
+                    } else {
+                        $post['pictures'] = '';
+                    }
+                    // обработка текстового файла
+                    if ($files['filepath']->getClientFilename() !== ''){
+                        $fileTxt = $files['filepath'];
+                        $filename = DIR_PUBLIC."upload/txt/".$fileTxt->getClientFilename();
+                        $fileTxt->moveTo($filename);
+                        $post['filepath'] = $filename;
+                    } else {
+                        $post['filepath'] = '';
+                    }
+                    // добавление записи
+                    $this->params['added_message'] = $this->addMessage($post);
+                }
+            }
+        }
 
-      if (isset($get['sort'])) {
-          $this->params['sort'] = $get['sort'];
-      }
+        if (isset($get['sort'])) {
+            $this->params['sort'] = $get['sort'];
+        }
 
-      $this->params['blocksOfMessages'] = $this->getListMessages($this->params['sort']);
-      $this->params['countOfMessages'] = count($this->params['blocksOfMessages']);
-      return [
-          'params'=>$this->params,
-          'content'=>$this->content
-          ];
+        $this->params['blocksOfMessages'] = $this->getListMessages($this->params['sort']);
+        $this->params['countOfMessages'] = count($this->params['blocksOfMessages']);
+        return [
+            'params'=>$this->params,
+            'content'=>$this->content
+        ];
     }
 
     public function getListMessages($sort)
