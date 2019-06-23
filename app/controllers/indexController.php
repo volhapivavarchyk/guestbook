@@ -24,6 +24,7 @@ class IndexController extends ABaseController
 
     public function show($request)
     {
+      var_dump($request);
       $get = $request->getQueryParams();
       $post = $request->getParsedBody();
       $server = $request->getServerParams();
@@ -144,3 +145,4 @@ class IndexController extends ABaseController
             default:
         }
     }
+}

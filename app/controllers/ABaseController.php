@@ -1,6 +1,8 @@
 <?php
 namespace Guestbook\App\Controllers;
 
+use Zend\Diactoros\ServerRequest;
+
 abstract class ABaseController
 {
     public $content;
