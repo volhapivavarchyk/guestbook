@@ -71,7 +71,6 @@ class IndexController extends ABaseController
                 }
             }
         }
-        var_dump(get_declared_classes ());
 
         if (isset($get['sort'])) {
             $this->params['sort'] = $get['sort'];
