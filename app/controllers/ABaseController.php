@@ -1,9 +1,9 @@
 <?php
 namespace Guestbook\App\Controllers;
 
-use Zend\Diactoros\ServerRequest;
+use Psr\Http\Message\ServerRequestInterface;
 
 abstract class ABaseController
 {
-    abstract public function show($request);
+    abstract public function show(ServerRequestInterface $request);
 }

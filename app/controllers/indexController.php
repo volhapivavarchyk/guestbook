@@ -5,9 +5,7 @@ use Guestbook\App\Controllers\ABaseController;
 use Guestbook\App\Database\Message;
 use Zend\Diactoros\UploadedFile;
 use Zend\Diactoros\ServerRequest;
-use PDO;
-use PDOStatement;
-
+use Psr\Http\Message\ServerRequestInterface;
 
 class IndexController extends ABaseController
 {
@@ -23,7 +21,7 @@ class IndexController extends ABaseController
         $this->content = 'indexView.php';
     }
 
-    public function show($request)
+    public function show(ServerRequestInterface $request)
     {
         $get = $request->getQueryParams();
         $post = $request->getParsedBody();
