@@ -5,6 +5,9 @@ use Guestbook\App\Controllers\ABaseController;
 use Guestbook\App\Database\Message;
 use Zend\Diactoros\UploadedFile;
 use Zend\Diactoros\ServerRequest;
+use PDO;
+use PDOStatement;
+
 
 class IndexController extends ABaseController
 {
@@ -68,6 +71,7 @@ class IndexController extends ABaseController
                 }
             }
         }
+        var_dump(get_declared_classes ());
 
         if (isset($get['sort'])) {
             $this->params['sort'] = $get['sort'];
