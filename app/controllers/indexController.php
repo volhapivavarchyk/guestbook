@@ -106,7 +106,6 @@ class IndexController extends ABaseController
     protected function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height)
     {
         list($width, $height, $type) = getimagesize($filename);
-        $size = getimagesize($filename);
         if (($width > $max_width) || ($height > $max_height)) {
             $w_index = $max_width / $width;
             $h_index = $max_height / $height;

@@ -7,6 +7,7 @@ trait MessageTrait
 {
     protected $headers = [];
     protected $headerNames = [];
+    protected $body;
     private $protocol = '1.1';
 
     public function getProtocolVersion()
