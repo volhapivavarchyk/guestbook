@@ -1,9 +1,9 @@
 <?php
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
-use Guestbook\App\AppKernel;
 use Psr\Http\Message\ResponseInterface;
 use Guestbook\App\Http\Response;
+use Guestbook\App\AppKernel;
 
 require_once '../config/config.php';
 require_once '../vendor/autoload.php';

@@ -9,9 +9,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class IndexController extends ABaseController
 {
-    public $message;
-    public $content;
-    public $params;
+    protected $message;
+    protected $content;
+    protected $params;
 
     public function __construct()
     {

@@ -6,7 +6,7 @@ use PDOException;
 
 abstract class ADBTable
 {
-    public $db;
+    protected $db;
 
     public function __construct()
     {
@@ -20,6 +20,5 @@ abstract class ADBTable
             print "Error!: ".$e->getMessage(). "</br>";
         }
     }
-
     abstract public function addItem($params);
 }
