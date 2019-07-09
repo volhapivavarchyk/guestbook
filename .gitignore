@@ -1,3 +1,7 @@
-/vendor
-/public/upload
-/config/
+app/guestbook/vendor
+app/guestbook/public/upload
+app/guestbook/config/config.php
+app/guestbook/config/guestbook.sql
+docker/mysql/*
+.env
+.site.conf
