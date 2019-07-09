@@ -34,7 +34,9 @@ class IndexController extends ABaseController
             $this->params['added_message'] = 'сообщение не добавлено';
             $response = $post["g-recaptcha-response"];
             if (!empty($response)) {
-                $url = CAPTCHA_URL."?secret=".CAPTCHA_SECRET."&response=".$response."&remoteip=".$server['REMOTE_ADDR'];
+                $captcha_url = $_ENV['CAPTCHA_URL'];
+                $captcha_secret = $_ENV['CAPTCHA_SECRET'];
+                $url = $captcha_url."?secret=".$captcha_secret."&response=".$response."&remoteip=".$server['REMOTE_ADDR'];
                 $rsp = file_get_contents($url);
                 $arr = json_decode($rsp, TRUE);
                 if($arr['success']) {

@@ -1,0 +1,15 @@
+FROM php:7.3-fpm
+
+RUN apt-get update && apt-get install -y wget git unzip \
+    && pecl install xdebug-2.7.1 \
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-install mysqli mbstring pdo pdo_mysql
+
+RUN echo "pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock" >> /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini \
+    && echo "mysql.default_socket=/var/run/mysqld/mysqld.sock" >> /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini \
+    && echo "mysqli.default_socket=/var/run/mysqld/mysqld.sock" >> /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini
+
+ADD ./php.ini /usr/local/etc/php/php.ini
+
+RUN wget https://getcomposer.org/installer -O - -q \
+    | php -- --install-dir=/bin --filename=composer --quiet
