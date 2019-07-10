@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Guestbook\App\Http;
 
 use Psr\Http\Message\ResponseInterface;
@@ -23,7 +25,7 @@ class Response implements ResponseInterface
     private $content;
     private $params;
 
-    public function __construct($content = '', $params = '',  $status = 200, array $headers = [])
+    public function __construct(string $content = '', array $params = '', int $status = 200, array $headers = [])
     {
         $this->setStatusCode($status);
         $this->setContent($content);
@@ -31,22 +33,22 @@ class Response implements ResponseInterface
         $this->setHeaders($headers);
     }
 
-    public function getStatusCode()
+    public function getStatusCode() : string
     {
         return $this->statusCode;
     }
 
-    public function getReasonPhrase()
+    public function getReasonPhrase() : string
     {
         return $this->reasonPhrase;
     }
 
-    public function getBody()
+    public function getBody() : string
     {
         return $this->content;
     }
 
-    public function withStatus($code, $reasonPhrase = '')
+    public function withStatus($code, $reasonPhrase = '') : self
     {
         $new = clone $this;
         $new->setStatusCode($code, $reasonPhrase);
@@ -63,22 +65,22 @@ class Response implements ResponseInterface
         $this->statusCode = (int) $code;
     }
 
-    private function setContent($content)
+    private function setContent($content) : void
     {
       $this->content = $content;
     }
 
-    private function setParams($params)
+    private function setParams($params) : void
     {
       $this->params = $params;
     }
 
-    private function setHeaders($headers)
+    private function setHeaders($headers) : void
     {
       $this->headers = $headers;
     }
 
-    public function send()
+    public function send() : void
     {
         extract($this->params);
         include(DIR_APP.'/views/'.$this->content);

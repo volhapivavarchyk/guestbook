@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Guestbook\App;
 
 use Psr\Http\Server\RequestHandlerInterface;

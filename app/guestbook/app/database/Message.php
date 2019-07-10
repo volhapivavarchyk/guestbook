@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Guestbook\App\Database;
 
 use Guestbook\App\Database\ADBTable as ADBTable;
@@ -13,7 +15,7 @@ class Message extends ADBTable
         parent::__construct();
     }
 
-    public function getAllItems($sort)
+    public function getAllItems(string $sort) : array
     {
         $messages = array();
         $sort_elems = explode('_', $sort);
@@ -41,7 +43,7 @@ class Message extends ADBTable
         return $messages;
     }
 
-    public function getAllItems25($sort)
+    public function getAllItems25($sort) : array
     {
         $messages = $this->getAllItems($sort);
         $i = 0;
@@ -58,7 +60,7 @@ class Message extends ADBTable
         return $blocksOfMessages;
     }
 
-    public function addItem($params)
+    public function addItem(array $params) : string
     {
         $t_user = new User();
         extract($params);

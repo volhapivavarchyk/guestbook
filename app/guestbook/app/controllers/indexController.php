@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Guestbook\App\Controllers;
 
 use Guestbook\App\Controllers\ABaseController;
@@ -21,7 +23,7 @@ class IndexController extends ABaseController
         $this->content = 'indexView.php';
     }
 
-    public function show(ServerRequestInterface $request)
+    public function show(ServerRequestInterface $request) : array
     {
         $get = $request->getQueryParams();
         $post = $request->getParsedBody();
@@ -84,17 +86,17 @@ class IndexController extends ABaseController
         ];
     }
 
-    public function getListMessages($sort)
+    public function getListMessages(string $sort) : array
     {
         return $this->message->getAllItems25($sort);
     }
 
-    public function addMessage($post)
+    public function addMessage(array $post) : string
     {
         return $this->message->addItem($post);
     }
 
-    protected function changeTags($text)
+    protected function changeTags(string $text) : string
     {
         $bbcode = array("[strong]", "[strike]", "[italic]", "[code]", "[/strong]", "[/strike]", "[/italic]", "[/code]");
         $htmltag   = array("<strong>", "<strike>", "<i>", "<code>", "</strong>", "</strike>", "</i>", "</code>");
@@ -105,7 +107,7 @@ class IndexController extends ABaseController
          return $text;
     }
 
-    protected function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height)
+    protected function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height) : void
     {
         list($width, $height, $type) = getimagesize($filename);
         if (($width > $max_width) || ($height > $max_height)) {

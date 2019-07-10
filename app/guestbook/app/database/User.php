@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Guestbook\App\Database;
 
 use Guestbook\App\Database\ADBTable as ADBTable;
@@ -25,7 +27,7 @@ class User extends ADBTable
         }
     }
 
-    public function addItem($params)
+    public function addItem($params) : int
     {
         extract($params);
         $sql = "INSERT INTO guestbook.users (name, email) VALUE (:name, :email);";

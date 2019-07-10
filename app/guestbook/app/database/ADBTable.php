@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Guestbook\App\Database;
 
 use PDO;
@@ -20,5 +22,6 @@ abstract class ADBTable
             print "Error!: ".$e->getMessage(). "</br>";
         }
     }
-    abstract public function addItem($params);
+
+    abstract public function addItem($params) : string;
 }
