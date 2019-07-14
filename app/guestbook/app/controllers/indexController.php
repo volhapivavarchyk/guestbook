@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Guestbook\App\Controllers;
 
+use Zend\Diactoros\{UploadedFile, ServerRequest};
+use Psr\Http\Message\ServerRequestInterface;
 use Guestbook\App\Controllers\ABaseController;
 use Guestbook\App\Database\Message;
-use Zend\Diactoros\UploadedFile;
-use Zend\Diactoros\ServerRequest;
-use Psr\Http\Message\ServerRequestInterface;
+use Guestbook\App\Config\Config;
 
 class IndexController extends ABaseController
 {
@@ -36,8 +36,8 @@ class IndexController extends ABaseController
             $this->params['added_message'] = 'сообщение не добавлено';
             $response = $post["g-recaptcha-response"];
             if (!empty($response)) {
-                $captcha_url = $_ENV['CAPTCHA_URL'];
-                $captcha_secret = $_ENV['CAPTCHA_SECRET'];
+                $captcha_url = $_ENV['GUESTBOOK_CAPTCHA_URL'];
+                $captcha_secret = $_ENV['GUESTBOOK_CAPTCHA_SECRET'];
                 $url = $captcha_url."?secret=".$captcha_secret."&response=".$response."&remoteip=".$server['REMOTE_ADDR'];
                 $rsp = file_get_contents($url);
                 $arr = json_decode($rsp, TRUE);
@@ -50,10 +50,10 @@ class IndexController extends ABaseController
                     // обработка изображения
                     if ($files['pictures']->getClientFilename() !== ''){
                         $fileImg = $files['pictures'];
-                        $filename = DIR_PUBLIC."upload/temp/".$fileImg->getClientFilename();
+                        $filename = Config::DIR_PUBLIC."upload/temp/".$fileImg->getClientFilename();
                         $fileImg->moveTo($filename);
-                        $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/", 320, 240);
-                        $this->resizeAndMoveImage($fileImg, $filename, DIR_PUBLIC."upload/img/small/", 60, 50);
+                        $this->resizeAndMoveImage($fileImg, $filename, Config::DIR_PUBLIC."upload/img/", 320, 240);
+                        $this->resizeAndMoveImage($fileImg, $filename, Config::DIR_PUBLIC."upload/img/small/", 60, 50);
                         unlink($filename);
                         $post['pictures'] = $fileImg->getClientFilename();
                     } else {
@@ -62,7 +62,7 @@ class IndexController extends ABaseController
                     // обработка текстового файла
                     if ($files['filepath']->getClientFilename() !== ''){
                         $fileTxt = $files['filepath'];
-                        $filename = DIR_PUBLIC."upload/txt/".$fileTxt->getClientFilename();
+                        $filename = Config::DIR_PUBLIC."upload/txt/".$fileTxt->getClientFilename();
                         $fileTxt->moveTo($filename);
                         $post['filepath'] = $filename;
                     } else {
@@ -107,7 +107,7 @@ class IndexController extends ABaseController
          return $text;
     }
 
-    protected function resizeAndMoveImage($fileImg, $filename, $path, $max_width, $max_height) : void
+    protected function resizeAndMoveImage(UploadedFile $fileImg, string $filename, string $path, int $max_width, int $max_height) : void
     {
         list($width, $height, $type) = getimagesize($filename);
         if (($width > $max_width) || ($height > $max_height)) {
@@ -119,7 +119,8 @@ class IndexController extends ABaseController
             $new_width = $width;
             $new_height = $height;
         }
-        $new_image = imagecreatetruecolor($new_width, $new_height);
+
+        $new_image = imagecreatetruecolor((int)$new_width, (int)$new_height);
         switch ($type) {
             case 3:
                 $image = imagecreatefrompng($filename);
@@ -132,7 +133,7 @@ class IndexController extends ABaseController
                 break;
             default:
         }
-        imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        imagecopyresampled($new_image, $image, 0, 0, 0, 0, (int)$new_width, (int)$new_height, $width, $height);
         switch ($type) {
             case 3:
                 imagepng($new_image, $path.$fileImg->getClientFilename());

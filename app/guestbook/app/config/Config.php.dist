@@ -1,0 +1,12 @@
+<?php
+// Configuration file - copy from config-dist.php to config.php
+// and then edit.
+
+namespace Guestbook\App\Config;
+
+class Config {
+    //paths to directories
+    const DIR_UP =  '../';
+    const DIR_PUBLIC = '../public/';
+    const DIR_APP = '../app/';
+}

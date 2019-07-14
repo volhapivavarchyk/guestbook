@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace Guestbook\App\Http;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\{ResponseInterface, ServerRequestInterface, StreamInterface};
 use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\StreamInterface;
+use Guestbook\App\Config\Config;
 
 class Response implements ResponseInterface
 {
@@ -25,7 +24,7 @@ class Response implements ResponseInterface
     private $content;
     private $params;
 
-    public function __construct(string $content = '', array $params = '', int $status = 200, array $headers = [])
+    public function __construct(string $content = '', array $params = array(), int $status = 200, array $headers = [])
     {
         $this->setStatusCode($status);
         $this->setContent($content);
@@ -55,7 +54,7 @@ class Response implements ResponseInterface
         return $new;
     }
 
-    private function setStatusCode($code, $reasonPhrase = '')
+    private function setStatusCode(int $code, string $reasonPhrase = '') : void
     {
         if ($reasonPhrase === '' && isset($this->phrases[$code])) {
             $reasonPhrase = $this->phrases[$code];
@@ -83,7 +82,7 @@ class Response implements ResponseInterface
     public function send() : void
     {
         extract($this->params);
-        include(DIR_APP.'/views/'.$this->content);
+        include(Config::DIR_APP.'/views/'.$this->content);
     }
 
 }

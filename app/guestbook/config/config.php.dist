@@ -1,5 +1,0 @@
-<?php
-//directories
-const DIR_UP = '../';
-const DIR_PUBLIC = '../public/';
-const DIR_APP = '../app/';

@@ -16,5 +16,15 @@
         "psr/http-message": "^1.0",
         "psr/http-server-handler": "^1.0",
         "zendframework/zend-diactoros": "^1.8"
+    },
+    "autoload": {
+        "psr4": {
+            "Guestbook\\App\\": "app/",
+            "Guestbook\\App\\Config\\":"app/config/"
+        },
+        "classmap": [
+            "app/",
+            "app/config/"
+        ]
     }
 }

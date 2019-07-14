@@ -23,5 +23,5 @@ abstract class ADBTable
         }
     }
 
-    abstract public function addItem($params) : string;
+    abstract public function addItem(array $params) : string;
 }

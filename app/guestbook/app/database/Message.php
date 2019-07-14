@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Guestbook\App\Database;
 
-use Guestbook\App\Database\ADBTable as ADBTable;
-use Guestbook\App\Database\User;
+use Guestbook\App\Database\{User, ADBTable as ADBTable};
 use PDO;
 
 class Message extends ADBTable
@@ -43,7 +42,7 @@ class Message extends ADBTable
         return $messages;
     }
 
-    public function getAllItems25($sort) : array
+    public function getAllItems25(string $sort) : array
     {
         $messages = $this->getAllItems($sort);
         $i = 0;
@@ -64,9 +63,9 @@ class Message extends ADBTable
     {
         $t_user = new User();
         extract($params);
-        $user_id = (int)$t_user->getIdItem(['name' => $name, 'email' => $email]);
-        if ($user_id == false){
-            $user_id = (int)$t_user->addItem(['name' => $name, 'email' => $email]);
+        $user_id = (int) $t_user->getIdItem(['name' => $name, 'email' => $email]);
+        if ($user_id === 0){
+            $user_id = (int) $t_user->addItem(['name' => $name, 'email' => $email]);
         }
         $sql = "INSERT INTO guestbook.messages
             (theme, text, pictures, filepath, date, ip, browser, id_user)

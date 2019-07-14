@@ -14,7 +14,7 @@ class User extends ADBTable
         parent::__construct();
     }
 
-    public function getIdItem($params)
+    public function getIdItem(array $params) : string
     {
         extract($params);
         $sql = "SELECT * FROM guestbook.users WHERE name=:name AND email=:email;";
@@ -23,11 +23,11 @@ class User extends ADBTable
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result['user_id'];
         } else {
-            return false;
+            return 0;
         }
     }
 
-    public function addItem($params) : int
+    public function addItem(array $params) : string
     {
         extract($params);
         $sql = "INSERT INTO guestbook.users (name, email) VALUE (:name, :email);";

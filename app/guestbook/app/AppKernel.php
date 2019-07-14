@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Guestbook\App;
 
+use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Guestbook\App\Controllers\IndexController;
 use Guestbook\App\Http\Response;
 

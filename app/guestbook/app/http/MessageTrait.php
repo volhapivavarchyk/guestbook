@@ -1,9 +1,7 @@
 <?php
-declare(strict_types=1);
-
 namespace Guestbook\App\Http;
 
-use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\{MessageInterface, StreamInterface};
 
 trait MessageTrait
 {
@@ -29,14 +27,14 @@ trait MessageTrait
         return $this->headers;
     }
 
-    public function hasHeader($header) : bool
+    public function hasHeader($name) : bool
     {
-        return isset($this->headerNames[strtolower($header)]);
+        return isset($this->headerNames[strtolower($name)]);
     }
 
-    public function getHeader($header) : array
+    public function getHeader($name) : array
     {
-        if (! $this->hasHeader($header)) {
+        if (! $this->hasHeader($name)) {
             return [];
         }
 
