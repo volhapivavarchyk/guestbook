@@ -14,25 +14,25 @@ class Message extends ADBTable
         parent::__construct();
     }
 
-    public function getAllItems(string $sort) : array
+    public function getAllItems(string $sort): array
     {
         $messages = array();
         $sort_elems = explode('_', $sort);
 
         // формирование sql-запроса
-        $sql  = "SELECT messages.*, users.name AS name, users.email AS email
+        $sql = "SELECT messages.*, users.name AS name, users.email AS email
             FROM guestbook.messages
             INNER JOIN guestbook.users
             ON messages.id_user = users.user_id
             ORDER BY ";
         if (!strcmp($sort_elems[0], 'name')) {
-          $sql .= " name";
+            $sql .= " name";
         } elseif (!strcmp($sort_elems[0], 'email')) {
-          $sql .= " email";
+            $sql .= " email";
         } elseif (!strcmp($sort_elems[0], 'date')) {
-          $sql .= " date";
+            $sql .= " date";
         }
-        $sql = strcmp($sort_elems[1], 'desc') ? $sql." ASC;" : $sql." DESC;";
+        $sql = strcmp($sort_elems[1], 'desc') ? $sql . " ASC;" : $sql . " DESC;";
         // формирование sql-запроса
         $stmt = $this->db->prepare($sql);
         if ($stmt->execute()) {
@@ -42,7 +42,7 @@ class Message extends ADBTable
         return $messages;
     }
 
-    public function getAllItems25(string $sort) : array
+    public function getAllItems25(string $sort): array
     {
         $messages = $this->getAllItems($sort);
         $i = 0;
@@ -59,13 +59,13 @@ class Message extends ADBTable
         return $blocksOfMessages;
     }
 
-    public function addItem(array $params) : string
+    public function addItem(array $params): string
     {
         $t_user = new User();
         extract($params);
-        $user_id = (int) $t_user->getIdItem(['name' => $name, 'email' => $email]);
-        if ($user_id === 0){
-            $user_id = (int) $t_user->addItem(['name' => $name, 'email' => $email]);
+        $user_id = (int)$t_user->getIdItem(['name' => $name, 'email' => $email]);
+        if ($user_id === null) {
+            $user_id = (int)$t_user->addItem(['name' => $name, 'email' => $email]);
         }
         $sql = "INSERT INTO guestbook.messages
             (theme, text, pictures, filepath, date, ip, browser, id_user)

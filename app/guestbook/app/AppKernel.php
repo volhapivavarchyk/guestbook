@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Guestbook\App;
@@ -11,7 +10,7 @@ use Guestbook\App\Http\Response;
 
 class AppKernel implements RequestHandlerInterface
 {
-    public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $init = new IndexController();
         $content = $init->show($request);

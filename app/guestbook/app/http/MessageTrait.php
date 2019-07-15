@@ -1,4 +1,5 @@
 <?php
+
 namespace Guestbook\App\Http;
 
 use Psr\Http\Message\{MessageInterface, StreamInterface};
@@ -10,39 +11,39 @@ trait MessageTrait
     protected $body;
     private $protocol = '1.1';
 
-    public function getProtocolVersion() : string
+    public function getProtocolVersion(): string
     {
         return $this->protocol;
     }
 
-    public function withProtocolVersion($version) : self
+    public function withProtocolVersion($version): self
     {
         $new = clone $this;
         $new->protocol = $version;
         return $new;
     }
 
-    public function getHeaders() : array
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    public function hasHeader($name) : bool
+    public function hasHeader($name): bool
     {
         return isset($this->headerNames[strtolower($name)]);
     }
 
-    public function getHeader($name) : array
+    public function getHeader($name): array
     {
-        if (! $this->hasHeader($name)) {
+        if (!$this->hasHeader($name)) {
             return [];
         }
 
-        $header = $this->headerNames[strtolower($header)];
+        $header = $this->headerNames[strtolower($name)];
         return $this->headers[$header];
     }
 
-    public function getHeaderLine($name) : string
+    public function getHeaderLine($name): string
     {
         $value = $this->getHeader($name);
         if (empty($value)) {
@@ -52,7 +53,7 @@ trait MessageTrait
         return implode(',', $value);
     }
 
-    public function withHeader($header, $value) : self
+    public function withHeader($header, $value): self
     {
         $normalized = strtolower($header);
 
@@ -67,9 +68,9 @@ trait MessageTrait
         return $new;
     }
 
-    public function withAddedHeader($header, $value) : self
+    public function withAddedHeader($header, $value): self
     {
-        if (! $this->hasHeader($header)) {
+        if (!$this->hasHeader($header)) {
             return $this->withHeader($header, $value);
         }
 
@@ -80,21 +81,21 @@ trait MessageTrait
         return $new;
     }
 
-    public function withoutHeader($header) : self
+    public function withoutHeader($header): self
     {
-        if (! $this->hasHeader($header)) {
+        if (!$this->hasHeader($header)) {
             return clone $this;
         }
 
         $normalized = strtolower($header);
-        $original   = $this->headerNames[$normalized];
+        $original = $this->headerNames[$normalized];
 
         $new = clone $this;
         unset($new->headers[$original], $new->headerNames[$normalized]);
         return $new;
     }
 
-    public function withBody(StreamInterface $body) : self
+    public function withBody(StreamInterface $body): self
     {
         $new = clone $this;
         $new->body = $body;
