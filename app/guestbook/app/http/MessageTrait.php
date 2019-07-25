@@ -1,6 +1,6 @@
 <?php
 
-namespace Guestbook\App\Http;
+namespace Piv\Guestbook\App\Http;
 
 use Psr\Http\Message\{MessageInterface, StreamInterface};
 
@@ -93,6 +93,11 @@ trait MessageTrait
         $new = clone $this;
         unset($new->headers[$original], $new->headerNames[$normalized]);
         return $new;
+    }
+
+    public function getBody(): string
+    {
+        return $this->body;
     }
 
     public function withBody(StreamInterface $body): self

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Guestbook\App;
+namespace Piv\Guestbook\App;
 
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\RequestHandlerInterface;
-use Guestbook\App\Controllers\IndexController;
-use Guestbook\App\Http\Response;
+use Piv\Guestbook\App\Controllers\IndexController;
+use Piv\Guestbook\App\Http\Response;
 
 class AppKernel implements RequestHandlerInterface
 {

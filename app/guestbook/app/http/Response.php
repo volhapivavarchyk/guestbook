@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Guestbook\App\Http;
+namespace Piv\Guestbook\App\Http;
 
-use Psr\Http\Message\{ResponseInterface, ServerRequestInterface, StreamInterface};
+use Psr\Http\Message\{ResponseInterface, StreamInterface};
 use Psr\Http\Server\RequestHandlerInterface;
-use Guestbook\App\Config\Config;
+use Piv\Guestbook\App\Config\Config;
 
 class Response implements ResponseInterface
 {
@@ -24,8 +24,12 @@ class Response implements ResponseInterface
     private $content;
     private $params;
 
-    public function __construct(string $content = '', array $params = array(), int $status = 200, array $headers = [])
-    {
+    public function __construct(
+        string $content = '',
+        array $params = [],
+        int $status = 200,
+        array $headers = []
+    ) {
         $this->setStatusCode($status);
         $this->setContent($content);
         $this->setParams($params);
@@ -37,21 +41,16 @@ class Response implements ResponseInterface
         return $this->statusCode;
     }
 
-    public function getReasonPhrase(): string
-    {
-        return $this->reasonPhrase;
-    }
-
-    public function getBody(): string
-    {
-        return $this->content;
-    }
-
     public function withStatus($code, $reasonPhrase = ''): self
     {
         $new = clone $this;
         $new->setStatusCode($code, $reasonPhrase);
         return $new;
+    }
+
+    public function getReasonPhrase(): string
+    {
+        return $this->reasonPhrase;
     }
 
     private function setStatusCode(int $code, string $reasonPhrase = ''): void
