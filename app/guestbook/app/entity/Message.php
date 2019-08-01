@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @Entity @Table(name="messages")
  */
@@ -25,8 +27,8 @@ class Message
     /** @Column(type="string") **/
     protected $browser;
     /**
-     * @ORM\ManyToOne(targetEntity="Piv\Guestbook\App\Entity\User", inversedBy="messages")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="user_id", nullable=true)
+     * @ManyToOne(targetEntity="User", inversedBy="commentsAuthored")
+     * @JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      */
     protected $user;
 
@@ -162,9 +164,17 @@ class Message
      * $user setter
      * @return
      */
-    public function setUser(User $user)
+    public function setUser(User $user = null)
     {
         $user->addMessage($this);
         $this->user = $user;
+    }
+    /**
+     * convert properties to array
+     * @return array of class properties
+     */
+    public function toArray()
+    {
+        return get_object_vars($this);
     }
 }

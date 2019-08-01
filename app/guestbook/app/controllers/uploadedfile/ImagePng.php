@@ -1,0 +1,18 @@
+<?php
+declare(strict_types=1);
+
+namespace Piv\Guestbook\App\Controllers\UploadedFile;
+
+class ImagePng extends AImage
+{
+
+    protected function createImageFromFile(string $filename)
+    {
+        return imagecreatefrompng($filename);
+    }
+
+    protected function createFileFromImage($newImage, string $filename): void
+    {
+        imagepng($newImage, $filename);
+    }
+}

@@ -142,9 +142,9 @@
                             <div class="title-message">
                                 <div><?= htmlentities($message['theme']) ?></div>
                                 <div class="title-message-fields"
-                                     style="margin-left: auto;"><?= htmlentities($message['name']) ?></div>&nbsp;&brvbar;&nbsp;
-                                <div class="title-message-fields"><?= htmlentities($message['email']) ?></div>&nbsp;&brvbar;&nbsp;
-                                <div class="title-message-fields"><?= htmlentities($message['date']) ?></div>
+                                     style="margin-left: auto;"><?= htmlentities($message['user']->getName()) ?></div>&nbsp;&brvbar;&nbsp;
+                                <div class="title-message-fields"><?= htmlentities($message['user']->getEmail()) ?></div>&nbsp;&brvbar;&nbsp;
+                                <div class="title-message-fields"><?= htmlentities($message['date']->format( 'Y-m-d H:i:s' )) ?></div>
                             </div>
                             <div class="text-message">
                                 <p><?= $message['text'] ?></p>

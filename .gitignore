@@ -1,7 +1,7 @@
 app/guestbook/vendor
 app/guestbook/public/upload
 app/guestbook/app/config/config.php
-app/guestbook/app/config/guestbook.sql
+app/guestbook/app/config/db
 docker/mysql/*
 docker/nginx/site.conf
 .env

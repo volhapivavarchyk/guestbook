@@ -5,18 +5,19 @@ namespace Piv\Guestbook\App\Controllers;
 
 use Zend\Diactoros\{UploadedFile, ServerRequest};
 use Psr\Http\Message\ServerRequestInterface;
-use Piv\Guestbook\App\Controllers\ABaseController;
 use Piv\Guestbook\App\Entity\{Message, User};
-use Piv\Guestbook\App\Config\Bootstrap;
+use Piv\Guestbook\App\Config\{Config, Bootstrap};
+use Piv\Guestbook\App\Controllers\ABaseController;
+use Piv\Guestbook\App\Controllers\UploadedFile\ImageFactory;
 
 class IndexController extends ABaseController
 {
 
     public function show(ServerRequestInterface $request): array
     {
+        $content = 'indexView.php';
         $params['added_message'] = '';
         $params['sort'] = 'date_desc';
-        $content = 'indexView.php';
 
         $get = $request->getQueryParams();
         $post = $request->getParsedBody();
@@ -55,31 +56,30 @@ class IndexController extends ABaseController
                     $message->setText($this->changeTags($post['text']));
                     // обработка изображения
                     if ($files['pictures']->getClientFilename() !== '') {
-                        $factory = new ImageFactory($files['pictures']);
-                        switch (filetype($factory->image)) {
-                            case 3:
-                                $image = $factory->createPngImage();
-                                break;
-                            case 2:
-                                $image = $factory->createJpegImage();
-                                break;
-                            case 1:
-                                $image = $factory->createGifImage();
-                                break;
-                            default:
-                                // no default value
-                                break;
-                        }
-                        $message->setPictures($image->createImage());
+                        $factory = new ImageFactory();
+                        $image = $factory->createImage($files['pictures']);
+                        $image->moveImageTo(Config::DIR_PUBLIC . "upload/temp/");
+                        $image->createImage(
+                            Config::DIR_PUBLIC . "upload/temp/",
+                            Config::DIR_PUBLIC . "upload/img/",
+                            320,
+                            240
+                        );
+                        $image->createImage(
+                            Config::DIR_PUBLIC . "upload/temp/",
+                            Config::DIR_PUBLIC . "upload/img/small/",
+                            60,
+                            50
+                        );
+                        $message->setPictures($image->getImage()->getClientFilename());
                     } else {
                         $message->setPictures('');
                     }
                     // обработка текстового файла
                     if ($files['filepath']->getClientFilename() !== '') {
-                        $fileTxt = $files['filepath'];
-                        $filename = Config::DIR_PUBLIC . "upload/txt/" . $fileTxt->getClientFilename();
-                        $fileTxt->moveTo($filename);
-                        $message->setFilepath($filename);
+                        $file = new FileTxt($files['filepath']);
+                        $file->moveFileTo(Config::DIR_PUBLIC . "upload/txt/" );
+                        $message->setFilepath($file->getFile()->getClientFilename());
                     } else {
                         $message->setFilepath('');
                     }
@@ -89,7 +89,6 @@ class IndexController extends ABaseController
                     $message->setDate(new \DateTime("now"));
                     // добавление записи в БД
                     $entityManager->persist($message);
-                    var_dump($message);
                     $entityManager->flush();
                     $params['added_message'] = 'запись успешно добавлена';
                 }
@@ -105,9 +104,7 @@ class IndexController extends ABaseController
         $j = 0;
         $blocksOfMessages = [];
         foreach ($messages as $message) {
-            //$message['name'] = $message->getUser()->getName();
-            //$message['email'] = $message->getUser()->getEmail();
-            $blocksOfMessages[$i][$j] = $message;
+            $blocksOfMessages[$i][$j] = $message->toArray();
             if ($j === 25)
             {
                 $i += 1;

@@ -5,6 +5,7 @@ namespace Piv\Guestbook\App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Entity @Table(name="users")
@@ -18,9 +19,9 @@ class User
     /** @Column(type="string") **/
     protected $email;
     /**
-     * @ORM\OneToMany(targetEntity="Piv\Guestbook\App\Entity\Message", mappedBy="user")
+     * @OneToMany(targetEntity="Message", mappedBy="user")
      */
-    private $messages;
+    protected $messages;
 
     public function __construct()
     {
