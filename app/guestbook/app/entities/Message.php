@@ -1,33 +1,34 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Entity;
+namespace Piv\Guestbook\App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity @Table(name="messages")
+ * @Entity
+ * @Table(name="messages", indexes={@Index(name="search_idx", columns={"theme", "date"})})
  */
 class Message
 {
-    /** @Id @Column(name="message_id", type="integer") @GeneratedValue **/
+    /** @Id @Column(name="message_id", type="integer", unique=true, nullable=true) @GeneratedValue **/
     protected $id;
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=128) **/
     protected $theme;
-    /** @Column(type="string") **/
+    /** @Column(type="text") **/
     protected $text;
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=128, nullable=true) **/
     protected $pictures;
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=255, nullable=true) **/
     protected $filepath;
     /** @Column(type="datetime") **/
     protected $date;
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=128) **/
     protected $ip;
-    /** @Column(type="string") **/
+    /** @Column(type="string", length=128) **/
     protected $browser;
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="commentsAuthored")
+     * @ManyToOne(targetEntity="User", inversedBy="messages")
      * @JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      */
     protected $user;
@@ -36,7 +37,7 @@ class Message
      * $id getter
      * @return integer $id
      */
-    public function getId()
+    public function getId(): integer
     {
         return $this->id;
     }
@@ -44,7 +45,7 @@ class Message
      * $theme getter
      * @return string $theme
      */
-    public function getTheme()
+    public function getTheme(): string
     {
         return $this->theme;
     }
@@ -52,7 +53,7 @@ class Message
      * $theme setter
      * @return
      */
-    public function setTheme(string $theme)
+    public function setTheme(string $theme): void
     {
         $this->theme = $theme;
     }
@@ -60,7 +61,7 @@ class Message
      * $text getter
      * @return string $text
      */
-    public function getText()
+    public function getText(): text
     {
         return $this->text;
     }
@@ -68,7 +69,7 @@ class Message
      * $text setter
      * @return
      */
-    public function setText(string $text)
+    public function setText(string $text): void
     {
         $this->text = $text;
     }
@@ -76,7 +77,7 @@ class Message
      * $pictures getter
      * @return string $pictures
      */
-    public function getPictures()
+    public function getPictures(): ?string
     {
         return $this->pictures;
     }
@@ -84,7 +85,7 @@ class Message
      * $pictures setter
      * @return
      */
-    public function setPictures(string $pictures)
+    public function setPictures(string $pictures): void
     {
         $this->pictures = $pictures;
     }
@@ -92,7 +93,7 @@ class Message
      * $filepath getter
      * @return string $filepath
      */
-    public function getFilepath()
+    public function getFilepath(): ?string
     {
         return $this->filepath;
     }
@@ -100,7 +101,7 @@ class Message
      * $filepath setter
      * @return
      */
-    public function setFilepath(string $filepath)
+    public function setFilepath(string $filepath): void
     {
         $this->filepath = $filepath;
     }
@@ -108,7 +109,7 @@ class Message
      * $date getter
      * @return datetime $date
      */
-    public function getDate()
+    public function getDate(): datetime
     {
         return $this->date;
     }
@@ -116,7 +117,7 @@ class Message
      * $date setter
      * @return
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
     }
@@ -124,7 +125,7 @@ class Message
      * $ip getter
      * @return string $ip
      */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->ip;
     }
@@ -132,7 +133,7 @@ class Message
      * $ip setter
      * @return
      */
-    public function setIp(string $ip)
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
     }
@@ -140,7 +141,7 @@ class Message
      * $browser getter
      * @return mixed $browser
      */
-    public function getBrowser()
+    public function getBrowser(): string
     {
         return $this->browser;
     }
@@ -148,7 +149,7 @@ class Message
      * $browser setter
      * @return
      */
-    public function setBrowser(string $browser)
+    public function setBrowser(string $browser): void
     {
         $this->browser = $browser;
     }
@@ -156,7 +157,7 @@ class Message
      * $user getter
      * @return integer $user
      */
-    public function getUser()
+    public function getUser(): User
     {
         return $this->user;
     }
@@ -164,7 +165,7 @@ class Message
      * $user setter
      * @return
      */
-    public function setUser(User $user = null)
+    public function setUser(User $user = null): void
     {
         $user->addMessage($this);
         $this->user = $user;
@@ -173,7 +174,7 @@ class Message
      * convert properties to array
      * @return array of class properties
      */
-    public function toArray()
+    public function toArray(): self
     {
         return get_object_vars($this);
     }

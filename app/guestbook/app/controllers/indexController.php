@@ -5,10 +5,10 @@ namespace Piv\Guestbook\App\Controllers;
 
 use Zend\Diactoros\{UploadedFile, ServerRequest};
 use Psr\Http\Message\ServerRequestInterface;
-use Piv\Guestbook\App\Entity\{Message, User};
+use Piv\Guestbook\App\Entities\{Message, User};
 use Piv\Guestbook\App\Config\{Config, Bootstrap};
 use Piv\Guestbook\App\Controllers\ABaseController;
-use Piv\Guestbook\App\Controllers\UploadedFile\ImageFactory;
+use Piv\Guestbook\App\Controllers\UploadedFiles\ImageFactory;
 
 class IndexController extends ABaseController
 {

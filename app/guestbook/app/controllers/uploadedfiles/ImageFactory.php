@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Controllers\UploadedFile;
+namespace Piv\Guestbook\App\Controllers\UploadedFiles;
 
 class ImageFactory
 {

@@ -16,8 +16,8 @@
         "psr/http-message": "^1.0",
         "psr/http-server-handler": "^1.0",
         "zendframework/zend-diactoros": "^1.8",
-        "doctrine/orm": "^2.6.2",
-        "doctrine/migrations": "^2.1.0",
+        "doctrine/orm": "^2.6",
+        "doctrine/migrations": "^2.1",
         "ext-pdo": "*",
         "ext-json": "*",
         "ext-gd":"*"
