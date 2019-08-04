@@ -10,9 +10,9 @@ class ImageFactory
 
     public function __construct()
     {
-        $this->typeImage['image/gif'] = 'Piv\Guestbook\App\Controllers\Image\ImageGif';
-        $this->typeImage['image/jpeg'] = 'Piv\Guestbook\App\Controllers\Image\ImageJpeg';
-        $this->typeImage['image/png'] = 'Piv\Guestbook\App\Controllers\Image\ImagePng';
+        $this->typeImage['image/gif'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageGif';
+        $this->typeImage['image/jpeg'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageJpeg';
+        $this->typeImage['image/png'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImagePng';
     }
 
     public function createImage(\Zend\Diactoros\UploadedFile $image): AImage

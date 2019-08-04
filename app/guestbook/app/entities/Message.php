@@ -174,7 +174,7 @@ class Message
      * convert properties to array
      * @return array of class properties
      */
-    public function toArray(): self
+    public function toArray(): array
     {
         return get_object_vars($this);
     }

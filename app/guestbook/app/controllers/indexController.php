@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Piv\Guestbook\App\Entities\{Message, User};
 use Piv\Guestbook\App\Config\{Config, Bootstrap};
 use Piv\Guestbook\App\Controllers\ABaseController;
-use Piv\Guestbook\App\Controllers\UploadedFiles\ImageFactory;
+use Piv\Guestbook\App\Controllers\UploadedFiles\{ImageFactory, FileTxt};
 
 class IndexController extends ABaseController
 {
@@ -58,16 +58,16 @@ class IndexController extends ABaseController
                     if ($files['pictures']->getClientFilename() !== '') {
                         $factory = new ImageFactory();
                         $image = $factory->createImage($files['pictures']);
-                        $image->moveImageTo(Config::DIR_PUBLIC . "upload/temp/");
+                        $image->moveImageTo(Config::DIR_TEMP_UPLOAD);
                         $image->createImage(
-                            Config::DIR_PUBLIC . "upload/temp/",
-                            Config::DIR_PUBLIC . "upload/img/",
+                            Config::DIR_TEMP_UPLOAD,
+                            Config::DIR_IMAGE_UPLOAD,
                             320,
                             240
                         );
-                        $image->createImage(
-                            Config::DIR_PUBLIC . "upload/temp/",
-                            Config::DIR_PUBLIC . "upload/img/small/",
+                      $image->createImage(
+                            Config::DIR_TEMP_UPLOAD,
+                            Config::DIR_SMALL_IMAGE_UPLOAD,
                             60,
                             50
                         );
@@ -78,7 +78,7 @@ class IndexController extends ABaseController
                     // обработка текстового файла
                     if ($files['filepath']->getClientFilename() !== '') {
                         $file = new FileTxt($files['filepath']);
-                        $file->moveFileTo(Config::DIR_PUBLIC . "upload/txt/" );
+                        $file->moveFileTo(Config::DIR_FILE_TXT_UPLOAD);
                         $message->setFilepath($file->getFile()->getClientFilename());
                     } else {
                         $message->setFilepath('');
