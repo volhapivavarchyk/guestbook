@@ -25,18 +25,20 @@ abstract class AImage
       $this->image = $image;
   }
 
-  public function moveImageTo(string $filenameFrom): void
+  public function moveImageTo(string $dirTo): void
   {
-      $this->image->moveTo($filenameFrom.$this->image->getClientFilename());
+      $this->image->moveTo($dirTo.$this->image->getClientFilename());
   }
 
   public function createImage(
-      string $filenameFrom,
-      string $filenameTo,
+      string $dirFrom,
+      string $dirTo,
       int $widthMax,
       int $heightMax
   ) {
-    $filename = $filenameFrom.$this->image->getClientFilename();
+    var_dump($this->image);
+    $filename = $dirFrom.$this->image->getClientFilename();
+    var_dump($filename);
     list($width, $height, $type) = getimagesize($filename);
     if (($width > $widthMax) || ($height > $heightMax)) {
         $indexW = $widthMax / $width;
@@ -62,7 +64,12 @@ abstract class AImage
         $width,
         $height
     );
-    $this->createFileFromImage($newImage, $filename);
+    $this->createFileFromImage($newImage, $dirTo.$this->image->getClientFilename());
+  }
+
+  public function deleteFileFrom(string $dirFrom): void
+  {
+      unlink($dirFrom.$this->image->getClientFilename());
   }
 
   abstract protected function createImageFromFile(string $filename);

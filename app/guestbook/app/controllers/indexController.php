@@ -71,6 +71,7 @@ class IndexController extends ABaseController
                             60,
                             50
                         );
+                        $image->deleteFileFrom(Config::DIR_TEMP_UPLOAD);
                         $message->setPictures($image->getImage()->getClientFilename());
                     } else {
                         $message->setPictures('');
