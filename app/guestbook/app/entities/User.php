@@ -40,7 +40,7 @@ class User
      * $name getter
      * @return string $name
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -56,7 +56,7 @@ class User
      * $email getter
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -71,15 +71,23 @@ class User
     /**
      * @return Collection|Message[]
      */
-    public function getMessages()
+    public function getMessages(): Collection
     {
         return $this->messages;
     }
     /**
      * @return Collection|Message[]
      */
-    public function addMessage(Message $message)
+    public function addMessage(Message $message): self
     {
-        $this->messages[] = $message;
+        if (!$this->messages->contains($message)) {
+            //$message->setUser($this);
+            $this->messages[] = $message;
+        }
+        return $this;
+    }
+    public function removeMessage(Message $message): self
+    {
+        $this->messages->removeElement($message);
     }
 }

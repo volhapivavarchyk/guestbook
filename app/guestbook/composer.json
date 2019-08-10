@@ -20,7 +20,15 @@
         "doctrine/migrations": "^2.1",
         "ext-pdo": "*",
         "ext-json": "*",
-        "ext-gd":"*"
+        "ext-gd":"*",
+        "symfony/form": "^4.3",
+        "symfony/validator": "^4.3",
+        "symfony/framework-bundle": "^4.3",
+        "twig/twig": "^2.0",
+        "symfony/dependency-injection": "^4.3",
+        "symfony/twig-bridge": "^4.3",
+        "symfony/translation": "^4.3",
+        "symfony/config": "^4.3"
     },
     "autoload": {
         "psr4": {

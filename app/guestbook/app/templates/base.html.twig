@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+        <meta name="keywords" content="гостевая книга, сообщения"/>
+        <meta name="description" content="Гостевая книга"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/lightbox.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/lightbox.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+        <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
+    </head>
+    <body>
+        <div class="grid">
+            <!-- Заголовок -->
+            <div class="box grid-header">
+                <div class="header">
+                    <h1>Гостевая книга</h1>
+                </div>
+            </div>
+            <!-- Форма для ввода нового сообщения -->
+            <div class="box grid-add-message">
+                <h2>Отправить сообщение</h2>
+                <div id="contentForm">
+                    {% block contentForm %}
+                    {% endblock %}
+                </div>
+            </div>
+            <!-- Вывод списка сообщений с учетом заданной сортировки -->
+            <div class="box grid-list-messages">
+                <div id="contentMessages">
+                    {% block contentMessages %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <!-- Подвал -->
+            <div class="box grid-footer">
+                <p class="text-footer">администратор: иван иванов +111 11 1111111</p>
+            </div>
+        </div>
+    </body>
+</html>

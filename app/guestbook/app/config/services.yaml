@@ -1,0 +1,17 @@
+parameters:
+    # ...
+    form.factory: form
+    form.validator: validator
+    twig: twig
+
+services:
+    form.factory:
+        class:     Symfony\Component\Form\FormFactory
+        arguments: ['%form.factory%']
+    validator:
+        class:     Symfony\Component\Validator\Validator\ValidatorInterface
+        arguments: ['%mailer.transport%']
+    twig:
+        class:     Twig\Environment
+        calls:
+            - [setMailer, ['@mailer']]

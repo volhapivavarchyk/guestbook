@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Controllers\UploadedFiles;
 
-use Zend\Diactoros\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileTxt
 {
@@ -27,7 +27,7 @@ class FileTxt
 
   public function moveFileTo(string $filenameFrom): void
   {
-      $this->file->moveTo($filenameFrom.$this->file->getClientFilename());
+      $this->file->move($filenameFrom, $this->file->getClientOriginalName());
   }
 
 }

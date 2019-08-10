@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Controllers\UploadedFiles;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class ImageFactory
 {
 
@@ -10,14 +12,14 @@ class ImageFactory
 
     public function __construct()
     {
-        $this->typeImage['image/gif'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageGif';
-        $this->typeImage['image/jpeg'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageJpeg';
-        $this->typeImage['image/png'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImagePng';
+        $this->typeImage['gif'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageGif';
+        $this->typeImage['jpeg'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImageJpeg';
+        $this->typeImage['png'] = 'Piv\Guestbook\App\Controllers\UploadedFiles\ImagePng';
     }
 
-    public function createImage(\Zend\Diactoros\UploadedFile $image): AImage
+    public function createImage(UploadedFile $image): AImage
     {
-        $className = $this->typeImage[$image->getClientMediaType()];
+        $className = $this->typeImage[$image->guessClientExtension()];
         return new $className($image);
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Piv\Guestbook\App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * @Entity
@@ -28,7 +29,7 @@ class Message
     /** @Column(type="string", length=128) **/
     protected $browser;
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="messages")
+     * @ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
      * @JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      */
     protected $user;
@@ -37,7 +38,7 @@ class Message
      * $id getter
      * @return integer $id
      */
-    public function getId(): integer
+    public function getId(): ?integer
     {
         return $this->id;
     }
@@ -45,7 +46,7 @@ class Message
      * $theme getter
      * @return string $theme
      */
-    public function getTheme(): string
+    public function getTheme(): ?string
     {
         return $this->theme;
     }
@@ -61,7 +62,7 @@ class Message
      * $text getter
      * @return string $text
      */
-    public function getText(): text
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -109,7 +110,7 @@ class Message
      * $date getter
      * @return datetime $date
      */
-    public function getDate(): datetime
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
@@ -125,7 +126,7 @@ class Message
      * $ip getter
      * @return string $ip
      */
-    public function getIp(): string
+    public function getIp(): ?string
     {
         return $this->ip;
     }
@@ -141,7 +142,7 @@ class Message
      * $browser getter
      * @return mixed $browser
      */
-    public function getBrowser(): string
+    public function getBrowser(): ?string
     {
         return $this->browser;
     }
@@ -157,7 +158,7 @@ class Message
      * $user getter
      * @return integer $user
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }

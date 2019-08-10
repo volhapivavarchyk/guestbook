@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Controllers\UploadedFiles;
 
-use \Zend\Diactoros\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class AImage
 {
@@ -27,7 +27,7 @@ abstract class AImage
 
   public function moveImageTo(string $dirTo): void
   {
-      $this->image->moveTo($dirTo.$this->image->getClientFilename());
+      $this->image->move($dirTo, $this->image->getClientOriginalName());
   }
 
   public function createImage(
@@ -36,9 +36,7 @@ abstract class AImage
       int $widthMax,
       int $heightMax
   ) {
-    var_dump($this->image);
-    $filename = $dirFrom.$this->image->getClientFilename();
-    var_dump($filename);
+    $filename = $dirFrom.$this->image->getClientOriginalname();
     list($width, $height, $type) = getimagesize($filename);
     if (($width > $widthMax) || ($height > $heightMax)) {
         $indexW = $widthMax / $width;
@@ -64,12 +62,12 @@ abstract class AImage
         $width,
         $height
     );
-    $this->createFileFromImage($newImage, $dirTo.$this->image->getClientFilename());
+    $this->createFileFromImage($newImage, $dirTo.$this->image->getClientOriginalname());
   }
 
   public function deleteFileFrom(string $dirFrom): void
   {
-      unlink($dirFrom.$this->image->getClientFilename());
+      unlink($dirFrom.$this->image->getClientOriginalname());
   }
 
   abstract protected function createImageFromFile(string $filename);
