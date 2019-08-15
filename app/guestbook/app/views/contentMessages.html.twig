@@ -1,0 +1,99 @@
+<div class="title-message">
+    <div class="title-message-fields">
+        <a href = "?sortflag={{(sortflag is same as ('ByNameDesc'))?'ByNameAsc':'ByNameDesc'}}&count={{count}}">Имя</a>
+    </div>
+    <div class="arrows-title-message">
+        <div>
+            {% if sortflag is same as ('ByNameAsc') %}
+                <img src = "images/double-up.png" width="10" height="10">
+            {% elseif sortflag is same as ('ByNameDesc') %}
+                <img src = "images/double-down.png" width="10" height="10">
+            {% endif %}
+        </div>
+    </div>
+    <div class="title-message-fields">
+    <a href = "?sortflag={{(sortflag is same as ('ByEmailDesc'))?'ByEmailAsc':'ByEmailDesc'}}&count={{count}}">E-mail</a>
+    </div>
+    <div class="arrows-title-message">
+      <div>
+          {% if sortflag is same as ('ByEmailAsc') %}
+              <img src = "images/double-up.png" width="10" height="10">
+          {% elseif sortflag is same as ('ByEmailDesc') %}
+              <img src = "images/double-down.png" width="10" height="10">
+          {% endif %}
+      </div>
+    </div>
+    <div class="title-message-fields">
+        <a href = "?sortflag={{(sortflag is same as ('ByDateDesc'))?'ByDateAsc':'ByDateDesc'}}&count={{count}}">Дата добавления</a>
+    </div>
+    <div class="arrows-title-message">
+      <div>
+          {% if sortflag is same as ('ByDateAsc') %}
+              <img src = "images/double-up.png" width="10" height="10">
+          {% elseif sortflag is same as ('ByDateDesc') %}
+              <img src = "images/double-down.png" width="10" height="10">
+          {% endif %}
+      </div>
+    </div>
+</div>
+<div class="title-message">
+    {% for i in 1..messages|length//25+1 %}
+        {% if i == count %}
+            <div class="count-messages-active">
+        {% else %}
+            <div class="count-messages">
+        {% endif %}
+        <a href="/?sortflag={{sortflag}}&count={{i}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        </div>
+    {% endfor %}
+    {% set start = count*25 - 24 %}
+    {% set length = start + 25 %}
+</div>
+<div id="messages">
+    {% for message in messages|usort(sortflag)|slice(start, length) %}
+        <div class="box-message">
+            <div class="title-message">
+                <div>{{message.theme|upper}}</div>
+                <div class="title-message-fields" style="margin-left: auto;">
+                    {{message.user.getName()}}
+                </div>&nbsp;&brvbar;&nbsp;
+                <div class="title-message-fields">
+                    {{message.user.getEmail()}}
+                </div>&nbsp;&brvbar;&nbsp;
+                <div class="title-message-fields">
+                    {{message.date.format( 'Y-m-d H:i:s')}}
+                </div>
+            </div>
+        </div>
+        <div class="text-message">
+            <p>{{message.text}}</p>
+            {% if message.pictures or message.filepath %}
+                <p style="padding: 2px; margin: 0px;">
+                    {% if message.pictures %}
+                        <a href="upload/img/{{message.pictures}}" class="example-image-link" data-lightbox="image-1">
+                            <img class="example-image" src="upload/img/small/{{message.pictures}}"
+                                alt="{{message.pictures}}" />
+                        </a>&nbsp;&nbsp;
+                    {% endif %}
+                    {% if message.filepath %}
+                        <a href=" {{ message.filepath }}" type="application/file"
+                           style="text-decoration: none;">{{ message.filepath }}</a>
+                    {% endif %}
+                </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+<div class="title-message">
+    {% for i in 1..messages|length//25+1 %}
+        {% if i == count %}
+            <div class="count-messages-active">
+        {% else %}
+            <div class="count-messages">
+        {% endif %}
+        <a href="/?sortflag={{sortflag}}&count={{i}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        </div>
+    {% endfor %}
+    {% set start = count*25 - 24 %}
+    {% set length = start + 25 %}
+</div>

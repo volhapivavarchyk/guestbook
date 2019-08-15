@@ -1,5 +1,4 @@
 parameters:
-    # ...
     form.factory: form
     form.validator: validator
     twig: twig

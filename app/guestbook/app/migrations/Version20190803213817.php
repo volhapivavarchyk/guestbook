@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Migrations;
@@ -8,7 +7,7 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
- * Auto-generated Migration: Please modify to your needs!
+ * Auto-generated Migration
  */
 final class Version20190803213817 extends AbstractMigration
 {
@@ -19,7 +18,6 @@ final class Version20190803213817 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE messages (message_id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, theme VARCHAR(128) NOT NULL, text LONGTEXT NOT NULL, pictures VARCHAR(128) DEFAULT NULL, filepath VARCHAR(255) DEFAULT NULL, date DATETIME NOT NULL, ip VARCHAR(128) NOT NULL, browser VARCHAR(128) NOT NULL, INDEX IDX_DB021E96A76ED395 (user_id), INDEX search_idx (theme, date), PRIMARY KEY(message_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -29,7 +27,6 @@ final class Version20190803213817 extends AbstractMigration
 
     public function down(Schema $schema) : void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE messages DROP FOREIGN KEY FK_DB021E96A76ED395');

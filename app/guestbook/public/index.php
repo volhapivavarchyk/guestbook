@@ -1,18 +1,11 @@
 <?php
 
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\ServerRequest;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-use Psr\Http\Message\ResponseInterface;
-use Piv\Guestbook\App\AppKernel;
-use Piv\Guestbook\App\Http\Response as MyResponse;
+use Symfony\Component\HttpFoundation\{Request, Response};
+use Piv\Guestbook\App\Kernel;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$kernel = new AppKernel();
+$kernel = new Kernel();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

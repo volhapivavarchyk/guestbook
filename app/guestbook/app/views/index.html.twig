@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Гостевая книга
+{% endblock %}
+
+{% block contentForm %}
+    <h2>Добавить сообщение</h2>
+    {% include 'formMessage.html.twig' %}
+{% endblock %}
+
+{% block contentMessages %}
+    {% include 'contentMessages.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+{% endblock %}

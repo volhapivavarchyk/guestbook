@@ -1,0 +1,57 @@
+<div id="form">
+    {{ form_start(form) }}
+        <div class="add-message-field">
+          {{ form_label(form.name, 'Имя пользователя *') }}
+          {{ form_widget(form.name) }}
+          {{ form_errors(form.name) }}
+        </div>
+        <div class="add-message-field">
+            {{ form_label(form.email, 'Электронная почта *') }}
+            {{ form_widget(form.email) }}
+            <small>{{ form_help(form.email) }}</small>
+            {{ form_errors(form.email) }}
+        </div>
+        {% for message in form.messages %}
+            <div class="add-message-field">
+                {{ form_label(message.theme, 'Тема *') }}
+                {{ form_widget(message.theme) }}
+                <small>{{ form_help(message.theme) }}</small>
+                {{ form_errors(message.theme) }}
+            </div>
+            <div class="add-message-box-field">
+                <div class="add-message-field">
+                    {{ form_label(message.text, 'Текст сообщения *') }}
+                    {{ form_widget(message.text, {'id':'text'})}}
+                    <br />
+                    <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px; margin-top: 3px;"/>
+                    <input type="button" value="code" onClick="formatTextArea('code')"/>
+                    <input type="button" value="italic" onClick="formatTextArea('italic')"/>
+                    <input type="button" value="strike" onClick="formatTextArea('strike')"/>
+                    <input type="button" value="strong" onClick="formatTextArea('strong')"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="отобразить" id="preview-button"/>
+                    <small>{{ form_help(message.text) }}</small>
+                    {{ form_errors(message.text) }}
+                </div>
+                <div id="preview-message" class="add-message-field preview-message"></div>
+            </div>
+            <div class="add-message-field">
+              {{ form_label(message.pictures, 'Выбрать изображение') }}
+              {{ form_widget(message.pictures) }}
+              <small>{{ form_help(message.pictures) }}</small>
+              {{ form_errors(message.pictures) }}
+            </div>
+            <div class="add-message-field">
+                {{ form_label(message.filepath, 'Присоединить файл') }}
+                {{ form_widget(message.filepath, {'attr': {'accept': '.txt'}} ) }}
+                <small>{{ form_help(message.filepath) }}</small>
+                {{ form_errors(message.filepath) }}
+            </div>
+        {% endfor %}
+        <div class="g-recaptcha add-message-captcha" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
+        <div class="add-message-button">
+            {{ form_row(form.submit) }}
+        </div>
+        <div class="add-message-field service-info">{{ addedMessage }}</div>
+    {{ form_end(form) }}
+</div>

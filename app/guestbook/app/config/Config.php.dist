@@ -1,6 +1,6 @@
 <?php
 // Configuration file - copy from config-dist.php to config.php
-// and then edit.
+// and then edit
 
 namespace Piv\Guestbook\App\Config;
 
@@ -9,4 +9,25 @@ class Config {
     public const DIR_UP =  '../';
     public const DIR_PUBLIC = '../public/';
     public const DIR_APP = '../app/';
+    //paths to uploadedfiles
+    public const DIR_TEMP_UPLOAD = '../public/upload/temp/';
+    public const DIR_IMAGE_UPLOAD = '../public/upload/img/';
+    public const DIR_SMALL_IMAGE_UPLOAD = '../public/upload/img/small/';
+    public const DIR_FILE_TXT_UPLOAD = '../public/upload/txt/';
+
+    public static function checkIsDirToUploadedFiles()
+    {
+        if (!is_dir(self::DIR_TEMP_UPLOAD)) {
+            mkdir(self::DIR_TEMP_UPLOAD);
+        }
+        if (!is_dir(self::DIR_IMAGE_UPLOAD)) {
+            mkdir(self::DIR_IMAGE_UPLOAD);
+        }
+        if (!is_dir(self::DIR_SMALL_IMAGE_UPLOAD)) {
+            mkdir(self::DIR_SMALL_IMAGE_UPLOAD);
+        }
+        if (!is_dir(self::DIR_FILE_TXT_UPLOAD)) {
+            mkdir(self::DIR_FILE_TXT_UPLOAD);
+        }
+    }
 }

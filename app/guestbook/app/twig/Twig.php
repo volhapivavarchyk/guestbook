@@ -1,16 +1,15 @@
 <?php
 
-namespace Piv\Guestbook\App\Config;
+namespace Piv\Guestbook\App\Twig;
 
+use Symfony\Bridge\Twig\Extension\{FormExtension, TranslationExtension};
+use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+use Symfony\Component\Form\{Forms, FormRenderer};
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader};
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Symfony\Component\Form\Forms;
-use Symfony\Bridge\Twig\Extension\FormExtension;
-use Symfony\Component\Form\FormRenderer;
-use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\Loader\XliffFileLoader;
-use Symfony\Bridge\Twig\Extension\TranslationExtension;
+use Piv\Guestbook\App\Twig\TwigFilterExtention;
 
 class Twig
 {
@@ -18,15 +17,12 @@ class Twig
 
     public function __construct()
     {
-        // файл Twig, содержащий всю разметку по умолчанию для отображения форм
-        // файл поставляется с TwigBridge
         $defaultFormTheme = 'form_div_layout.html.twig';
         $vendorDirectory = realpath(__DIR__.'/../vendor');
-        // путь к библиотеке TwigBridge, чтобы Twig мог найти form_div_layout.html.twig
         $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
         $vendorTwigBridgeDirectory = dirname($appVariableReflection->getFileName());
         $loader = new FilesystemLoader([
-            '../app/templates/',
+            '../app/views/',
             $vendorTwigBridgeDirectory.'/Resources/views/Form',
         ]);
         $this->twig = new Environment($loader, [
@@ -43,18 +39,27 @@ class Twig
             ])
         );
         $this->twig->addExtension(new FormExtension());
-
-        // создаёт Переводчик
+        $filterExtention = new TwigFilterExtention();
+        $this->twig->addExtension($filterExtention);
+        foreach ($filterExtention->getFilters() as $filter) {
+            $this->twig->addFilter($filter);
+        }
+        // создание переводчика
         $translator = new Translator('en');
-        // загружает некоторые переводы в него
+        $translator->addLoader('array', new ArrayLoader());
+        $translator->addResource('array', [
+            'Имя пользователя' => 'User name',
+            'Электронная почта' => 'E-mail',
+            'Тема сообщения' => 'Theme',
+            'Текст сообщения' => 'Text of message',
+            'Добавить изображение' => 'Add a picture',
+            'Добавить текстовый файл' => 'Add a file (.txt)',
+        ], 'en');
+        /*
         $translator->addLoader('xlf', new XliffFileLoader());
-        $translator->addResource(
-            'xlf',
-            'messages.en.xlf',
-            'en'
-        );
-
-        // добавляет TranslationExtension (даёт нам фильтры trans и transChoice)
+        $translator->addResource('xlf', 'messages.en.xlf', 'en');
+        */
+        // добавление TranslationExtension (фильтры trans и transChoice)
         $this->twig->addExtension(new TranslationExtension($translator));
     }
 

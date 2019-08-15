@@ -1,5 +1,4 @@
 <?php
-
 namespace Piv\Guestbook\App\Config;
 
 use Doctrine\ORM\EntityManager;

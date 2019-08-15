@@ -18,7 +18,7 @@ body {
   background-color: white;
 }
 h1 {
-  font-family: "Space Mono";
+  font-family: Helvetica, Space Mono;
   font-size: 28px;
   font-weight: 700;
   color: #333333;
@@ -31,12 +31,13 @@ h2 {
   font-weight: 600;
   color: #333333;
   padding-left: 20px;
-  font-style: oblique;
+  font-style: bold;
 }
+
 /* разметка страницы */
 .grid {
   display: grid;
-  grid-template: 70px 520px 1fr 50px / 1fr 10fr 1fr;
+  grid-template: 70px auto 1fr 50px / 1fr 10fr 1fr;
   grid-row-gap: 10px;
 }
 .grid-header {
@@ -94,20 +95,21 @@ form .add-message-box-field {
 form .add-message-field {
   margin: 10px 10px;
 }
-form .preview-message {
+form #preview-message {
   margin: 10px 10px;
   border: 1px #A9A9A9 solid;
   width: 300px;
-  height: 130px;
+  height: 110px;
   border-radius: 5px;
   flex: auto;
   padding: 7px;
   display:none;
   opacity: 0;
+  overflow: scroll;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 form .add-message-button {
-  margin-left: 115px;
+  margin-left: 214px;
 }
 form .add-message-captcha {
   margin-left: 215px;
@@ -167,6 +169,24 @@ input:focus+label, textarea:focus+label {
 .title-message-fields {
   font-size: 12px;
   font-weight: 600;
+  text-decoration:none;
+}
+.title-message-fields a:link, a:visited {
+  color: #555555;
+  text-decoration: none;
+}
+.title-message-fields a:hover, a:active {
+  color: #006699;
+  text-decoration: none;
+}
+.count-messages {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.count-messages-active {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #006699;
 }
 .arrows-title-message {
   flex-direction: column;
