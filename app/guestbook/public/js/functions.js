@@ -43,19 +43,18 @@ $(document).ready(function() {
   });
 });
 /*
-форматирование текста сообщения тэгами
-(тэг)
-*/
+ * функция форматирует текст сообщения
+ */
 function formatTextArea(tag)
 {
-var field = document.getElementById('text');
-var value  = field.value;
-var selected = value.substring(field.selectionStart, field.selectionEnd);
-var before = value.substring(0, field.selectionStart);
-var after = value.substring(field.selectionEnd, field.length);
-if (tag === 'a') {
-field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']' + after;
-} else {
-field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']' + after;
-}
+    var field = document.getElementById('text');
+    var value  = field.value;
+    var selected = value.substring(field.selectionStart, field.selectionEnd);
+    var before = value.substring(0, field.selectionStart);
+    var after = value.substring(field.selectionEnd, field.length);
+    if (tag === 'a') {
+        field.value = before + '[' + tag + ' href = \"\" title = \"\"]' + selected + '[/'+ tag +']' + after;
+    } else {
+        field.value = before + '[' + tag + ']' + selected + '[/'+ tag +']' + after;
+    }
 }
