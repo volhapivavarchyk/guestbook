@@ -72,14 +72,12 @@ class Message
      */
     public function setText(string $text): void
     {
-        var_dump($text);
         $bbcode = ["[strong]", "[strike]", "[italic]", "[code]", "[/strong]", "[/strike]", "[/italic]", "[/code]"];
         $htmltag = ["<strong>", "<strike>", "<i>", "<code>", "</strong>", "</strike>", "</i>", "</code>"];
         $text = str_replace($bbcode, $htmltag, $text);
         $text = preg_replace_callback('/\[url=(.*)\](.*)\[\/url\]/Usi', function ($match) {
             return '<a href="' . $match[1] . '" target="_blank">' . (empty($match[2]) ? $match[1] : $match[2]) . '</a>';
         }, $text);
-        var_dump($text);
         $this->text = $text;
     }
     /**

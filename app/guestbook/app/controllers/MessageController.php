@@ -40,9 +40,7 @@ class MessageController
             ->getFormFactory();
         $form = $formFactory->createBuilder(UserType::class, $user)
             ->getForm();
-        var_dump($message);
         $form->handleRequest($request);
-        var_dump($message);
         // обработка капчи
         if ($form->isSubmitted() && $form->isValid()) {
             $addedMessage = "Сообщение не добавлено. Не введена капча";
