@@ -40,7 +40,9 @@ class MessageController
             ->getFormFactory();
         $form = $formFactory->createBuilder(UserType::class, $user)
             ->getForm();
+        var_dump($message);
         $form->handleRequest($request);
+        var_dump($message);
         // обработка капчи
         if ($form->isSubmitted() && $form->isValid()) {
             $addedMessage = "Сообщение не добавлено. Не введена капча";
@@ -107,7 +109,7 @@ class MessageController
         $messagesRepository = $entityManager->getRepository(Message::class);
         $messages = $messagesRepository->findAll();
         // параметры сортировки и отображения
-        $sortFlag = !empty($request->query->get('sortflag')) ? $request->query->get('sortflag') : 'ByDateAsc';
+        $sortFlag = !empty($request->query->get('sortflag')) ? $request->query->get('sortflag') : 'ByDateDesc';
         $count = !empty($request->query->get('count')) ? $request->query->get('count') : 1;
         // формирование контента
         $content = $twig->getTwig()->render(

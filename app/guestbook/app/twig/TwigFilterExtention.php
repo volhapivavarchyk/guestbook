@@ -21,7 +21,7 @@ class TwigFilterExtention extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return strcmp($object1->getUser()->getName(), $object2->getUser()->getName());
+                return strcasecmp($object1->getUser()->getName(), $object2->getUser()->getName());
         });
         return $array;
     }
@@ -60,7 +60,7 @@ class TwigFilterExtention extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return $object1->getDate()->date <=> $object2->getDate()->date;
+                return $object1->getDate() <=> $object2->getDate();
             },
         );
         return $array;
@@ -70,7 +70,7 @@ class TwigFilterExtention extends AbstractExtension
       usort(
           $array,
           function ($object1, $object2) {
-            return $object2->getDate()->date <=> $object1->getDate()->date;
+            return $object2->getDate() <=> $object1->getDate();
           },
       );
       return $array;

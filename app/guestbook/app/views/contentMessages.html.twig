@@ -1,6 +1,6 @@
 <div class="title-message">
     <div class="title-message-fields">
-        <a href = "?sortflag={{(sortflag is same as ('ByNameDesc'))?'ByNameAsc':'ByNameDesc'}}&count={{count}}">Имя</a>
+        <a href = "?sortflag={{(sortflag is same as ('ByNameAsc'))?'ByNameDesc':'ByNameAsc'}}&count={{count}}">Имя</a>
     </div>
     <div class="arrows-title-message">
         <div>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="title-message-fields">
-    <a href = "?sortflag={{(sortflag is same as ('ByEmailDesc'))?'ByEmailAsc':'ByEmailDesc'}}&count={{count}}">E-mail</a>
+    <a href = "?sortflag={{(sortflag is same as ('ByEmailAsc'))?'ByEmailDesc':'ByEmailAsc'}}&count={{count}}">E-mail</a>
     </div>
     <div class="arrows-title-message">
       <div>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="title-message-fields">
-        <a href = "?sortflag={{(sortflag is same as ('ByDateDesc'))?'ByDateAsc':'ByDateDesc'}}&count={{count}}">Дата добавления</a>
+        <a href = "?sortflag={{(sortflag is same as ('ByDateAsc'))?'ByDateDesc':'ByDateAsc'}}&count={{count}}">Дата добавления</a>
     </div>
     <div class="arrows-title-message">
       <div>
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="text-message">
-            <p>{{message.text}}</p>
+            <p>{{message.text|raw}}</p>
             {% if message.pictures or message.filepath %}
                 <p style="padding: 2px; margin: 0px;">
                     {% if message.pictures %}
