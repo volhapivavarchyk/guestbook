@@ -5,7 +5,8 @@ use Piv\Guestbook\App\Kernel;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$kernel = new Kernel();
 $request = Request::createFromGlobals();
+$kernel = new Kernel();
+$kernel->map('/', 'show');
 $response = $kernel->handle($request);
 $response->send();

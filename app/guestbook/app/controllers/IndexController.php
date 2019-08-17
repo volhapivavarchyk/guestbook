@@ -17,9 +17,9 @@ use Piv\Guestbook\App\Config\{Config, Bootstrap};
 use Piv\Guestbook\App\Entities\{Message, User};
 use Piv\Guestbook\App\Controllers\UploadedFiles\{ImageFactory, FileTxt};
 
-class MessageController
+class IndexController
 {
-    public function show(Request $request): Response
+    public static function show(Request $request): Response
     {
         /*
         $containerBuilder = new ContainerBuilder();
