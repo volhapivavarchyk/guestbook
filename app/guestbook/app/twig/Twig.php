@@ -9,7 +9,7 @@ use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader};
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Piv\Guestbook\App\Twig\TwigFilterExtention;
+use Piv\Guestbook\App\Twig\{TwigFilterExtention, TwigFunctionExtention};
 
 class Twig
 {
@@ -43,6 +43,11 @@ class Twig
         $this->twig->addExtension($filterExtention);
         foreach ($filterExtention->getFilters() as $filter) {
             $this->twig->addFilter($filter);
+        }
+        $functionExtention = new TwigFunctionExtention();
+        $this->twig->addExtension($functionExtention);
+        foreach ($functionExtention->getFunctions() as $function) {
+            $this->twig->addFunction($function);
         }
         // создание переводчика
         $translator = new Translator('en');

@@ -1,0 +1,10 @@
+indexRoute:
+    path:     /
+    defaults: { controller: 'Piv\Guestbook\App\Controllers\IndexController::show' }
+
+sortingRoute:
+    path:     /{sortflag}/{count}
+    defaults: { controller: 'Piv\Guestbook\App\Controllers\IndexController::show' }
+    requirements:
+      sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
+      count:    \d+
