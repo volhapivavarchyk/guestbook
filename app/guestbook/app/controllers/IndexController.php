@@ -19,7 +19,7 @@ use Piv\Guestbook\App\Controllers\UploadedFiles\{ImageFactory, FileTxt};
 
 class IndexController
 {
-    public static function show(Request $request): Response
+    public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {
         /*
         $containerBuilder = new ContainerBuilder();
@@ -106,9 +106,6 @@ class IndexController
         // получение сообщений из БД
         $messagesRepository = $entityManager->getRepository(Message::class);
         $messages = $messagesRepository->findAll();
-        // параметры сортировки и отображения
-        $sortFlag = !empty($request->query->get('sortflag')) ? $request->query->get('sortflag') : 'ByDateDesc';
-        $count = !empty($request->query->get('count')) ? $request->query->get('count') : 1;
         // формирование контента
         $content = $twig->getTwig()->render(
             'index.html.twig',
@@ -117,7 +114,7 @@ class IndexController
                 'messages' => $messages,
                 'addedMessage' => $addedMessage,
                 'sortflag' => $sortFlag,
-                'count' => $count,
+                'count' => (int)$count,
             ]
         );
         $response = new Response(

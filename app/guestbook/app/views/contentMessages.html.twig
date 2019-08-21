@@ -1,39 +1,53 @@
 <div class="title-message">
+    {% if sortflag is same as ('ByNameAsc') %}
+        {% set sortNameflag="ByNameDesc" %}
+        {% set imgName='<img src = "images/double-up.png" width="10" height="10">'%}
+    {% elseif  sortflag is same as ('ByNameDesc')%}
+        {% set sortNameflag="ByNameAsc" %}
+        {% set imgName='<img src = "images/double-down.png" width="10" height="10">'%}
+    {% else %}
+        {% set sortNameflag="ByNameAsc" %}
+        {% set imgName=''%}
+    {% endif %}
     <div class="title-message-fields">
-        <a href = "?sortflag={{(sortflag is same as ('ByNameAsc'))?'ByNameDesc':'ByNameAsc'}}&count={{count}}">Имя</a>
+        <a href = "{{url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}}">Имя</a>
     </div>
     <div class="arrows-title-message">
-        <div>
-            {% if sortflag is same as ('ByNameAsc') %}
-                <img src = "images/double-up.png" width="10" height="10">
-            {% elseif sortflag is same as ('ByNameDesc') %}
-                <img src = "images/double-down.png" width="10" height="10">
-            {% endif %}
-        </div>
+        <div> {{ imgName|raw }} </div>
     </div>
+
+    {% if sortflag is same as ('ByEmailAsc') %}
+        {% set sortEmailflag="ByEmailDesc" %}
+        {% set imgEmail='<img src = "images/double-up.png" width="10" height="10">'%}
+    {% elseif  sortflag is same as ('ByEmailDesc')%}
+        {% set sortEmailflag="ByEmailAsc" %}
+        {% set imgEmail='<img src = "images/double-down.png" width="10" height="10">'%}
+    {% else %}
+        {% set sortEmailflag="ByEmailAsc" %}
+        {% set imgEmail=''%}
+    {% endif %}
     <div class="title-message-fields">
-    <a href = "?sortflag={{(sortflag is same as ('ByEmailAsc'))?'ByEmailDesc':'ByEmailAsc'}}&count={{count}}">E-mail</a>
+        <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">Email</a>
     </div>
     <div class="arrows-title-message">
-      <div>
-          {% if sortflag is same as ('ByEmailAsc') %}
-              <img src = "images/double-up.png" width="10" height="10">
-          {% elseif sortflag is same as ('ByEmailDesc') %}
-              <img src = "images/double-down.png" width="10" height="10">
-          {% endif %}
-      </div>
+      <div> {{ imgEmail|raw }} </div>
     </div>
+
+    {% if sortflag is same as ('ByDateAsc') %}
+        {% set sortDateflag="ByDateDesc" %}
+        {% set imgDate='<img src = "images/double-up.png" width="10" height="10">'%}
+    {% elseif  sortflag is same as ('ByDateDesc')%}
+        {% set sortDateflag="ByDateAsc" %}
+        {% set imgDate='<img src = "images/double-down.png" width="10" height="10">'%}
+    {% else %}
+        {% set sortDateflag="ByDateAsc" %}
+        {% set imgDate=''%}
+    {% endif %}
     <div class="title-message-fields">
-        <a href = "?sortflag={{(sortflag is same as ('ByDateAsc'))?'ByDateDesc':'ByDateAsc'}}&count={{count}}">Дата добавления</a>
+        <a href = "{{url('sortingRoute', {'sortflag':sortDateflag, 'count':1})}}">Дата добавления</a>
     </div>
     <div class="arrows-title-message">
-      <div>
-          {% if sortflag is same as ('ByDateAsc') %}
-              <img src = "images/double-up.png" width="10" height="10">
-          {% elseif sortflag is same as ('ByDateDesc') %}
-              <img src = "images/double-down.png" width="10" height="10">
-          {% endif %}
-      </div>
+      <div> {{ imgDate|raw }} </div>
     </div>
 </div>
 <div class="title-message">
@@ -43,7 +57,7 @@
         {% else %}
             <div class="count-messages">
         {% endif %}
-        <a href="/?sortflag={{sortflag}}&count={{i}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        <a href="{{url('sortingRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
     {% set start = count*25 - 24 %}
@@ -91,7 +105,7 @@
         {% else %}
             <div class="count-messages">
         {% endif %}
-        <a href="/?sortflag={{sortflag}}&count={{i}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        <a href="{{url('sortingRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
     {% set start = count*25 - 24 %}

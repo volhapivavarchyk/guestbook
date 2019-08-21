@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Piv\Guestbook\App\Config\{Config, Router};
 use Piv\Guestbook\App\Controllers\IndexController;
+use Piv\Guestbook\App\Controllers\FooController;
 
 class Kernel implements HttpKernelInterface
 {
@@ -22,9 +23,12 @@ class Kernel implements HttpKernelInterface
         try {
             $attributes = $router->getUrlParameters($request->getPathInfo());
             $controller = $attributes['controller'];
-            $response = $controller($request);
+            if (isset($attributes['sortflag']) && isset($attributes['sortflag'])) {
+                $response = $controller($request, $attributes['sortflag'], $attributes['sortflag']);
+            } else {
+                $response = $controller($request);
+            }
         } catch(ResourceNotFoundException $e) {
-            //$response = IndexController::show($request);
             $response = new Response('Not found!', Response::HTTP_NOT_FOUND);
         }
 
