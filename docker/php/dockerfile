@@ -15,6 +15,17 @@ RUN echo "pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock" >> /usr/local/et
 
 ADD ./php.ini /usr/local/etc/php/php.ini
 
+RUN apt-get install -y gnupg2
+# Install Nodejs
+RUN rm -rf /var/lib/apt/lists/ && curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install nodejs -y
+# Install Yarn and Npm
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends yarn && \
+    npm install -g npm
+
 # Install Composer
 RUN wget https://getcomposer.org/installer -O - -q \
     | php -- --install-dir=/bin --filename=composer --quiet

@@ -1,10 +1,10 @@
 <div class="title-message">
     {% if sortflag is same as ('ByNameAsc') %}
         {% set sortNameflag="ByNameDesc" %}
-        {% set imgName='<img src = "images/double-up.png" width="10" height="10">'%}
+        {% set imgName='\\images\\double-up.png' %}
     {% elseif  sortflag is same as ('ByNameDesc')%}
         {% set sortNameflag="ByNameAsc" %}
-        {% set imgName='<img src = "images/double-down.png" width="10" height="10">'%}
+        {% set imgName='\\images\\double-down.png' %}
     {% else %}
         {% set sortNameflag="ByNameAsc" %}
         {% set imgName=''%}
@@ -13,15 +13,15 @@
         <a href = "{{url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}}">Имя</a>
     </div>
     <div class="arrows-title-message">
-        <div> {{ imgName|raw }} </div>
+        <div><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
     </div>
 
     {% if sortflag is same as ('ByEmailAsc') %}
         {% set sortEmailflag="ByEmailDesc" %}
-        {% set imgEmail='<img src = "images/double-up.png" width="10" height="10">'%}
+        {% set imgEmail='\\images\\double-up.png' %}
     {% elseif  sortflag is same as ('ByEmailDesc')%}
         {% set sortEmailflag="ByEmailAsc" %}
-        {% set imgEmail='<img src = "images/double-down.png" width="10" height="10">'%}
+        {% set imgEmail='\\images\\double-down.png' %}
     {% else %}
         {% set sortEmailflag="ByEmailAsc" %}
         {% set imgEmail=''%}
@@ -30,15 +30,15 @@
         <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">Email</a>
     </div>
     <div class="arrows-title-message">
-      <div> {{ imgEmail|raw }} </div>
+      <div><img src = "{{ asset(imgEmail) }}" width="10" height="10"></div>
     </div>
 
     {% if sortflag is same as ('ByDateAsc') %}
         {% set sortDateflag="ByDateDesc" %}
-        {% set imgDate='<img src = "images/double-up.png" width="10" height="10">'%}
+        {% set imgDate='\\images\\double-up.png' %}
     {% elseif  sortflag is same as ('ByDateDesc')%}
         {% set sortDateflag="ByDateAsc" %}
-        {% set imgDate='<img src = "images/double-down.png" width="10" height="10">'%}
+        {% set imgDate='\\images\\double-down.png' %}
     {% else %}
         {% set sortDateflag="ByDateAsc" %}
         {% set imgDate=''%}
@@ -47,7 +47,7 @@
         <a href = "{{url('sortingRoute', {'sortflag':sortDateflag, 'count':1})}}">Дата добавления</a>
     </div>
     <div class="arrows-title-message">
-      <div> {{ imgDate|raw }} </div>
+      <div> <img src = "{{ asset(imgDate) }}" width="10" height="10"> </div>
     </div>
 </div>
 <div class="title-message">

@@ -1,8 +1,8 @@
-app/guestbook/vendor
-app/guestbook/public/upload
-app/guestbook/public/.htaccess
+.env
 app/guestbook/app/config/config.php
 app/guestbook/app/config/db
+app/guestbook/node_modules
+app/guestbook/public/upload
+app/guestbook/vendor
 docker/mysql/*
 docker/nginx/site.conf
-.env

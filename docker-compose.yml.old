@@ -51,4 +51,16 @@ services:
             MYSQL_USER: $DB_USER
             MYSQL_PASSWORD: $DB_PASSWORD
             MYSQL_ROOT_HOST: $ROOT_HOST
-        restart: always   
+        restart: always
+    nodejs:
+        image: node:alpine
+        container_name: nodejs
+        environment:
+            NODE_ENV: production
+        working_dir: /home/app
+        restart: always
+        volumes:
+            - ./docker/nodejs:/home/app
+        depends_on:
+            - php
+        command: ["node", "index"]           

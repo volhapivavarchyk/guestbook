@@ -4,6 +4,9 @@ namespace Piv\Guestbook\App\Twig;
 
 use Symfony\Bridge\Twig\Extension\{FormExtension, TranslationExtension};
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Form\{Forms, FormRenderer};
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader};
@@ -49,6 +52,15 @@ class Twig
         foreach ($functionExtention->getFunctions() as $function) {
             $this->twig->addFunction($function);
         }
+        // добавдение Webpack Encore
+        //$containerBuilder = new ContainerBuilder();
+        //$loader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__));
+        //$loader->load('webpack_encore.yaml');
+        //$entryFilesTwigExtention = new EntryFilesTwigExtension($containerBuilder);
+        //$this->twig->addExtension($entryFilesTwigExtention);
+        //foreach ($entryFilesTwigExtention->getFunctions() as $function) {
+        //    $this->twig->addFunction($function);
+        //}
         // создание переводчика
         $translator = new Translator('en');
         $translator->addLoader('array', new ArrayLoader());

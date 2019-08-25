@@ -8,9 +8,12 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\{Route, RouteCollection, RequestContext};
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 use Piv\Guestbook\App\Config\{Config, Router};
 use Piv\Guestbook\App\Controllers\IndexController;
 use Piv\Guestbook\App\Controllers\FooController;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 
 class Kernel implements HttpKernelInterface
 {
@@ -18,6 +21,7 @@ class Kernel implements HttpKernelInterface
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true): Response
     {
         //Config::checkIsDirToUploadedFiles();
+        //$webpackEncore = new WebpackEncoreBundle();
         $router = new Router(Config::FILE_OF_ROUTES);
 
         try {
