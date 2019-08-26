@@ -115,6 +115,7 @@ class IndexController
                 'addedMessage' => $addedMessage,
                 'sortflag' => $sortFlag,
                 'count' => (int)$count,
+                'captcha_key' => $_ENV['GUESTBOOK_CAPTCHA_URL'],
             ]
         );
         $response = new Response(

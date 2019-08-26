@@ -27,8 +27,8 @@ class Kernel implements HttpKernelInterface
         try {
             $attributes = $router->getUrlParameters($request->getPathInfo());
             $controller = $attributes['controller'];
-            if (isset($attributes['sortflag']) && isset($attributes['sortflag'])) {
-                $response = $controller($request, $attributes['sortflag'], $attributes['sortflag']);
+            if (isset($attributes['sortflag']) && isset($attributes['count'])) {
+                $response = $controller($request, $attributes['sortflag'], $attributes['count']);
             } else {
                 $response = $controller($request);
             }

@@ -1,4 +1,0 @@
-# config/webpack_encore.yaml
-webpack_encore:
-    # The path where Encore is building the assets - i.e. Encore.setOutputPath()
-    output_path: 'guestbook/public/build'

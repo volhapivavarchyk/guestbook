@@ -48,7 +48,7 @@
                 {{ form_errors(message.filepath) }}
             </div>
         {% endfor %}
-        <div class="g-recaptcha add-message-captcha" data-sitekey="6LfK42cUAAAAAA6G9e1OYjtvCv66ttUqdrU4R3EA"></div>
+        <div class="g-recaptcha add-message-captcha" data-sitekey="{{ captcha_key }}"></div>
         <div class="add-message-button">
             {{ form_row(form.submit) }}
         </div>

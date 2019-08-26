@@ -27,6 +27,7 @@ services:
             DB_NAME: $DB_NAME
             GUESTBOOK_CAPTCHA_SECRET: $GUESTBOOK_CAPTCHA_SECRET
             GUESTBOOK_CAPTCHA_URL: $GUESTBOOK_CAPTCHA_URL
+            GUESTBOOK_CAPTCHA_KEY: $GUESTBOOK_CAPTCHA_KEY
         links:
             - db
     phpmyadmin:
@@ -51,4 +52,4 @@ services:
             MYSQL_USER: $DB_USER
             MYSQL_PASSWORD: $DB_PASSWORD
             MYSQL_ROOT_HOST: $ROOT_HOST
-        restart: always   
+        restart: always

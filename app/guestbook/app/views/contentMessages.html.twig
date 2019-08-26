@@ -57,7 +57,7 @@
         {% else %}
             <div class="count-messages">
         {% endif %}
-        <a href="{{url('sortingRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        <a href="{{url('sortingRoute', {'sortflag':sortflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
     {% set start = count*25 - 24 %}
