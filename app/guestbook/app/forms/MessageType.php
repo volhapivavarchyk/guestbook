@@ -15,6 +15,7 @@ class MessageType extends AbstractType
 
         $builder
             ->add('theme', TextType::class, [
+                'label' => ' Тема сообщения',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'тема сообщения',
@@ -31,6 +32,7 @@ class MessageType extends AbstractType
                 ],
             ])
             ->add('text', TextareaType::class, [
+              'label' => ' Текст сообщения',
               'required' => true,
               'attr' => [
                   'placeholder' => 'текст сообщения',
@@ -39,6 +41,7 @@ class MessageType extends AbstractType
               ],
             ])
             ->add('pictures', FileType::class, [
+                'label' => 'Выбрать изображение',
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -52,7 +55,8 @@ class MessageType extends AbstractType
                 ],
             ])
             ->add('filepath', FileType::class, [
-                'required' => false,
+              'label' => 'Выбрать txt файл',
+              'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '100k',

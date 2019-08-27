@@ -1,26 +1,24 @@
 <div id="form">
     {{ form_start(form) }}
         <div class="add-message-field">
-          {{ form_label(form.name, 'Имя пользователя *') }}
-          {{ form_widget(form.name) }}
-          {{ form_errors(form.name) }}
+          {{ form_row(form.name) }}
         </div>
         <div class="add-message-field">
-            {{ form_label(form.email, 'Электронная почта *') }}
+            {{ form_label(form.email) }}
             {{ form_widget(form.email) }}
             <small>{{ form_help(form.email) }}</small>
             {{ form_errors(form.email) }}
         </div>
         {% for message in form.messages %}
             <div class="add-message-field">
-                {{ form_label(message.theme, 'Тема *') }}
+                {{ form_label(message.theme) }}
                 {{ form_widget(message.theme) }}
                 <small>{{ form_help(message.theme) }}</small>
                 {{ form_errors(message.theme) }}
             </div>
             <div class="add-message-box-field">
                 <div class="add-message-field">
-                    {{ form_label(message.text, 'Текст сообщения *') }}
+                    {{ form_label(message.text) }}
                     {{ form_widget(message.text, {'id':'text'})}}
                     <br />
                     <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px; margin-top: 3px;"/>
@@ -36,19 +34,19 @@
                 <div id="preview-message" class="add-message-field preview-message"></div>
             </div>
             <div class="add-message-field">
-              {{ form_label(message.pictures, 'Выбрать изображение') }}
+              {{ form_label(message.pictures) }}
               {{ form_widget(message.pictures) }}
               <small>{{ form_help(message.pictures) }}</small>
               {{ form_errors(message.pictures) }}
             </div>
             <div class="add-message-field">
-                {{ form_label(message.filepath, 'Присоединить файл') }}
+                {{ form_label(message.filepath) }}
                 {{ form_widget(message.filepath, {'attr': {'accept': '.txt'}} ) }}
                 <small>{{ form_help(message.filepath) }}</small>
                 {{ form_errors(message.filepath) }}
             </div>
         {% endfor %}
-        <div class="g-recaptcha add-message-captcha" data-sitekey="{{ captcha_key }}"></div>
+        <div class="g-recaptcha add-message-captcha" data-sitekey="{{ captchaKey }}"></div>
         <div class="add-message-button">
             {{ form_row(form.submit) }}
         </div>

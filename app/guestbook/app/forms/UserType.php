@@ -14,8 +14,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => ' Имя пользователя',
                 'required' => true,
-                'label' => 'Имя пользователя *',
                 'attr' => [
                     'placeholder' => 'Иван Иванов',
                 ],
@@ -34,6 +34,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
+                'label' => ' Электронная почта',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'mailbox@hostname',

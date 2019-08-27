@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 use Piv\Guestbook\App\Config\{Config, Router};
 use Piv\Guestbook\App\Controllers\IndexController;
-use Piv\Guestbook\App\Controllers\FooController;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 

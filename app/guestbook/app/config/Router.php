@@ -23,10 +23,8 @@ class Router
         $this->routes = $loader->load($fileOfRoutes);
 
         $this->context = new RequestContext();
-        $this->context->fromRequest(Request::createFromGlobals());
-
+        //$this->context->fromRequest(Request::createFromGlobals());
         $this->matcher = new UrlMatcher($this->routes, $this->context);
-
         $this->generator = new UrlGenerator($this->routes, $this->context);
     }
 

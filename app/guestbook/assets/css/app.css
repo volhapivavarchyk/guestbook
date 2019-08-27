@@ -33,6 +33,10 @@ h2 {
   padding-left: 20px;
   font-style: bold;
 }
+label.required:after {
+    content: " *";
+    color:red;
+}
 
 /* разметка страницы */
 .grid {

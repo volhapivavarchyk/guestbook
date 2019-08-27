@@ -10,7 +10,7 @@
         {% set imgName=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}}">Имя</a>
+        <a href = "{{ url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}} ">Имя</a>
     </div>
     <div class="arrows-title-message">
         <div><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
@@ -30,7 +30,7 @@
         <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">Email</a>
     </div>
     <div class="arrows-title-message">
-      <div><img src = "{{ asset(imgEmail) }}" width="10" height="10"></div>
+      <div><img src = "{{asset(imgEmail)}}" width="10" height="10"></div>
     </div>
 
     {% if sortflag is same as ('ByDateAsc') %}
@@ -60,7 +60,7 @@
         <a href="{{url('sortingRoute', {'sortflag':sortflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
-    {% set start = count*25 - 24 %}
+    {% set start = count*25 - 25 %}
     {% set length = start + 25 %}
 </div>
 <div id="messages">
@@ -84,13 +84,13 @@
             {% if message.pictures or message.filepath %}
                 <p style="padding: 2px; margin: 0px;">
                     {% if message.pictures %}
-                        <a href="upload/img/{{message.pictures}}" class="example-image-link" data-lightbox="image-1">
-                            <img class="example-image" src="upload/img/small/{{message.pictures}}"
+                        <a href="{{ asset ('/upload/img/' ~ message.pictures)}} " class="example-image-link" data-lightbox="image-1">
+                            <img class="example-image" src="{{ asset ('/upload/img/small/' ~ message.pictures)}}"
                                 alt="{{message.pictures}}" />
                         </a>&nbsp;&nbsp;
                     {% endif %}
                     {% if message.filepath %}
-                        <a href=" {{ message.filepath }}" type="application/file"
+                        <a href=" {{ asset(message.filepath) }}" type="application/file"
                            style="text-decoration: none;">{{ message.filepath }}</a>
                     {% endif %}
                 </p>
