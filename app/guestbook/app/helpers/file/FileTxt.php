@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Controllers\UploadedFiles;
+namespace Piv\Guestbook\App\Helpers\File;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

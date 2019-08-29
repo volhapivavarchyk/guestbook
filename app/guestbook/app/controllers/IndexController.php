@@ -15,7 +15,7 @@ use Piv\Guestbook\App\Twig\Twig;
 use Piv\Guestbook\App\Forms\{MessageType, UserType};
 use Piv\Guestbook\App\Config\{Config, Bootstrap};
 use Piv\Guestbook\App\Entities\{Message, User};
-use Piv\Guestbook\App\Controllers\UploadedFiles\{ImageFactory, FileTxt};
+use Piv\Guestbook\App\Helpers\File\{FactoryPictures, FileTxt};
 
 class IndexController
 {
@@ -60,7 +60,7 @@ class IndexController
                 // загрузка изображения
                 $imagePictureFile = $request->files->get('user')['messages']['0']['pictures'];
                 if ($imagePictureFile && $imagePictureFile->getClientOriginalName() !== '') {
-                    $factory = new ImageFactory();
+                    $factory = new FactoryPictures();
                     $image = $factory->createImage($imagePictureFile);
                     $image->moveImageTo(Config::DIR_TEMP_UPLOAD);
                     $image->createImage(

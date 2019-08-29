@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Controllers\UploadedFiles;
+namespace Piv\Guestbook\App\Helpers\File;
 
-class ImagePng extends AImage
+class FilePng extends AFilePicture
 {
 
     protected function createImageFromFile(string $filename)

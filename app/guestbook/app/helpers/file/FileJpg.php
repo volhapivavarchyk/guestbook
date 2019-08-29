@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Controllers\UploadedFiles;
+namespace Piv\Guestbook\App\Helpers\File;
 
-class ImageGif extends AImage
+class FileJpeg extends AFilePicture
 {
 
     protected function createImageFromFile(string $filename)
     {
-        return imagecreatefromgif($filename);
+        return imagecreatefromjpeg($filename);
     }
 
     protected function createFileFromImage($newImage, string $filename): void
     {
-        imagegif($newImage, $filename);
+        imagejpeg($newImage, $filename);
     }
 }
