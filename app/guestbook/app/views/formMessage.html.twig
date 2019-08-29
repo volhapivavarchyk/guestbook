@@ -21,11 +21,11 @@
                     {{ form_label(message.text) }}
                     {{ form_widget(message.text, {'id':'text'})}}
                     <br />
-                    <input type="button" value="link" onClick="formatTextArea('a')" style="margin-left:205px; margin-top: 3px;"/>
-                    <input type="button" value="code" onClick="formatTextArea('code')"/>
-                    <input type="button" value="italic" onClick="formatTextArea('italic')"/>
-                    <input type="button" value="strike" onClick="formatTextArea('strike')"/>
-                    <input type="button" value="strong" onClick="formatTextArea('strong')"/>
+                    <input type="button" value="link" id="link-button" style="margin-left:205px; margin-top: 3px;"/>
+                    <input type="button" value="code" id="code-button"/>
+                    <input type="button" value="italic" id="italic-button"/>
+                    <input type="button" value="strike" id="strike-button"/>
+                    <input type="button" value="strong" id="strong-button"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" value="отобразить" id="preview-button"/>
                     <small>{{ form_help(message.text) }}</small>

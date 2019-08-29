@@ -1,10 +1,12 @@
+{% set imgArrowUp='\\build\\images\\double-up.png' %}
+{% set imgArrowDown='\\build\\images\\double-down.png' %}
 <div class="title-message">
     {% if sortflag is same as ('ByNameAsc') %}
         {% set sortNameflag="ByNameDesc" %}
-        {% set imgName='\\images\\double-up.png' %}
+        {% set imgName=imgArrowUp %}
     {% elseif  sortflag is same as ('ByNameDesc')%}
         {% set sortNameflag="ByNameAsc" %}
-        {% set imgName='\\images\\double-down.png' %}
+        {% set imgName=imgArrowDown %}
     {% else %}
         {% set sortNameflag="ByNameAsc" %}
         {% set imgName=''%}
@@ -13,15 +15,15 @@
         <a href = "{{ url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}} ">Имя</a>
     </div>
     <div class="arrows-title-message">
-        <div><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
+        <div class="arrow-down"><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
     </div>
 
     {% if sortflag is same as ('ByEmailAsc') %}
         {% set sortEmailflag="ByEmailDesc" %}
-        {% set imgEmail='\\images\\double-up.png' %}
+        {% set imgEmail=imgArrowUp %}
     {% elseif  sortflag is same as ('ByEmailDesc')%}
         {% set sortEmailflag="ByEmailAsc" %}
-        {% set imgEmail='\\images\\double-down.png' %}
+        {% set imgEmail=imgArrowDown %}
     {% else %}
         {% set sortEmailflag="ByEmailAsc" %}
         {% set imgEmail=''%}
@@ -35,10 +37,10 @@
 
     {% if sortflag is same as ('ByDateAsc') %}
         {% set sortDateflag="ByDateDesc" %}
-        {% set imgDate='\\images\\double-up.png' %}
+        {% set imgDate=imgArrowUp %}
     {% elseif  sortflag is same as ('ByDateDesc')%}
         {% set sortDateflag="ByDateAsc" %}
-        {% set imgDate='\\images\\double-down.png' %}
+        {% set imgDate=imgArrowDown %}
     {% else %}
         {% set sortDateflag="ByDateAsc" %}
         {% set imgDate=''%}
@@ -82,18 +84,18 @@
         <div class="text-message">
             <p>{{message.text|raw}}</p>
             {% if message.pictures or message.filepath %}
-                <p style="padding: 2px; margin: 0px;">
+                <div>
                     {% if message.pictures %}
-                        <a href="{{ asset ('/upload/img/' ~ message.pictures)}} " class="example-image-link" data-lightbox="image-1">
-                            <img class="example-image" src="{{ asset ('/upload/img/small/' ~ message.pictures)}}"
-                                alt="{{message.pictures}}" />
-                        </a>&nbsp;&nbsp;
+                        <a href="{{ asset ('/upload/img/' ~ message.pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
+                            <img src="{{ asset ('/upload/img/small/' ~ message.pictures)}}" class="img-fluid">
+                        </a>
                     {% endif %}
                     {% if message.filepath %}
-                        <a href=" {{ asset(message.filepath) }}" type="application/file"
-                           style="text-decoration: none;">{{ message.filepath }}</a>
+                        <a href=" {{ asset('/upload/txt/' ~ message.filepath) }}" type="application/file"
+                           style="text-decoration: none;">{{ message.filepath }}
+                        </a>
                     {% endif %}
-                </p>
+                </div>
             {% endif %}
         </div>
     {% endfor %}
