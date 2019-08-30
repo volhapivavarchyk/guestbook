@@ -1,4 +1,7 @@
 .env
+app/guestbook/yarn-error.log
+app/guestbook/robots.txt
+app/guestbook/.php_cs.cache
 app/guestbook/app/config/config.php
 app/guestbook/app/config/db
 app/guestbook/node_modules

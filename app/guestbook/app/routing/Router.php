@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\App\Config;
+namespace Piv\Guestbook\App\Routing;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\Request;

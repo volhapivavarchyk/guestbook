@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App;
 
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\{Route, RouteCollection, RequestContext};
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
-use Piv\Guestbook\App\Config\{Config, Router};
+use Piv\Guestbook\App\Config\Config;
 use Piv\Guestbook\App\Controllers\IndexController;
-use Symfony\Component\Asset\Package;
-use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Piv\Guestbook\App\Routing\Router;
 
 class Kernel implements HttpKernelInterface
 {
@@ -20,9 +21,7 @@ class Kernel implements HttpKernelInterface
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true): Response
     {
         //Config::checkIsDirToUploadedFiles();
-        //$webpackEncore = new WebpackEncoreBundle();
         $router = new Router(Config::FILE_OF_ROUTES);
-
         try {
             $attributes = $router->getUrlParameters($request->getPathInfo());
             $controller = $attributes['controller'];

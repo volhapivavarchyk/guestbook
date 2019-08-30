@@ -7,7 +7,8 @@ use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
-use Piv\Guestbook\App\Config\{Config, Router};
+use Piv\Guestbook\App\Config\Config;
+use Piv\Guestbook\App\Routing\Router;
 
 class TwigFunctionExtention extends AbstractExtension
 {

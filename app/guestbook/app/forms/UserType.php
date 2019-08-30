@@ -14,7 +14,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => ' Имя пользователя',
+                'label' => 'user.name',
+                'translation_domain' => 'messages',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Иван Иванов',
@@ -34,14 +35,18 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => ' Электронная почта',
+                'label' => 'user.email',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'messages',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'mailbox@hostname',
                 ],
             ])
             ->add('messages', CollectionType::class, [
-                'label' => 'сообщение',
+                'label' => 'user.message',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'messages',
                 'entry_type' => MessageType::class,
                 'entry_options' => ['label' => 'сообщение'],
                 'by_reference' => false,

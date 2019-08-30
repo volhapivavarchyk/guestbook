@@ -1,7 +1,10 @@
 <div id="form">
     {{ form_start(form) }}
         <div class="add-message-field">
-          {{ form_row(form.name) }}
+          {{ form_label(form.name) }}
+          {{ form_widget(form.name) }}
+          <small>{{ form_help(form.name) }}</small>
+          {{ form_errors(form.name) }}
         </div>
         <div class="add-message-field">
             {{ form_label(form.email) }}
@@ -40,7 +43,7 @@
               {{ form_errors(message.pictures) }}
             </div>
             <div class="add-message-field">
-                {{ form_label(message.filepath) }}
+                {{ form_label(message.filepath)|trans({}, translation_domain)|raw }}
                 {{ form_widget(message.filepath, {'attr': {'accept': '.txt'}} ) }}
                 <small>{{ form_help(message.filepath) }}</small>
                 {{ form_errors(message.filepath) }}

@@ -1,0 +1,14 @@
+user:
+    name: User name
+    email: Email
+    message: Message
+message:
+    theme: Theme of message
+    text: Text
+    add:
+        picture: Add picture
+        txt: Add txt filepath
+sorting:
+    name: Name
+    email: Email
+    date: Date

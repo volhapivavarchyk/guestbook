@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Twig;
 
@@ -9,10 +10,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Form\{Forms, FormRenderer};
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader};
+use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader, YamlFileLoader as TransYamlFileLoader};
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Piv\Guestbook\App\Twig\{TwigFilterExtention, TwigFunctionExtention};
+use Piv\Guestbook\App\Config\Config;
 
 class Twig
 {
@@ -20,7 +22,7 @@ class Twig
 
     public function __construct()
     {
-        $defaultFormTheme = 'form_div_layout.html.twig';
+        $defaultFormTheme = Config::FILE_OF_FORM_THEME;
         $vendorDirectory = realpath(__DIR__.'/../vendor');
         $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
         $vendorTwigBridgeDirectory = dirname($appVariableReflection->getFileName());
@@ -52,31 +54,14 @@ class Twig
         foreach ($functionExtention->getFunctions() as $function) {
             $this->twig->addFunction($function);
         }
-        // добавдение Webpack Encore
-        //$containerBuilder = new ContainerBuilder();
-        //$loader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__));
-        //$loader->load('webpack_encore.yaml');
-        //$entryFilesTwigExtention = new EntryFilesTwigExtension($containerBuilder);
-        //$this->twig->addExtension($entryFilesTwigExtention);
-        //foreach ($entryFilesTwigExtention->getFunctions() as $function) {
-        //    $this->twig->addFunction($function);
-        //}
         // создание переводчика
-        $translator = new Translator('en');
-        $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', [
-            'Имя пользователя' => 'User name',
-            'Электронная почта' => 'E-mail',
-            'Тема сообщения' => 'Theme',
-            'Текст сообщения' => 'Text of message',
-            'Добавить изображение' => 'Add a picture',
-            'Добавить текстовый файл' => 'Add a file (.txt)',
-        ], 'en');
+        $translator = new Translator('ru');
+        $translator->addLoader('yaml', new TransYamlFileLoader());
+        $translator->addResource('yaml', Config::FILE_OF_TRANSLATION.'messages.ru.yaml', 'ru');
         /*
         $translator->addLoader('xlf', new XliffFileLoader());
         $translator->addResource('xlf', 'messages.en.xlf', 'en');
         */
-        // добавление TranslationExtension (фильтры trans и transChoice)
         $this->twig->addExtension(new TranslationExtension($translator));
     }
 

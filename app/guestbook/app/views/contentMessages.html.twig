@@ -12,7 +12,9 @@
         {% set imgName=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{ url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}} ">Имя</a>
+        <a href = "{{ url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}} ">
+            {{'sorting.name'|trans({},'messages')|raw}}
+        </a>
     </div>
     <div class="arrows-title-message">
         <div class="arrow-down"><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
@@ -29,7 +31,9 @@
         {% set imgEmail=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">Email</a>
+        <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">
+            {{'sorting.email'|trans({},'messages')|raw}}
+        </a>
     </div>
     <div class="arrows-title-message">
       <div><img src = "{{asset(imgEmail)}}" width="10" height="10"></div>
@@ -46,7 +50,9 @@
         {% set imgDate=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{url('sortingRoute', {'sortflag':sortDateflag, 'count':1})}}">Дата добавления</a>
+        <a href = "{{url('sortingRoute', {'sortflag':sortDateflag, 'count':1})}}">
+            {{'sorting.date'|trans({},'messages')|raw}}
+        </a>
     </div>
     <div class="arrows-title-message">
       <div> <img src = "{{ asset(imgDate) }}" width="10" height="10"> </div>

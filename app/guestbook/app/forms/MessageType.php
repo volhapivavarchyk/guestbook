@@ -15,7 +15,9 @@ class MessageType extends AbstractType
 
         $builder
             ->add('theme', TextType::class, [
-                'label' => ' Тема сообщения',
+                'label' => 'message.theme',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'messages',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'тема сообщения',
@@ -32,7 +34,9 @@ class MessageType extends AbstractType
                 ],
             ])
             ->add('text', TextareaType::class, [
-              'label' => ' Текст сообщения',
+              'label' => 'message.text',
+              'label_translation_parameters' => [],
+              'translation_domain' => 'messages',
               'required' => true,
               'attr' => [
                   'placeholder' => 'текст сообщения',
@@ -41,7 +45,9 @@ class MessageType extends AbstractType
               ],
             ])
             ->add('pictures', FileType::class, [
-                'label' => 'Выбрать изображение',
+                'label' => 'message.add.picture',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'messages',
                 'required' => false,
                 'constraints' => [
                     new File([
@@ -55,7 +61,9 @@ class MessageType extends AbstractType
                 ],
             ])
             ->add('filepath', FileType::class, [
-              'label' => 'Выбрать txt файл',
+              'label' => 'message.add.txt',
+              'label_translation_parameters' => [],
+              'translation_domain' => 'messages',
               'required' => false,
                 'constraints' => [
                     new File([
