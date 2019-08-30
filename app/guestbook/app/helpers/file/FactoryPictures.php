@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FactoryPictures
 {
-
     protected $typeImage = [];
 
     public function __construct()
@@ -22,5 +21,4 @@ class FactoryPictures
         $className = $this->typeImage[$image->guessClientExtension()];
         return new $className($image);
     }
-
 }

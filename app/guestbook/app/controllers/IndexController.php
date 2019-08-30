@@ -35,7 +35,10 @@ class IndexController
             if (!empty($recaptchaResponse)) {
                 $captchaUrl= $_ENV['GUESTBOOK_CAPTCHA_URL'];
                 $captchaSecret = $_ENV['GUESTBOOK_CAPTCHA_SECRET'];
-                $url = $captchaUrl . "?secret=" . $captchaSecret . "&response=" . $recaptchaResponse . "&remoteip=" . $request->server->get('REMOTE_ADDR');
+                $url = $captchaUrl . "?secret="
+                    . $captchaSecret . "&response="
+                    . $recaptchaResponse . "&remoteip="
+                    . $request->server->get('REMOTE_ADDR');
                 $rsp = file_get_contents($url);
                 $captchaData = json_decode($rsp, true);
                 if ($captchaData['success']) {

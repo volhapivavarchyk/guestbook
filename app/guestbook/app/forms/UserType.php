@@ -1,5 +1,4 @@
 <?php
-
 namespace Piv\Guestbook\App\Forms;
 
 use Symfony\Component\Form\{AbstractType, FormBuilderInterface};

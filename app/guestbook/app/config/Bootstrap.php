@@ -29,7 +29,7 @@ class Bootstrap
         try {
             $this->entityManager = $this->createEntityManager($connection, $config);
         } catch (ORMException $e) {
-            $this->entityManager = Null;
+            $this->entityManager = null;
         }
         $this->createHelperSet();
     }

@@ -22,9 +22,11 @@ class TwigFilterExtention extends AbstractExtension
             $array,
             function ($object1, $object2) {
                 return strcasecmp($object1->getUser()->getName(), $object2->getUser()->getName());
-        });
+            },
+        );
         return $array;
     }
+
     protected function sortByNameDesc(array $array): array
     {
         usort(
@@ -35,26 +37,29 @@ class TwigFilterExtention extends AbstractExtension
         );
         return $array;
     }
+
     protected function sortByEmailAsc(array $array): array
     {
-      usort(
-          $array,
-          function ($object1, $object2) {
-              return strcasecmp($object1->getUser()->getEmail(), $object2->getUser()->getEmail());
-          },
-      );
-      return $array;
+        usort(
+            $array,
+            function ($object1, $object2) {
+                return strcasecmp($object1->getUser()->getEmail(), $object2->getUser()->getEmail());
+            },
+        );
+        return $array;
     }
+
     protected function sortByEmailDesc(array $array): array
     {
-      usort(
-          $array,
-          function ($object1, $object2) {
-              return strcasecmp($object2->getUser()->getEmail(), $object1->getUser()->getEmail());
-          },
-      );
-      return $array;
+        usort(
+            $array,
+            function ($object1, $object2) {
+                return strcasecmp($object2->getUser()->getEmail(), $object1->getUser()->getEmail());
+            },
+        );
+        return $array;
     }
+
     protected function sortByDateAsc(array $array): array
     {
         usort(
@@ -65,15 +70,16 @@ class TwigFilterExtention extends AbstractExtension
         );
         return $array;
     }
+
     protected function sortByDateDesc(array $array): array
     {
-      usort(
-          $array,
-          function ($object1, $object2) {
-            return $object2->getDate() <=> $object1->getDate();
-          },
-      );
-      return $array;
+        usort(
+            $array,
+            function ($object1, $object2) {
+                return $object2->getDate() <=> $object1->getDate();
+            },
+        );
+        return $array;
     }
 
     public function getFilters(): array

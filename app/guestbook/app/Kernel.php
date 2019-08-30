@@ -16,7 +16,6 @@ use Piv\Guestbook\App\Routing\Router;
 
 class Kernel implements HttpKernelInterface
 {
-
     /**
      * @param Request $request
      * @param int $type
@@ -38,11 +37,10 @@ class Kernel implements HttpKernelInterface
             } else {
                 $response = $controller($request);
             }
-        } catch(ResourceNotFoundException $e) {
+        } catch (ResourceNotFoundException $e) {
             $response = new Response('Not found!', Response::HTTP_NOT_FOUND);
         }
 
         return $response;
     }
-
 }
