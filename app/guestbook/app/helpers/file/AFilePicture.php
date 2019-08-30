@@ -37,17 +37,15 @@ abstract class AFilePicture
       int $heightMax
   ) {
     $filename = $dirFrom.$this->image->getClientOriginalname();
-    list($width, $height, $type) = getimagesize($filename);
+    list($width, $height) = getimagesize($filename);
+    $newWidth = $width;
+    $newHeight = $height;
     if (($width > $widthMax) || ($height > $heightMax)) {
         $indexW = $widthMax / $width;
         $indexH = $heightMax / $height;
         $newWidth = $indexW > $indexH ? $width * $indexH : $width * $indexW;
         $newHeight = $indexW > $indexH ? $height * $indexH : $height * $indexW;
-    } else {
-        $newWidth = $width;
-        $newHeight = $height;
-    }
-
+    } 
     $newImage = imagecreatetruecolor((int)$newWidth, (int)$newHeight);
     $image = $this->createImageFromFile($filename);
     imagecopyresampled(

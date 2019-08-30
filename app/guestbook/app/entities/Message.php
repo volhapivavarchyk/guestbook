@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 
 /**
@@ -13,7 +12,7 @@ use \DateTime;
 class Message
 {
     /** @Id @Column(name="message_id", type="integer", unique=true, nullable=true) @GeneratedValue **/
-    protected $id;
+    protected $idMessage;
     /** @Column(type="string", length=128) **/
     protected $theme;
     /** @Column(type="text") **/
@@ -24,8 +23,8 @@ class Message
     protected $filepath;
     /** @Column(type="datetime") **/
     protected $date;
-    /** @Column(type="string", length=128) **/
-    protected $ip;
+    /** @Column(name="ip", type="string", length=128) **/
+    protected $ipAdress;
     /** @Column(type="string", length=128) **/
     protected $browser;
     /**
@@ -35,12 +34,12 @@ class Message
     protected $user;
 
     /**
-     * $id getter
-     * @return integer $id
+     * $idMessage getter
+     * @return integer $idMessage
      */
     public function getId(): ?integer
     {
-        return $this->id;
+        return $this->idMessage;
     }
     /**
      * $theme getter
@@ -50,9 +49,11 @@ class Message
     {
         return $this->theme;
     }
+
     /**
      * $theme setter
-     * @return
+     * @param string $theme
+     * @return void
      */
     public function setTheme(string $theme): void
     {
@@ -66,9 +67,11 @@ class Message
     {
         return $this->text;
     }
+
     /**
      * $text setter
-     * @return
+     * @param string $text
+     * @return void
      */
     public function setText(string $text): void
     {
@@ -88,9 +91,11 @@ class Message
     {
         return $this->pictures;
     }
+
     /**
      * $pictures setter
-     * @return
+     * @param string $pictures
+     * @return void
      */
     public function setPictures(string $pictures): void
     {
@@ -104,9 +109,11 @@ class Message
     {
         return $this->filepath;
     }
+
     /**
      * $filepath setter
-     * @return
+     * @param string $filepath
+     * @return void
      */
     public function setFilepath(string $filepath): void
     {
@@ -120,29 +127,33 @@ class Message
     {
         return $this->date;
     }
+
     /**
      * $date setter
-     * @return
+     * @param DateTime $date
+     * @return void
      */
-    public function setDate(\DateTime $date): void
+    public function setDate(DateTime $date): void
     {
         $this->date = $date;
     }
     /**
-     * $ip getter
-     * @return string $ip
+     * $ipAdress getter
+     * @return string $ipAdress
      */
     public function getIp(): ?string
     {
-        return $this->ip;
+        return $this->ipAdress;
     }
+
     /**
-     * $ip setter
-     * @return
+     * $ipAdress setter
+     * @param string $ipAdress
+     * @return void
      */
-    public function setIp(string $ip): void
+    public function setIp(string $ipAdress): void
     {
-        $this->ip = $ip;
+        $this->ipAdress = $ipAdress;
     }
     /**
      * $browser getter
@@ -152,25 +163,30 @@ class Message
     {
         return $this->browser;
     }
+
     /**
      * $browser setter
-     * @return
+     * @param string $browser
+     * @return void
      */
     public function setBrowser(string $browser): void
     {
         $this->browser = $browser;
     }
+
     /**
      * $user getter
-     * @return integer $user
+     * @return User|null $user
      */
     public function getUser(): ?User
     {
         return $this->user;
     }
+
     /**
      * $user setter
-     * @return
+     * @param User|null $user
+     * @return void
      */
     public function setUser(User $user = null): void
     {

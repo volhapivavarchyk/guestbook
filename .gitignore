@@ -2,8 +2,10 @@
 app/guestbook/yarn-error.log
 app/guestbook/robots.txt
 app/guestbook/.php_cs.cache
+app/guestbook/phpmd.html
 app/guestbook/app/config/config.php
 app/guestbook/app/config/db
+app/guestbook/app/services
 app/guestbook/node_modules
 app/guestbook/public/upload
 app/guestbook/vendor

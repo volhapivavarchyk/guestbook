@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Piv\Guestbook\App\Entities;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Entity
@@ -13,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /** @Id @Column(name="user_id", type="integer", unique=true, nullable=true) @GeneratedValue**/
-    protected $id;
+    protected $idUser;
     /** @Column(length=128) **/
     protected $name;
     /** @Column(length=128) **/
@@ -33,7 +32,7 @@ class User
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idUser;
     }
     /**
      * $name getter
@@ -43,9 +42,11 @@ class User
     {
         return $this->name;
     }
+
     /**
      * $name setter
-     * @return
+     * @param string $name
+     * @return void
      */
     public function setName(string $name)
     {
@@ -59,9 +60,11 @@ class User
     {
         return $this->email;
     }
+
     /**
      * $email setter
-     * @return
+     * @param string $email
+     * @return void
      */
     public function setEmail(string $email)
     {
@@ -74,8 +77,10 @@ class User
     {
         return $this->messages;
     }
+
     /**
-     * @return Collection|Message[]
+     * @param Message $message
+     * @return User
      */
     public function addMessage(Message $message): self
     {

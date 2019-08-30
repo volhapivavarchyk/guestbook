@@ -5,15 +5,15 @@ namespace Piv\Guestbook\App\Twig;
 
 use Symfony\Bridge\Twig\Extension\{FormExtension, TranslationExtension};
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Form\{Forms, FormRenderer};
+use Symfony\Component\Form\FormRenderer;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage;
+use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\Loader\{ArrayLoader, XliffFileLoader, YamlFileLoader as TransYamlFileLoader};
+use Symfony\Component\Translation\Loader\YamlFileLoader as TransYamlFileLoader;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Piv\Guestbook\App\Twig\{TwigFilterExtention, TwigFunctionExtention};
 use Piv\Guestbook\App\Config\Config;
 
 class Twig
@@ -23,7 +23,6 @@ class Twig
     public function __construct()
     {
         $defaultFormTheme = Config::FILE_OF_FORM_THEME;
-        $vendorDirectory = realpath(__DIR__.'/../vendor');
         $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
         $vendorTwigBridgeDirectory = dirname($appVariableReflection->getFileName());
         $loader = new FilesystemLoader([
@@ -36,6 +35,12 @@ class Twig
             'cache' => false
         ]);
         $formEngine = new TwigRendererEngine([$defaultFormTheme], $this->twig);
+
+        $session = new Session();
+        $csrfGenerator = new UriSafeTokenGenerator();
+        $csrfStorage = new SessionTokenStorage($session);
+        $csrfManager = new CsrfTokenManager($csrfGenerator, $csrfStorage);
+
         $this->twig->addRuntimeLoader(
             new \Twig_FactoryRuntimeLoader([
                 FormRenderer::class => function () use ($formEngine, $csrfManager) {

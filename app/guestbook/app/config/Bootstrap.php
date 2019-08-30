@@ -2,6 +2,7 @@
 namespace Piv\Guestbook\App\Config;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
@@ -10,21 +11,27 @@ class Bootstrap
 
     private $entityManager;
 
+    /**
+     * Bootstrap constructor
+     */
     public function __construct()
     {
-        $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration([__DIR__."/app/entity/"], $isDevMode);
+        $config = $this->setConfigEntityManager();
 
         $connection = [
             'driver' => 'pdo_mysql',
-            'user' => $_ENV['DB_USER'],
-            'password' => $_ENV['DB_PASSWORD'],
-            'dbname' => $_ENV['DB_NAME'],
-            'host' => $_ENV['DB_HOST'],
-            'port' => $_ENV['DB_PORT'],
+            'user' => $this->getGlobalVariableEnv('DB_USER'),
+            'password' => $this->getGlobalVariableEnv('DB_PASSWORD'),
+            'dbname' => $this->getGlobalVariableEnv('DB_NAME'),
+            'host' => $this->getGlobalVariableEnv('DB_HOST'),
+            'port' => $this->getGlobalVariableEnv('DB_PORT'),
         ];
-        $this->entityManager = EntityManager::create($connection, $config);
-        ConsoleRunner::createHelperSet($this->entityManager);
+        try {
+            $this->entityManager = $this->createEntityManager($connection, $config);
+        } catch (ORMException $e) {
+            $this->entityManager = Null;
+        }
+        $this->createHelperSet();
     }
 
     public function getEntityManager()
@@ -32,4 +39,26 @@ class Bootstrap
         return $this->entityManager;
     }
 
+    protected function getGlobalVariableEnv(string $param)
+    {
+        return $_ENV[$param];
+    }
+
+    private function setConfigEntityManager()
+    {
+        $isDevMode = true;
+        $config = Setup::createAnnotationMetadataConfiguration([__DIR__."/app/entity/"], $isDevMode);
+
+        return $config;
+    }
+
+    private function createEntityManager($connection, $config)
+    {
+        return EntityManager::create($connection, $config);
+    }
+
+    private function createHelperSet()
+    {
+        ConsoleRunner::createHelperSet($this->entityManager);
+    }
 }

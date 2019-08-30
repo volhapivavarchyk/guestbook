@@ -3,9 +3,9 @@
 namespace Piv\Guestbook\App\Forms;
 
 use Symfony\Component\Form\{AbstractType, FormBuilderInterface};
-use Symfony\Component\Form\Extension\Core\Type\{DateType, SubmitType, TextType, TextareaType, CollectionType, FileType};
+use Symfony\Component\Form\Extension\Core\Type\{TextType, TextareaType, FileType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\{File, Length, Regex};
+use Symfony\Component\Validator\Constraints\{File, Length};
 use Piv\Guestbook\App\Entities\Message;
 
 class MessageType extends AbstractType

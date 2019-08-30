@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App;
 
-use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -18,13 +17,22 @@ use Piv\Guestbook\App\Routing\Router;
 class Kernel implements HttpKernelInterface
 {
 
-    public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true): Response
-    {
+    /**
+     * @param Request $request
+     * @param int $type
+     * @param bool $catch
+     * @return Response
+     */
+    public function handle(
+        Request $request,
+        $type = HttpKernelInterface::MASTER_REQUEST,
+        $catch = true
+    ): Response {
         //Config::checkIsDirToUploadedFiles();
         $router = new Router(Config::FILE_OF_ROUTES);
         try {
             $attributes = $router->getUrlParameters($request->getPathInfo());
-            $controller = $attributes['controller'];
+            $controller = empty($attributes) ? '' : $attributes['controller'];
             if (isset($attributes['sortflag']) && isset($attributes['count'])) {
                 $response = $controller($request, $attributes['sortflag'], $attributes['count']);
             } else {
