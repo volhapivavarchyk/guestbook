@@ -8,7 +8,6 @@ use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 class Bootstrap
 {
-
     private $entityManager;
 
     /**

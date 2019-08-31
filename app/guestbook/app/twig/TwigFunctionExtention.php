@@ -12,7 +12,6 @@ use Piv\Guestbook\App\Routing\Router;
 
 class TwigFunctionExtention extends AbstractExtension
 {
-
     public function urlFormer(string $nameRoute = 'indexRoute', array $parameters = []): string
     {
         $router = new Router(Config::FILE_OF_ROUTES);

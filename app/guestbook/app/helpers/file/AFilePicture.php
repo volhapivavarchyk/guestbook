@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class AFilePicture
 {
-
     protected $image;
 
     public function __construct(UploadedFile $image)

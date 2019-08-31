@@ -5,13 +5,17 @@ use \DateTime;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
 use Piv\Guestbook\App\Twig\Twig;
 use Piv\Guestbook\App\Forms\UserType;
-use Piv\Guestbook\App\Config\{Config, Bootstrap};
-use Piv\Guestbook\App\Entities\{Message, User};
-use Piv\Guestbook\App\Helpers\File\{FactoryPictures, FileTxt};
+use Piv\Guestbook\App\Config\Config;
+use Piv\Guestbook\App\Config\Bootstrap;
+use Piv\Guestbook\App\Entities\Message;
+use Piv\Guestbook\App\Entities\User;
+use Piv\Guestbook\App\Helpers\File\FactoryPictures;
+use Piv\Guestbook\App\Helpers\File\FileTxt;
 
 class IndexController
 {

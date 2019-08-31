@@ -5,11 +5,11 @@ namespace Piv\Guestbook\App\Twig;
 
 use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
-use Piv\Guestbook\App\Entities\{Message, User};
+use Piv\Guestbook\App\Entities\Message;
+use Piv\Guestbook\App\Entities\User;
 
 class TwigFilterExtention extends AbstractExtension
 {
-
     public function usort(array $array, string $sortFlag): array
     {
         $funcName = 'sort'.$sortFlag;

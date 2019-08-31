@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\App\Twig;
 
-use Symfony\Bridge\Twig\Extension\{FormExtension, TranslationExtension};
+use Symfony\Bridge\Twig\Extension\FormExtension;
+use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\HttpFoundation\Session\Session;

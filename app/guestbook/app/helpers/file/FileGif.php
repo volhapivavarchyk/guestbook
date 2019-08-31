@@ -5,7 +5,6 @@ namespace Piv\Guestbook\App\Helpers\File;
 
 class FileGif extends AFilePicture
 {
-
     protected function createImageFromFile(string $filename)
     {
         return imagecreatefromgif($filename);
