@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\App\Controllers;
+namespace Piv\Guestbook\Src\Controllers;
 
 use \DateTime;
 use Symfony\Component\Form\Forms;
@@ -8,16 +8,16 @@ use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validation;
-use Piv\Guestbook\App\Twig\Twig;
-use Piv\Guestbook\App\Forms\UserType;
-use Piv\Guestbook\App\Config\Config;
-use Piv\Guestbook\App\Config\Bootstrap;
-use Piv\Guestbook\App\Entities\Message;
-use Piv\Guestbook\App\Entities\User;
-use Piv\Guestbook\App\Helpers\File\FactoryPictures;
-use Piv\Guestbook\App\Helpers\File\FileTxt;
+use Piv\Guestbook\Src\Twig\Twig;
+use Piv\Guestbook\Src\Forms\UserType;
+use Piv\Guestbook\Config\Config;
+use Piv\Guestbook\Config\Bootstrap;
+use Piv\Guestbook\Src\Entities\Message;
+use Piv\Guestbook\Src\Entities\User;
+use Piv\Guestbook\Src\Helpers\File\FactoryPictures;
+use Piv\Guestbook\Src\Helpers\File\FileTxt;
 
-class IndexController
+class GuestbookController
 {
     public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\App\Forms;
+namespace Piv\Guestbook\Src\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
-use Piv\Guestbook\App\Entities\User;
+use Piv\Guestbook\Src\Entities\User;
 
 class UserType extends AbstractType
 {

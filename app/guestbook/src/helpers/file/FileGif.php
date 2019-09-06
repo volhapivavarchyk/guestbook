@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Helpers\File;
+namespace Piv\Guestbook\Src\Helpers\File;
 
 class FileGif extends AFilePicture
 {

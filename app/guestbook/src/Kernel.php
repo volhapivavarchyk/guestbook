@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App;
+namespace Piv\Guestbook\Src;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,9 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
-use Piv\Guestbook\App\Config\Config;
-use Piv\Guestbook\App\Controllers\IndexController;
-use Piv\Guestbook\App\Routing\Router;
+use Piv\Guestbook\Config\Config;
+use Piv\Guestbook\Src\Controllers\GuestbookController;
+use Piv\Guestbook\Src\Routing\Router;
 
 class Kernel implements HttpKernelInterface
 {

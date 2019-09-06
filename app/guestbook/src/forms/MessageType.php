@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\App\Forms;
+namespace Piv\Guestbook\Src\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
-use Piv\Guestbook\App\Entities\Message;
+use Piv\Guestbook\Src\Entities\Message;
 
 class MessageType extends AbstractType
 {
