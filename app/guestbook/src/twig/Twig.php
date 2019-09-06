@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Twig;
+namespace Piv\Guestbook\Src\Twig;
 
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
@@ -15,7 +15,7 @@ use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\YamlFileLoader as TransYamlFileLoader;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Piv\Guestbook\App\Config\Config;
+use Piv\Guestbook\Config\Config;
 
 class Twig
 {
@@ -27,7 +27,7 @@ class Twig
         $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
         $vendorTwigBridgeDirectory = dirname($appVariableReflection->getFileName());
         $loader = new FilesystemLoader([
-            '../app/views/',
+            '../templates/',
             $vendorTwigBridgeDirectory.'/Resources/views/Form',
         ]);
         $this->twig = new Environment($loader, [

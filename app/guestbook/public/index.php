@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Piv\Guestbook\App\Kernel;
+use Piv\Guestbook\Src\Kernel;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

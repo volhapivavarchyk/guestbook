@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr4": {
-            "Piv\\Guestbook\\App\\": "app/",
-            "Piv\\Guestbook\\App\\Config\\":"app/config/"
+            "Piv\\Guestbook\\Src\\": "src/",
+            "Piv\\Guestbook\\Config\\":"config/"
         },
         "classmap": [
-            "app/",
-            "app/config/"
+            "src/",
+            "config/"
         ]
     },
     "require-dev": {
