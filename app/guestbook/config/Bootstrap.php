@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\App\Config;
+namespace Piv\Guestbook\Config;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
@@ -46,7 +46,7 @@ class Bootstrap
     private function setConfigEntityManager()
     {
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration([__DIR__."/app/entity/"], $isDevMode);
+        $config = Setup::createAnnotationMetadataConfiguration([__DIR__."/src/entity/"], $isDevMode);
 
         return $config;
     }

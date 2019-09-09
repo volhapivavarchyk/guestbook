@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Entities;
+namespace Piv\Guestbook\Src\Entities;
 
 use \DateTime;
 

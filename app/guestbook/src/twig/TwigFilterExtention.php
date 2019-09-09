@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\App\Twig;
+namespace Piv\Guestbook\Src\Twig;
 
 use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
-use Piv\Guestbook\App\Entities\Message;
-use Piv\Guestbook\App\Entities\User;
+use Piv\Guestbook\Src\Entities\Message;
+use Piv\Guestbook\Src\Entities\User;
 
 class TwigFilterExtention extends AbstractExtension
 {
