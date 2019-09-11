@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
-use Piv\Guestbook\Src\Entities\Message;
+use Piv\Guestbook\Src\Entity\Message;
 
 class MessageType extends AbstractType
 {

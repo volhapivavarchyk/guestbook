@@ -2,6 +2,7 @@ parameters:
     form.factory: form
     form.validator: validator
     twig: twig
+    homepage.numberMessages: 25
 
 services:
     form.factory:
