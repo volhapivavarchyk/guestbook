@@ -35,59 +35,59 @@ $(function() {
 
 $(document).ready(function() {
 
-  let $textMessage;
-  const $text = $('#text');
-  const $previewMessage = $('#preview-message');
-  const $previewButton = $('#preview-button');
+    let $textMessage;
+    const $text = $('#text');
+    const $previewMessage = $('#preview-message');
+    const $previewButton = $('#preview-button');
 
-  $text.on('focusin', () => {
-    $(this).showPreviewMessage($previewMessage, $previewButton);
-  });
-
-  $text.on('focusout', () => {
-    $(this).hidePreviewMessage($previewMessage, $previewButton);
-  });
-
-  $text.on('change keyup paste', () => {
-      $textMessage = $text.val()
-          .replace(/\[italic\](.*?)\[\/italic\]/g, '<i>$1</i>')
-          .replace(/\[code\](.*?)\[\/code\]/g, '<code>$1</code>')
-          .replace(/\[strike\](.*?)\[\/strike\]/g, '<strike>$1</strike>')
-          .replace(/\[strong\](.*?)\[\/strong\]/g, '<strong>$1</strong>')
-          .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
-      $previewMessage.html($textMessage);
-  });
-
-  $previewButton.on('click', () => {
-      $textMessage = $text.val().replace(/\[italic\](.+?)\[\/italic\]/g, '<i>$1</i>')
-          .replace(/\[code\](.*?)\[\/code\]/g, '<code>$1</code>')
-          .replace(/\[strike\](.*?)\[\/strike\]/g, '<strike>$1</strike>')
-          .replace(/\[strong\](.*?)\[\/strong\]/g, '<strong>$1</strong>')
-          .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
-      $previewMessage.html($textMessage);
-      if ($previewMessage.css('opacity') == 0) {
+    $text.on('focusin', () => {
         $(this).showPreviewMessage($previewMessage, $previewButton);
-      } else {
-        $(this).hidePreviewMessage($previewMessage, $previewButton);
-      }
-  });
+    });
 
-  $('#link-button, #code-button, #italic-button, #strike-button, #strong-button').on('mousedown', function (event) {
+    $text.on('focusout', () => {
+        $(this).hidePreviewMessage($previewMessage, $previewButton);
+    });
+
+    $text.on('change keyup paste', () => {
+        $textMessage = $text.val()
+              .replace(/\[italic\](.*?)\[\/italic\]/g, '<i>$1</i>')
+              .replace(/\[code\](.*?)\[\/code\]/g, '<code>$1</code>')
+              .replace(/\[strike\](.*?)\[\/strike\]/g, '<strike>$1</strike>')
+              .replace(/\[strong\](.*?)\[\/strong\]/g, '<strong>$1</strong>')
+              .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
+        $previewMessage.html($textMessage);
+    });
+
+    $previewButton.on('click', () => {
+      $textMessage = $text.val().replace(/\[italic\](.+?)\[\/italic\]/g, '<i>$1</i>')
+              .replace(/\[code\](.*?)\[\/code\]/g, '<code>$1</code>')
+              .replace(/\[strike\](.*?)\[\/strike\]/g, '<strike>$1</strike>')
+              .replace(/\[strong\](.*?)\[\/strong\]/g, '<strong>$1</strong>')
+              .replace(/\[a\s*(\w+\s*=\s*(?:".*?"|'.*?'))\s*\](.*?)\[\s*\/a\s*\]/g, '<a $1>$2</a>');
+        $previewMessage.html($textMessage);
+        if ($previewMessage.css('opacity') == 0) {
+              $(this).showPreviewMessage($previewMessage, $previewButton);
+        } else {
+              $(this).hidePreviewMessage($previewMessage, $previewButton);
+        }
+    });
+
+    $('#link-button, #code-button, #italic-button, #strike-button, #strong-button').on('mousedown', function (event) {
       // for event onClick
       //var tag = $(this)[0].activeElement.attributes[1].nodeValue;
       // for event mousedown
-      var tag = $(event.target)[0].attributes[1].nodeValue;
-      if (event.which === 1) {
-          $(this).addTag(tag, $text);
-      }
-  });
+        var tag = $(event.target)[0].attributes[1].nodeValue;
+        if (event.which === 1) {
+              $(this).addTag(tag, $text);
+        }
+    });
 
-  $('#link-button, #code-button, #italic-button, #strike-button, #strong-button').on('mouseup', function (event) {
-      $(this).showPreviewMessage($previewMessage, $previewButton);
-  });
+    $('#link-button, #code-button, #italic-button, #strike-button, #strong-button').on('mouseup', function (event) {
+        $(this).showPreviewMessage($previewMessage, $previewButton);
+    });
 
-  $('[data-toggle="lightbox"]').on('click', function(event) {
-                  event.preventDefault();
-                  $(this).ekkoLightbox();
-              });
+    $('[data-toggle="lightbox"]').on('click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 });

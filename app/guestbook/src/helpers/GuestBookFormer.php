@@ -53,8 +53,8 @@ class GuestBookFormer
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $recaptchaResponse = $this->request->request->get('g-recaptcha-response');
             if (!empty($recaptchaResponse)) {
-                $captchaUrl= $_ENV['GUESTBOOK_CAPTCHA_URL'];
-                $captchaSecret = $_ENV['GUESTBOOK_CAPTCHA_SECRET'];
+                $captchaUrl= Config::getGlobalVariableEnv('GUESTBOOK_CAPTCHA_URL');
+                $captchaSecret = Config::getGlobalVariableEnv('GUESTBOOK_CAPTCHA_SECRET');
                 $url = $captchaUrl . "?secret="
                     . $captchaSecret . "&response="
                     . $recaptchaResponse . "&remoteip="
@@ -110,8 +110,8 @@ class GuestBookFormer
             'name' => $this->request->request->get('user')['name'],
             'email' => $this->request->request->get('user')['email']
         ]);
-        $this->user = isset($isUser) ? $isUser : $user;
-        $this->message->setUser($user);
+        $this->user = isset($isUser) ? $isUser : $this->user;
+        $this->message->setUser($this->user);
         $this->entityManager->persist($this->message);
         $this->entityManager->persist($this->user);
         $this->entityManager->flush();

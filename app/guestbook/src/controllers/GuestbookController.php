@@ -1,7 +1,6 @@
 <?php
 namespace Piv\Guestbook\Src\Controllers;
 
-use \DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Piv\Guestbook\Src\Twig\Twig;

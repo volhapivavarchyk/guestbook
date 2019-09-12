@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Piv\Guestbook\Config\Config;
 
 class Bootstrap
 {
@@ -19,11 +20,11 @@ class Bootstrap
 
         $connection = [
             'driver' => 'pdo_mysql',
-            'user' => $this->getGlobalVariableEnv('DB_USER'),
-            'password' => $this->getGlobalVariableEnv('DB_PASSWORD'),
-            'dbname' => $this->getGlobalVariableEnv('DB_NAME'),
-            'host' => $this->getGlobalVariableEnv('DB_HOST'),
-            'port' => $this->getGlobalVariableEnv('DB_PORT'),
+            'user' => Config::getGlobalVariableEnv('DB_USER'),
+            'password' => Config::getGlobalVariableEnv('DB_PASSWORD'),
+            'dbname' => Config::getGlobalVariableEnv('DB_NAME'),
+            'host' => Config::getGlobalVariableEnv('DB_HOST'),
+            'port' => Config::getGlobalVariableEnv('DB_PORT'),
         ];
         try {
             $this->entityManager = $this->createEntityManager($connection, $config);
@@ -36,11 +37,6 @@ class Bootstrap
     public function getEntityManager()
     {
         return $this->entityManager;
-    }
-
-    protected function getGlobalVariableEnv(string $param)
-    {
-        return $_ENV[$param];
     }
 
     private function setConfigEntityManager()

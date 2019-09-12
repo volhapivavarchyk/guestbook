@@ -11,9 +11,9 @@ class FactoryPictures
 
     public function __construct()
     {
-        $this->typeImage['gif'] = 'Piv\Guestbook\App\Helpers\File\FileGif';
-        $this->typeImage['jpeg'] = 'Piv\Guestbook\App\Helpers\File\FileJpeg';
-        $this->typeImage['png'] = 'Piv\Guestbook\App\Helpers\File\FilePng';
+        $this->typeImage['gif'] = 'Piv\Guestbook\Src\Helpers\File\FileGif';
+        $this->typeImage['jpeg'] = 'Piv\Guestbook\Src\Helpers\File\FileJpeg';
+        $this->typeImage['png'] = 'Piv\Guestbook\Src\Helpers\File\FilePng';
     }
 
     public function createImage(UploadedFile $image): AFilePicture
