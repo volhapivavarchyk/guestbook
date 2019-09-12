@@ -18,7 +18,7 @@ class Config {
   public const FILE_OF_MANIFEST = '../public/build/manifest.json';
   public const FILE_OF_ASSETS = 'assets.yaml';
   // путь к директории с фалами переводов
-  public const FILE_OF_TRANSLATION = '../config/translations/';
+  public const FILE_OF_TRANSLATION = '../translations/';
   // имя файла, содержащего тему формы
   public const FILE_OF_FORM_THEME = 'form_div_layout.html.twig';
 

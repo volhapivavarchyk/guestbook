@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 use Piv\Guestbook\Config\Config;
-use Piv\Guestbook\Src\Controllers\GuestbookController;
+use Piv\Guestbook\Src\Controllers\UserController;
 use Piv\Guestbook\Src\Routing\Router;
 
 class Kernel implements HttpKernelInterface

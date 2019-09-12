@@ -1,14 +1,14 @@
 indexRoute:
     path:     /
-    defaults: { controller: 'Piv\Guestbook\Src\Controllers\GuestbookController::show' }
+    defaults: { controller: 'Piv\Guestbook\Src\Controllers\UserController::show' }
 
 indexRoute1:
     path:     /foo/{col}
-    defaults: { controller: 'Piv\Guestbook\Src\Controllers\GuestbookController::show' }
+    defaults: { controller: 'Piv\Guestbook\Src\Controllers\UserController::show' }
 
 sortingRoute:
     path:     /{sortflag}/{count}
-    defaults: { controller: 'Piv\Guestbook\Src\Controllers\GuestbookController::show' }
+    defaults: { controller: 'Piv\Guestbook\Src\Controllers\UserController::show' }
     requirements:
       sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
       count:    \d+

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Piv\Guestbook\Src\Twig\Twig;
 use Piv\Guestbook\Src\Helpers\GuestBookFormer;
 
-class GuestbookController
+class UserController
 {
     public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {
@@ -21,7 +21,7 @@ class GuestbookController
         $messages = $guestBookFormer->getAllMessages();
         // формирование контента
         $content = $twig->getTwig()->render(
-            'index.html.twig',
+            'user/index.html.twig',
             [
                 'form' => $guestBookFormer->getForm()->createView(),
                 'messages' => $messages,
