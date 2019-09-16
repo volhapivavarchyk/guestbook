@@ -5,11 +5,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Piv\Guestbook\Src\Twig\Twig;
 use Piv\Guestbook\Src\Helpers\GuestBookFormer;
+use Piv\Guestbook\Src\Container\ServiceContainer;
 
 class UserController
 {
     public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {
+        $container = new ServiceContainer();
+        var_dump($container->get()->get('twig'));
         $twig = new Twig();
         $guestBookFormer = new GuestBookFormer($request);
         $guestBookFormer->createForm();

@@ -1,8 +1,14 @@
 parameters:
-    form.factory: form
-    form.validator: validator
+    form:
+      factory: form
+      validator: validator
+    translation:
+        language: 'ru'
+        fileTranslation: 'messages.ru.yaml'
+        type: 'yaml'
     twig: twig
-    homepage.numberMessages: 25
+    homepage:
+        numberMessages: 25
 
 services:
     form.factory:
@@ -12,6 +18,18 @@ services:
         class:     Symfony\Component\Validator\Validator\ValidatorInterface
         arguments: ['%mailer.transport%']
     twig:
-        class:     Twig\Environment
+        class:     Piv\Guestbook\Src\Twig\Twig
         calls:
-            - [setMailer, ['@mailer']]
+                   - [addExtension, ['@twig.form.extension']]
+                   - [addFilterExtension, ['@twig.filter.extension']]
+                   - [addFunctionExtension, ['@twig.function.extension']]
+                   - [addTranslatationExtension, ['@twig.translation.extension']]
+    twig.form.extention:
+        class:     'Symfony\Bridge\Twig\Extension\FormExtension'
+    twig.filter.extension:
+        class:     'Piv\Guestbook\Src\Twig\TwigFilterExtention'
+    twig.function.extension:
+        class:     'Piv\Guestbook\Src\Twig\TwigFunctionExtention'
+    twig.translation.extension:
+        class:     'Symfony\Component\Translation\Translator'
+        arguments: ['%translation%']

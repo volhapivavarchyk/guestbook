@@ -49,26 +49,48 @@ class Twig
                 },
             ])
         );
-        $this->twig->addExtension(new FormExtension());
-        $filterExtention = new TwigFilterExtention();
+
+        $this->addExtension('Symfony\Bridge\Twig\Extension\FormExtension');
+        $this->addFilterExtension('Piv\Guestbook\Src\Twig\TwigFilterExtention');
+        $this->addFunctionExtension('Piv\Guestbook\Src\Twig\TwigFunctionExtention');
+        $this->addTranslatationExtension('ru', 'messages.ru.yaml');
+    }
+
+    public function addExtension(string $classNameExtention)
+    {
+        $this->twig->addExtension(new $classNameExtention());
+    }
+
+    public function addFilterExtension(string $classNameFilterExtention)
+    {
+        $filterExtention = new $classNameFilterExtention();
         $this->twig->addExtension($filterExtention);
         foreach ($filterExtention->getFilters() as $filter) {
             $this->twig->addFilter($filter);
         }
-        $functionExtention = new TwigFunctionExtention();
+    }
+
+    public function addFunctionExtension(string $classNameFunctionExtention)
+    {
+        $functionExtention = new $classNameFunctionExtention();
         $this->twig->addExtension($functionExtention);
         foreach ($functionExtention->getFunctions() as $function) {
             $this->twig->addFunction($function);
         }
+    }
+
+    public function addTranslatationExtension(string $language, string $fileTranslation)
+    {
         // создание переводчика
-        $translator = new Translator('ru');
+        $translator = new Translator($language);
         $translator->addLoader('yaml', new TransYamlFileLoader());
-        $translator->addResource('yaml', Config::FILE_OF_TRANSLATION.'messages.ru.yaml', 'ru');
+        $translator->addResource('yaml', Config::FILE_OF_TRANSLATION.$fileTranslation, $language);
         /*
         $translator->addLoader('xlf', new XliffFileLoader());
         $translator->addResource('xlf', 'messages.en.xlf', 'en');
         */
         $this->twig->addExtension(new TranslationExtension($translator));
+
     }
 
     public function getTwig(): Environment
