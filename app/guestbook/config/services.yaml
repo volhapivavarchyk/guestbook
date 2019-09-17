@@ -2,10 +2,9 @@ parameters:
     form:
       factory: form
       validator: validator
-    translation:
-        language: 'ru'
-        fileTranslation: 'messages.ru.yaml'
-        type: 'yaml'
+    translation.language: 'ru'
+    translation.fileTranslation: 'messages.ru.yaml'
+    translation.type: 'yaml'
     twig: twig
     homepage:
         numberMessages: 25
@@ -17,19 +16,21 @@ services:
     validator:
         class:     Symfony\Component\Validator\Validator\ValidatorInterface
         arguments: ['%mailer.transport%']
+    http-kernel:
+        class:     Piv\Guestbook\Src\Kernel
     twig:
         class:     Piv\Guestbook\Src\Twig\Twig
         calls:
                    - [addExtension, ['@twig.form.extension']]
                    - [addFilterExtension, ['@twig.filter.extension']]
                    - [addFunctionExtension, ['@twig.function.extension']]
-                   - [addTranslatationExtension, ['@twig.translation.extension']]
-    twig.form.extention:
+                   - [addTranslatationExtension, ['@twig.translation.extension', '%translation.language%', '%translation.fileTranslation%', '%translation.type%']]
+    twig.form.extension:
         class:     'Symfony\Bridge\Twig\Extension\FormExtension'
     twig.filter.extension:
-        class:     'Piv\Guestbook\Src\Twig\TwigFilterExtention'
+        class:     'Piv\Guestbook\Src\Twig\TwigFilterExtension'
     twig.function.extension:
-        class:     'Piv\Guestbook\Src\Twig\TwigFunctionExtention'
+        class:     'Piv\Guestbook\Src\Twig\TwigFunctionExtension'
     twig.translation.extension:
         class:     'Symfony\Component\Translation\Translator'
-        arguments: ['%translation%']
+        arguments: ['%translation.language%']

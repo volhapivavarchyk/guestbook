@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Piv\Guestbook\Src\Twig;
 
-use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
 use Symfony\Component\Form\FormRenderer;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage;
 use Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\YamlFileLoader as TransYamlFileLoader;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -49,47 +47,38 @@ class Twig
                 },
             ])
         );
-
-        $this->addExtension('Symfony\Bridge\Twig\Extension\FormExtension');
-        $this->addFilterExtension('Piv\Guestbook\Src\Twig\TwigFilterExtention');
-        $this->addFunctionExtension('Piv\Guestbook\Src\Twig\TwigFunctionExtention');
-        $this->addTranslatationExtension('ru', 'messages.ru.yaml');
     }
 
-    public function addExtension(string $classNameExtention)
+    public function addExtension(object $extension)
     {
-        $this->twig->addExtension(new $classNameExtention());
+        $this->twig->addExtension($extension);
     }
 
-    public function addFilterExtension(string $classNameFilterExtention)
+    public function addFilterExtension(object $filterExtension)
     {
-        $filterExtention = new $classNameFilterExtention();
-        $this->twig->addExtension($filterExtention);
-        foreach ($filterExtention->getFilters() as $filter) {
+        $this->twig->addExtension($filterExtension);
+        foreach ($filterExtension->getFilters() as $filter) {
             $this->twig->addFilter($filter);
         }
     }
 
-    public function addFunctionExtension(string $classNameFunctionExtention)
+    public function addFunctionExtension(object $functionExtension)
     {
-        $functionExtention = new $classNameFunctionExtention();
-        $this->twig->addExtension($functionExtention);
-        foreach ($functionExtention->getFunctions() as $function) {
+        $this->twig->addExtension($functionExtension);
+        foreach ($functionExtension->getFunctions() as $function) {
             $this->twig->addFunction($function);
         }
     }
 
-    public function addTranslatationExtension(string $language, string $fileTranslation)
+    public function addTranslatationExtension(object $translator, string $language, string $fileName, string $fileType)
     {
-        // создание переводчика
-        $translator = new Translator($language);
-        $translator->addLoader('yaml', new TransYamlFileLoader());
-        $translator->addResource('yaml', Config::FILE_OF_TRANSLATION.$fileTranslation, $language);
         /*
         $translator->addLoader('xlf', new XliffFileLoader());
         $translator->addResource('xlf', 'messages.en.xlf', 'en');
         */
-        $this->twig->addExtension(new TranslationExtension($translator));
+        $translator->addLoader($fileType, new TransYamlFileLoader());
+        $translator->addResource($fileType, Config::FILE_OF_TRANSLATION.$fileName, $language);
+        $this->addExtension(new TranslationExtension($translator));
 
     }
 

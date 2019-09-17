@@ -12,8 +12,7 @@ class UserController
     public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {
         $container = new ServiceContainer();
-        var_dump($container->get()->get('twig'));
-        $twig = new Twig();
+        $twig = $container->get()->get('twig');
         $guestBookFormer = new GuestBookFormer($request);
         $guestBookFormer->createForm();
         $guestBookFormer->getForm()->handleRequest($request);

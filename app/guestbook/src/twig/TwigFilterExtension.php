@@ -8,7 +8,7 @@ use Twig\Extension\AbstractExtension;
 use Piv\Guestbook\Src\Entities\Message;
 use Piv\Guestbook\Src\Entities\User;
 
-class TwigFilterExtention extends AbstractExtension
+class TwigFilterExtension extends AbstractExtension
 {
     public function usort(array $array, string $sortFlag): array
     {

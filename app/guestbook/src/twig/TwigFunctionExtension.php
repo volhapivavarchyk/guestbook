@@ -10,7 +10,7 @@ use Twig\Extension\AbstractExtension;
 use Piv\Guestbook\Config\Config;
 use Piv\Guestbook\Src\Routing\Router;
 
-class TwigFunctionExtention extends AbstractExtension
+class TwigFunctionExtension extends AbstractExtension
 {
     public function urlFormer(string $nameRoute = 'indexRoute', array $parameters = []): string
     {
