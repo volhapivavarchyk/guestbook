@@ -1,36 +1,33 @@
+imports:
+    - { resource: legacy_aliases.yml }
 parameters:
-    form:
-      factory: form
-      validator: validator
-    translation.language: 'ru'
+    locale: 'ru'
+    app.locales: en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt
     translation.fileTranslation: 'messages.ru.yaml'
     translation.type: 'yaml'
-    twig: twig
-    homepage:
-        numberMessages: 25
 
 services:
-    form.factory:
-        class:     Symfony\Component\Form\FormFactory
-        arguments: ['%form.factory%']
-    validator:
-        class:     Symfony\Component\Validator\Validator\ValidatorInterface
-        arguments: ['%mailer.transport%']
-    http-kernel:
-        class:     Piv\Guestbook\Src\Kernel
-    twig:
-        class:     Piv\Guestbook\Src\Twig\Twig
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $locales: %app.locales%
+            $locale: %locale%
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{entity, migrations, Kernel.php}'
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+    App\EventSubscriber\CommentNotificationSubscriber:
+        $sender: %app.notifications.email_sender%
+    Piv\Guestbook\Src\Twig\Twig:
+        public: true
         calls:
                    - [addExtension, ['@twig.form.extension']]
                    - [addFilterExtension, ['@twig.filter.extension']]
                    - [addFunctionExtension, ['@twig.function.extension']]
-                   - [addTranslatationExtension, ['@twig.translation.extension', '%translation.language%', '%translation.fileTranslation%', '%translation.type%']]
-    twig.form.extension:
-        class:     'Symfony\Bridge\Twig\Extension\FormExtension'
-    twig.filter.extension:
-        class:     'Piv\Guestbook\Src\Twig\TwigFilterExtension'
-    twig.function.extension:
-        class:     'Piv\Guestbook\Src\Twig\TwigFunctionExtension'
-    twig.translation.extension:
-        class:     'Symfony\Component\Translation\Translator'
+                   - [addTranslatationExtension, ['@twig.translation.extension', '%locale%', '%translation.fileTranslation%', '%translation.type%']]
+    Symfony\Component\Translation\Translator:
         arguments: ['%translation.language%']

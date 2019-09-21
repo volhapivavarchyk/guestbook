@@ -9,10 +9,10 @@ use Piv\Guestbook\Src\Container\ServiceContainer;
 
 class UserController
 {
-    public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
+    public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1', Twig $twig): Response
     {
-        $container = new ServiceContainer();
-        $twig = $container->get()->get('twig');
+        //$container = new ServiceContainer();
+        //$twig = $container->get()->get('twig');
         $guestBookFormer = new GuestBookFormer($request);
         $guestBookFormer->createForm();
         $guestBookFormer->getForm()->handleRequest($request);

@@ -1,0 +1,6 @@
+services:
+    twig: '@Piv\Guestbook\Src\Twig\Twig'
+    twig.form.extension: '@Symfony\Bridge\Twig\Extension\FormExtension'
+    twig.filter.extension: '@Piv\Guestbook\Src\Twig\TwigFilterExtension'
+    twig.function.extension: '@Piv\Guestbook\Src\Twig\TwigFunctionExtension'
+    twig.translation.extension: '@Symfony\Component\Translation\Translator'
