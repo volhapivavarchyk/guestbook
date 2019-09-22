@@ -1,5 +1,6 @@
 imports:
     - { resource: legacy_aliases.yml }
+
 parameters:
     locale: 'ru'
     app.locales: en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt
@@ -16,7 +17,7 @@ services:
             $locale: %locale%
     App\:
         resource: '../src/*'
-        exclude: '../src/{entity, migrations, Kernel.php}'
+        exclude: '../src/{entity, migrations, helpers, Kernel.php}'
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
@@ -25,9 +26,9 @@ services:
     Piv\Guestbook\Src\Twig\Twig:
         public: true
         calls:
-                   - [addExtension, ['@twig.form.extension']]
-                   - [addFilterExtension, ['@twig.filter.extension']]
-                   - [addFunctionExtension, ['@twig.function.extension']]
-                   - [addTranslatationExtension, ['@twig.translation.extension', '%locale%', '%translation.fileTranslation%', '%translation.type%']]
+            - [addExtension, ['@twig.form.extension']]
+            - [addFilterExtension, ['@twig.filter.extension']]
+            - [addFunctionExtension, ['@twig.function.extension']]
+            - [addTranslatationExtension, ['@twig.translation.extension', '%locale%', '%translation.fileTranslation%', '%translation.type%']]
     Symfony\Component\Translation\Translator:
-        arguments: ['%translation.language%']
+        arguments: ['%locale%']
