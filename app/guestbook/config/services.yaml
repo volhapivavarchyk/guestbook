@@ -24,6 +24,7 @@ services:
     App\EventSubscriber\CommentNotificationSubscriber:
         $sender: %app.notifications.email_sender%
     Piv\Guestbook\Src\Twig\Twig:
+        autowire: false
         public: true
         calls:
             - [addExtension, ['@twig.form.extension']]
@@ -31,4 +32,5 @@ services:
             - [addFunctionExtension, ['@twig.function.extension']]
             - [addTranslatationExtension, ['@twig.translation.extension', '%locale%', '%translation.fileTranslation%', '%translation.type%']]
     Symfony\Component\Translation\Translator:
+        autowire: false
         arguments: ['%locale%']
