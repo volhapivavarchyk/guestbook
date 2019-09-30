@@ -10,7 +10,7 @@ $request = Request::createFromGlobals();
 
 $dispatcher = new EventDispatcher();
 // ... добавить какие-то слушатели событий
-$dispatcher->addSubscriber(new )
+//$dispatcher->addSubscriber(new )
 
 $controllerResolver = new ControllerResolver();
 $argumentResolver = new ArgumentResolver();
