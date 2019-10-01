@@ -6,8 +6,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Piv\Guestbook\Src\Twig\Twig;
 use Piv\Guestbook\Src\Helpers\GuestBookFormer;
 use Piv\Guestbook\Src\Container\ServiceContainer;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class UserController
+class UserController extends Controller
 {
     public static function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1', Twig $twig): Response
     {

@@ -1,6 +1,6 @@
 indexRoute:
     path:     /
-    defaults: { controller: 'Piv\Guestbook\Src\Controllers\UserController::show' }
+    controller: Piv\Guestbook\Src\Controllers\UserController::show
 
 sortingRoute:
     path:     /{sortflag}/{count}

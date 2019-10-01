@@ -17,7 +17,7 @@ services:
             $locale: %locale%
     App\:
         resource: '../src/*'
-        exclude: '../src/{entity, migrations, helpers, Kernel.php}'
+        exclude: '../src/{entity, migrations, routing, helpers, Kernel.php}'
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']

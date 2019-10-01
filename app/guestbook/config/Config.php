@@ -15,6 +15,7 @@ class Config {
   public const DIR_CONFIG = '../config/';
   // путь и имя файла маршрутов
   public const FILE_OF_ROUTES = '../../config/routes.yaml';
+  public const FILE_OF_ROUTES_KERNEL = '../config/routes.yaml';
   // пути и имена конфигурационных файлов
   public const FILE_OF_MANIFEST = '../public/build/manifest.json';
   public const FILE_OF_ASSETS = 'assets.yaml';
