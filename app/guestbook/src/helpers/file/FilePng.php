@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Helpers\File;
+namespace Piv\Guestbook\Helpers\File;
 
 class FilePng extends AFilePicture
 {

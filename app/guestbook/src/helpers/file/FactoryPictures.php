@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Helpers\File;
+namespace Piv\Guestbook\Helpers\File;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -11,9 +11,9 @@ class FactoryPictures
 
     public function __construct()
     {
-        $this->typeImage['gif'] = 'Piv\Guestbook\Src\Helpers\File\FileGif';
-        $this->typeImage['jpeg'] = 'Piv\Guestbook\Src\Helpers\File\FileJpeg';
-        $this->typeImage['png'] = 'Piv\Guestbook\Src\Helpers\File\FilePng';
+        $this->typeImage['gif'] = 'Piv\Guestbook\Helpers\File\FileGif';
+        $this->typeImage['jpeg'] = 'Piv\Guestbook\Helpers\File\FileJpg';
+        $this->typeImage['png'] = 'Piv\Guestbook\Helpers\File\FilePng';
     }
 
     public function createImage(UploadedFile $image): AFilePicture

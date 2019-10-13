@@ -1,23 +1,28 @@
 <?php
 
 use Symfony\Component\HttpFoundation\{Request, Response};
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Piv\Guestbook\Src\Kernel;
+use Symfony\Component\Debug\Debug;
+use Piv\Guestbook\Kernel;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__) . '/config/bootstrap.php';
+
+if ($_SERVER['APP_DEBUG']) {
+   umask(0000);
+
+   Debug::enable();
+}
+
+if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? $_ENV['TRUSTED_PROXIES'] ?? false) {
+    Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWADED_ALL ^ REQUEST_X_FORWADED_HOST);
+}
+
+if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false) {
+    Request::setTrustedHosts([$trustedHosts]);
+}
 
 $request = Request::createFromGlobals();
 
-//$dispatcher = new EventDispatcher();
-// ... добавить какие-то слушатели событий
-//$dispatcher->addSubscriber(new )
-
-//$controllerResolver = new ControllerResolver();
-//$argumentResolver = new ArgumentResolver();
-
-//$kernel = new Kernel($dispatcher, $controllerResolver, new RequestStack(), $argumentResolver);
-
-$kernel = new Kernel();
+$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $response = $kernel->handle($request);
 $response->send();
 

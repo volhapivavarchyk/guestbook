@@ -1,0 +1,39 @@
+<?php
+namespace Piv\Guestbook\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Piv\Guestbook\Helpers\GuestBookFormer;
+use Piv\Guestbook\Entity\Message;
+
+
+class UserController extends Controller
+{
+    public function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
+    {
+       //$products = $this->getDoctrine();
+        var_dump($_ENV);
+        $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
+        $guestBookFormer->createForm();
+        $guestBookFormer->getForm()->handleRequest($request);
+        if ($guestBookFormer->isFormSubmittedAndValid() === true) {
+            //var_dump($guestBookFormer);
+            $guestBookFormer->addMessage();
+        }
+        $messages = $guestBookFormer->getAllMessages();
+        // формирование контента
+        $content = $this->render(
+            'user/index.html.twig',
+            [
+                'form' => $guestBookFormer->getForm()->createView(),
+                'messages' => $messages,
+                'sortflag' => $sortFlag,
+                'count' => (int)$count,
+                'captchaKey' => $_ENV['GUESTBOOK_CAPTCHA_KEY'],
+            ]
+        );
+        $response = new Response($content);
+        return $response;
+    }
+}

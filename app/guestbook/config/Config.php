@@ -12,7 +12,7 @@ class Config {
   public const DIR_IMAGE_UPLOAD = '../public/upload/img/';
   public const DIR_SMALL_IMAGE_UPLOAD = '../public/upload/img/small/';
   public const DIR_FILE_TXT_UPLOAD = '../public/upload/txt/';
-  public const DIR_CONFIG = '../config/';
+  public const DIR_CONFIG = '../config';
   // путь и имя файла маршрутов
   public const FILE_OF_ROUTES = '../../config/routes.yaml';
   public const FILE_OF_ROUTES_KERNEL = '../config/routes.yaml';

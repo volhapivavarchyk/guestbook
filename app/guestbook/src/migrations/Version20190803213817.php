@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Migrations;
+namespace Piv\Guestbook\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;

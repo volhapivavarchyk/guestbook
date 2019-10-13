@@ -1,88 +1,59 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src;
+namespace Piv\Guestbook;
 
-use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernel;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
-use Piv\Guestbook\Config\Config;
-use Piv\Guestbook\Src\Controllers\UserController;
-use Piv\Guestbook\Src\Routing\Router;
-use Piv\Guestbook\Src\Container\ServiceContainer;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Component\Routing\RouteCollectionBuilder;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Routing\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\EventListener\RouterListener;
-
-class Kernel extends HttpKernel
+class Kernel extends BaseKernel
 {
-    public function __construct()
+    use MicroKernelTrait;
+
+    const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
+    public function getCacheDir()
     {
-        //$serviceContainer = new ServiceContainer();
-
-        $fileLocator = new FileLocator([__DIR__]);
-        $loader = new YamlFileLoader($fileLocator);
-        $routes = $loader->load(Config::FILE_OF_ROUTES_KERNEL);
-        var_dump($routes);
-        $context = new RequestContext();
-        $matcher = new UrlMatcher($routes, $context);
-        $requestStack = new RequestStack();
-
-        $controllerResolver = new ControllerResolver();
-        $argumentResolver = new ArgumentResolver();
-
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber(new RouterListener($matcher, $requestStack));
-
-        parent::__construct($dispatcher, $controllerResolver, $requestStack, $argumentResolver);
+        return $this->getProjectDir().'/var/cache/'.$this->environment;
     }
 
+    public function getLogDir()
+    {
+        return $this->getProjectDir().'var/log';
+    }
 
-    /**
-     * @param Request $request
-     * @param int $type
-     * @param bool $catch
-     * @return Response
-     */
-    public function handle(
-        Request $request,
-        $type = HttpKernelInterface::MASTER_REQUEST,
-        $catch = true
-    ): Response {
-        //Config::checkIsDirToUploadedFiles();
-        //...
-        //...
-        //...
-        /*
-        $router = new Router(Config::FILE_OF_ROUTES);
-        try {
-            $attributes = $router->getUrlParameters($request->getPathInfo());
-            $controller = empty($attributes) ? '' : $attributes['controller'];
-            if (isset($attributes['sortflag']) && isset($attributes['count'])) {
-                $response = $controller($request, $attributes['sortflag'], $attributes['count']);
-            } else {
-                $response = $controller($request);
+    public function registerBundles()
+    {
+        $contents = require $this->getProjectDir().'/config/bundles.php';
+        foreach ($contents as $class => $envs) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+                yield new $class();
             }
-        } catch (ResourceNotFoundException $e) {
-            $response = new Response('Not found!', Response::HTTP_NOT_FOUND);
         }
+    }
 
-        return $response;
-        */
-       parent::handle($request);
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
+    {
+        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
+        $container->setParameter('container.dumper.inline_class_loader', true);
+        $configDir = $this->getProjectDir().'/config';
+
+        $loader->load($configDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($configDir.'/{packages}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+        $loader->load($configDir.'/{services}'.self::CONFIG_EXTS, 'glob');
+        $loader->load($configDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+    }
+
+    protected function configureRoutes(RouteCollectionBuilder $routes)
+    {
+        $configDir = $this->getProjectDir().'/config';
+
+        $routes->import($configDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($configDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($configDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 }

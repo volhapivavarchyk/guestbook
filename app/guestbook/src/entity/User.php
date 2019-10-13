@@ -1,25 +1,26 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Entity;
+namespace Piv\Guestbook\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="users", indexes={@Index(name="search_idx", columns={"email"})})
+ * @ORM\Entity
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="search_idx", columns={"email"})})
  */
 class User
 {
-    /** @Id @Column(name="user_id", type="integer", unique=true, nullable=true) @GeneratedValue**/
+    /** @ORM\Id @ORM\Column(name="user_id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $idUser;
-    /** @Column(length=128) **/
+    /** @ORM\Column(length=128) **/
     protected $name;
-    /** @Column(length=128) **/
+    /** @ORM\Column(length=128) **/
     protected $email;
     /**
-     * @OneToMany(targetEntity="Message", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
      */
     protected $messages;
 

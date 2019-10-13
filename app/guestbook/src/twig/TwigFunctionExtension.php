@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Twig;
+namespace Piv\Guestbook\Twig;
 
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use Piv\Guestbook\Config\Config;
-use Piv\Guestbook\Src\Routing\Router;
+use Piv\Guestbook\Routing\Router;
 
 class TwigFunctionExtension extends AbstractExtension
 {

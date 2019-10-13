@@ -1,84 +1,21 @@
 <?php
-declare(strict_types=1);
-
-namespace Piv\Guestbook\Config;
-
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
+use Symfony\Component\Dotenv\Dotenv;
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Piv\Guestbook\Config\Config;
+use Doctrine\ORM\EntityManager;
 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-class Bootstrap
-{
-    private $entityManager;
-    private $serviceContainer;
-
-    /**
-     * Bootstrap constructor
-     */
-    public function __construct()
-    {
-        // create an entity manager
-        $config = $this->setConfigEntityManager();
-        $connection = [
-            'driver' => 'pdo_mysql',
-            'user' => Config::getGlobalVariableEnv('DB_USER'),
-            'password' => Config::getGlobalVariableEnv('DB_PASSWORD'),
-            'dbname' => Config::getGlobalVariableEnv('DB_NAME'),
-            'host' => Config::getGlobalVariableEnv('DB_HOST'),
-            'port' => Config::getGlobalVariableEnv('DB_PORT'),
-        ];
-        try {
-            $this->entityManager = $this->createEntityManager($connection, $config);
-        } catch (ORMException $e) {
-            $this->entityManager = null;
-        }
-
-        // ..........................
-        $this->createHelperSet();
-
-        // create a service container
-        //$this->serviceContainer = $this->createServiceContainer());
+if (is_array($env = @include dirname(__DIR__).'/.env.local.php')) {
+    foreach ($env as $k => $v) {
+        $_ENV[$k] = $_ENV[$k] ?? (isset($_SERVER[$k]) && strpos($k, 'HTTP_') !== 0 ? $_SERVER[$k] : $v);
     }
-
-    public function getEntityManager()
-    {
-        return $this->entityManager;
-    }
-
-    private function setConfigEntityManager()
-    {
-        $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration([__DIR__."/src/entity/"], $isDevMode);
-
-        return $config;
-    }
-
-    private function createEntityManager($connection, $config)
-    {
-        return EntityManager::create($connection, $config);
-    }
-
-    private function createHelperSet()
-    {
-        ConsoleRunner::createHelperSet($this->entityManager);
-    }
-
-    public function getServiceContainer()
-    {
-        return $this->serviceContainer;
-    }
-
-    private function createServiceContainer()
-    {
-        $containerBuilder = new ContainerBuilder();
-        $loader = new YamlFileLoader($containerBuilder, new FileLocator(Config::DIR_CONFIG));
-        $loader->load('services.yaml');
-        return $containerBuilder;
-    }
+} elseif (!class_exists(Dotenv::class)) {
+    throw new RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
+} else {
+    (new Dotenv(false))->loadEnv(dirname(__DIR__).'/.env');
 }
+
+$_SERVER += $_ENV;
+$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = ($_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? null) ?: 'dev';
+$_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? $_SERVER['APP_ENV'] !== 'prod';
+$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';

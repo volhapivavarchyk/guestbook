@@ -1,9 +1,5 @@
-imports:
-    - { resource: legacy_aliases.yml }
-
 parameters:
     locale: 'ru'
-    app.locales: en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt
     translation.fileTranslation: 'messages.ru.yaml'
     translation.type: 'yaml'
 
@@ -12,25 +8,13 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-        bind:
-            $locales: %app.locales%
-            $locale: %locale%
-    App\:
+    Piv\Guestbook\:
         resource: '../src/*'
-        exclude: '../src/{entity, migrations, routing, helpers, Kernel.php}'
-    App\Controller\:
+        exclude: '../src/{entity,helpers,migrations,Kernel.php}'
+    Piv\Guestbook\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-    App\EventSubscriber\CommentNotificationSubscriber:
-        $sender: %app.notifications.email_sender%
-    Piv\Guestbook\Src\Twig\Twig:
-        autowire: false
-        public: true
-        calls:
-            - [addExtension, ['@twig.form.extension']]
-            - [addFilterExtension, ['@twig.filter.extension']]
-            - [addFunctionExtension, ['@twig.function.extension']]
-            - [addTranslatationExtension, ['@twig.translation.extension', '%locale%', '%translation.fileTranslation%', '%translation.type%']]
-    Symfony\Component\Translation\Translator:
-        autowire: false
-        arguments: ['%locale%']
+    Piv\Guestbook\Twig\TwigFilterExtension:
+        tags: [twig.extension]
+    Piv\Guestbook\Twig\TwigFunctionExtension:
+        tags: [twig.extension]

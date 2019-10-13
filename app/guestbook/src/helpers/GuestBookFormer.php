@@ -1,5 +1,5 @@
 <?php
-namespace Piv\Guestbook\Src\Helpers;
+namespace Piv\Guestbook\Helpers;
 
 use \DateTime;
 use Symfony\Component\Form\Forms;
@@ -7,13 +7,13 @@ use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
+use Doctrine\ORM\EntityManager;
 use Piv\Guestbook\Config\Config;
-use Piv\Guestbook\Config\Bootstrap;
-use Piv\Guestbook\Src\Entity\Message;
-use Piv\Guestbook\Src\Entity\User;
-use Piv\Guestbook\Src\Forms\UserType;
-use Piv\Guestbook\Src\Helpers\File\FactoryPictures;
-use Piv\Guestbook\Src\Helpers\File\FileTxt;
+use Piv\Guestbook\Entity\Message;
+use Piv\Guestbook\Entity\User;
+use Piv\Guestbook\Forms\UserType;
+use Piv\Guestbook\Helpers\File\FactoryPictures;
+use Piv\Guestbook\Helpers\File\FileTxt;
 
 class GuestBookFormer
 {
@@ -24,9 +24,9 @@ class GuestBookFormer
     protected $message;
     protected $form;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, EntityManager $entityManager)
     {
-        $this->entityManager = (new Bootstrap())->getEntityManager();
+        $this->entityManager = $entityManager;
         $this->request = $request;
 
         $this->user = new User();

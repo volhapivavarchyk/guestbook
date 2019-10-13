@@ -1,35 +1,36 @@
 <?php
 declare(strict_types=1);
 
-namespace Piv\Guestbook\Src\Entity;
+namespace Piv\Guestbook\Entity;
 
 use \DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="messages", indexes={@Index(name="search_idx", columns={"theme", "date"})})
+ * @ORM\Entity
+ * @ORM\Table(name="messages", indexes={@ORM\Index(name="search_idx", columns={"theme", "date"})})
  */
 class Message
 {
-    /** @Id @Column(name="message_id", type="integer", unique=true, nullable=true) @GeneratedValue **/
+    /** @ORM\Id @ORM\Column(name="message_id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue **/
     protected $idMessage;
-    /** @Column(type="string", length=128) **/
+    /** @ORM\Column(type="string", length=128) **/
     protected $theme;
-    /** @Column(type="text") **/
+    /** @ORM\Column(type="text") **/
     protected $text;
-    /** @Column(type="string", length=128, nullable=true) **/
+    /** @ORM\Column(type="string", length=128, nullable=true) **/
     protected $pictures;
-    /** @Column(type="string", length=255, nullable=true) **/
+    /** @ORM\Column(type="string", length=255, nullable=true) **/
     protected $filepath;
-    /** @Column(type="datetime") **/
+    /** @ORM\Column(type="datetime") **/
     protected $date;
-    /** @Column(name="ip", type="string", length=128) **/
+    /** @ORM\Column(name="ip", type="string", length=128) **/
     protected $ipAdress;
-    /** @Column(type="string", length=128) **/
+    /** @ORM\Column(type="string", length=128) **/
     protected $browser;
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
-     * @JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
      */
     protected $user;
 
