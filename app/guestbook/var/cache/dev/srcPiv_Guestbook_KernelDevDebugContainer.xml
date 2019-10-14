@@ -204,8 +204,6 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception::showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
-      <parameter>form/layout.html.twig</parameter>
-      <parameter>form/fields.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">/usr/share/nginx/html/guestbook/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>

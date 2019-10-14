@@ -13,7 +13,7 @@ class UserController extends Controller
     public function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
     {
        //$products = $this->getDoctrine();
-        var_dump($_ENV);
+        //var_dump($_ENV);
         $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
         $guestBookFormer->createForm();
         $guestBookFormer->getForm()->handleRequest($request);
