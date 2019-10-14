@@ -13,7 +13,6 @@ return [
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
-        '/' => [[['_route' => 'indexRoute', '_controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -32,7 +31,7 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/((?:ByName|ByEmail|ByDate)(?:Asc|Desc))/(\\d+)(*:215)'
+                .'|/((?:ByName|ByEmail|ByDate)(?:Asc|Desc))?(?:/(\\d+))?(*:221)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -43,8 +42,8 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        215 => [
-            [['_route' => 'sortingRoute', 'controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], ['sortflag', 'count'], null, null, false, true, null],
+        221 => [
+            [['_route' => 'indexRoute', 'sortflag' => 'ByDateDesc', 'count' => '1', '_controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], ['sortflag', 'count'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

@@ -43,7 +43,7 @@
               {{ form_errors(message.pictures) }}
             </div>
             <div class="add-message-field">
-                {{ form_label(message.filepath)|trans({}, translation_domain)|raw }}
+                {{ form_label(message.filepath)|trans({}, translation_domain|default('messages'))|raw }}
                 {{ form_widget(message.filepath, {'attr': {'accept': '.txt'}} ) }}
                 <small>{{ form_help(message.filepath) }}</small>
                 {{ form_errors(message.filepath) }}

@@ -10,15 +10,12 @@ use Piv\Guestbook\Entity\Message;
 
 class UserController extends Controller
 {
-    public function show(Request $request, string $sortFlag = 'ByDateDesc', string $count = '1'): Response
+    public function show(Request $request, string $sortflag, string $count): Response
     {
-       //$products = $this->getDoctrine();
-        //var_dump($_ENV);
         $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
         $guestBookFormer->createForm();
         $guestBookFormer->getForm()->handleRequest($request);
         if ($guestBookFormer->isFormSubmittedAndValid() === true) {
-            //var_dump($guestBookFormer);
             $guestBookFormer->addMessage();
         }
         $messages = $guestBookFormer->getAllMessages();
@@ -28,7 +25,7 @@ class UserController extends Controller
             [
                 'form' => $guestBookFormer->getForm()->createView(),
                 'messages' => $messages,
-                'sortflag' => $sortFlag,
+                'sortflag' => $sortflag,
                 'count' => (int)$count,
                 'captchaKey' => $_ENV['GUESTBOOK_CAPTCHA_KEY'],
             ]

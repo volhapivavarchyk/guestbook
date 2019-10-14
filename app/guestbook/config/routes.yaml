@@ -1,10 +1,9 @@
 indexRoute:
-    path:     /
-    controller: Piv\Guestbook\Controller\UserController::show
-
-sortingRoute:
     path:     /{sortflag}/{count}
-    defaults: { controller: 'Piv\Guestbook\Controller\UserController::show' }
+    controller: Piv\Guestbook\Controller\UserController::show
+    defaults:
+        sortflag: 'ByDateDesc'
+        count: '1'
     requirements:
       sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
       count:    \d+

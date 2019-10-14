@@ -12,7 +12,7 @@
         {% set imgName=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{ url('sortingRoute', {'sortflag':sortNameflag, 'count':1})}} ">
+        <a href = "{{ url('indexRoute', {'sortflag':sortNameflag, 'count':1})}} ">
             {{'sorting.name'|trans({},'messages')|raw}}
         </a>
     </div>
@@ -31,7 +31,7 @@
         {% set imgEmail=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{url('sortingRoute', {'sortflag':sortEmailflag, 'count':1})}}">
+        <a href = "{{url('indexRoute', {'sortflag':sortEmailflag, 'count':1})}}">
             {{'sorting.email'|trans({},'messages')|raw}}
         </a>
     </div>
@@ -50,7 +50,7 @@
         {% set imgDate=''%}
     {% endif %}
     <div class="title-message-fields">
-        <a href = "{{url('sortingRoute', {'sortflag':sortDateflag, 'count':1})}}">
+        <a href = "{{url('indexRoute', {'sortflag':sortDateflag, 'count':1})}}">
             {{'sorting.date'|trans({},'messages')|raw}}
         </a>
     </div>
@@ -65,7 +65,7 @@
         {% else %}
             <div class="count-messages">
         {% endif %}
-        <a href="{{url('sortingRoute', {'sortflag':sortflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
     {% set start = count*25 - 25 %}
@@ -113,7 +113,7 @@
         {% else %}
             <div class="count-messages">
         {% endif %}
-        <a href="{{url('sortingRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
+        <a href="{{url('indexRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
         </div>
     {% endfor %}
     {% set start = count*25 - 24 %}

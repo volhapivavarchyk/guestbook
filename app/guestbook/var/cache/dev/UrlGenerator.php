@@ -15,6 +15,5 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception::showAction'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception::cssAction'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
-    'indexRoute' => [[], ['_controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], [], [['text', '/']], [], []],
-    'sortingRoute' => [['sortflag', 'count'], ['controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], ['sortflag' => '(ByName|ByEmail|ByDate)(Asc|Desc)', 'count' => '\\d+'], [['variable', '/', '\\d+', 'count', true], ['variable', '/', '(?:ByName|ByEmail|ByDate)(?:Asc|Desc)', 'sortflag', true]], [], []],
+    'indexRoute' => [['sortflag', 'count'], ['sortflag' => 'ByDateDesc', 'count' => '1', '_controller' => 'Piv\\Guestbook\\Controller\\UserController::show'], ['sortflag' => '(ByName|ByEmail|ByDate)(Asc|Desc)', 'count' => '\\d+'], [['variable', '/', '\\d+', 'count', true], ['variable', '/', '(?:ByName|ByEmail|ByDate)(?:Asc|Desc)', 'sortflag', true]], [], []],
 ];
