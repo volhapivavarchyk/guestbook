@@ -302,7 +302,6 @@
     <service id="Piv\Guestbook\Helpers\File\FileTxt" class="Piv\Guestbook\Helpers\File\FileTxt" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Helpers\GuestBookFormer" class="Piv\Guestbook\Helpers\GuestBookFormer" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Migrations\Version20190803213817" class="Piv\Guestbook\Migrations\Version20190803213817" public="false" autowire="true" autoconfigure="true"/>
-    <service id="Piv\Guestbook\Routing\Router" class="Piv\Guestbook\Routing\Router" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Twig\TwigFilterExtension" class="Piv\Guestbook\Twig\TwigFilterExtension" public="false" autowire="true" autoconfigure="true">
       <tag name="twig.extension"/>
     </service>

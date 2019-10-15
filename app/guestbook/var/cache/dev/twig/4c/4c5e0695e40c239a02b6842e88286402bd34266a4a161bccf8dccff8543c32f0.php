@@ -53,7 +53,7 @@ class __TwigTemplate_91dcb6ae57d3c977c75ad72da616dd9157c937cecc2cc60995d774e5c4f
         // line 2
         if (( !(isset($context["link"]) || array_key_exists("link", $context)) || (isset($context["link"]) || array_key_exists("link", $context) ? $context["link"] : (function () { throw new RuntimeError('Variable "link" does not exist.', 2, $this->source); })()))) {
             echo "<a href=\"";
-            echo twig_escape_filter($this->env, $this->extensions['Piv\Guestbook\Twig\TwigFunctionExtension']->urlFormer("_profiler", ["token" => (isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 2, $this->source); })()), "panel" => (isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 2, $this->source); })())]), "html", null, true);
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getUrl("_profiler", ["token" => (isset($context["token"]) || array_key_exists("token", $context) ? $context["token"] : (function () { throw new RuntimeError('Variable "token" does not exist.', 2, $this->source); })()), "panel" => (isset($context["name"]) || array_key_exists("name", $context) ? $context["name"] : (function () { throw new RuntimeError('Variable "name" does not exist.', 2, $this->source); })())]), "html", null, true);
             echo "\">";
         }
         // line 3

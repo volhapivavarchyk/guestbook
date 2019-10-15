@@ -80,20 +80,20 @@ class GuestBookFormer
         if ($imagePictureFile && $imagePictureFile->getClientOriginalName() !== '') {
             $factory = new FactoryPictures();
             $image = $factory->createImage($imagePictureFile);
-            $image->moveImageTo(Config::DIR_TEMP_UPLOAD);
+            $image->moveImageTo($_ENV['DIR_TEMP_UPLOAD']);
             $image->createImage(
-                Config::DIR_TEMP_UPLOAD,
-                Config::DIR_IMAGE_UPLOAD,
+                $_ENV['DIR_TEMP_UPLOAD'],
+                $_ENV['DIR_IMAGE_UPLOAD'],
                 320,
                 240
             );
             $image->createImage(
-                Config::DIR_TEMP_UPLOAD,
-                Config::DIR_SMALL_IMAGE_UPLOAD,
+                $_ENV['DIR_TEMP_UPLOAD'],
+                $_ENV['DIR_SMALL_IMAGE_UPLOAD'],
                 60,
                 50
             );
-            $image->deleteFileFrom(Config::DIR_TEMP_UPLOAD);
+            $image->deleteFileFrom($_ENV['DIR_TEMP_UPLOAD']);
             $this->message->setPictures($image->getImage()->getClientOriginalName());
         }
         // загрузка текстового файла
@@ -101,7 +101,7 @@ class GuestBookFormer
         $this->message->setFilepath('');
         if ($imageTxtFile && $imageTxtFile->getClientOriginalName() !== '') {
             $file = new FileTxt($imageTxtFile);
-            $file->moveFileTo(Config::DIR_FILE_TXT_UPLOAD);
+            $file->moveFileTo($_ENV['DIR_FILE_TXT_UPLOAD']);
             $this->message->setFilepath($file->getFile()->getClientOriginalName());
         }
 
