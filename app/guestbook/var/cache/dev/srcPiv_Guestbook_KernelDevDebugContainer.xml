@@ -27,7 +27,7 @@
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
       </parameter>
       <parameter key="SensioFrameworkExtraBundle" type="collection">
-        <parameter key="path">/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle</parameter>
+        <parameter key="path">/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle/src</parameter>
         <parameter key="namespace">Sensio\Bundle\FrameworkExtraBundle</parameter>
       </parameter>
       <parameter key="TwigBundle" type="collection">
@@ -204,6 +204,8 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception::showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>foundation_5_layout.html.twig</parameter>
+      <parameter>bootstrap_4_layout.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">/usr/share/nginx/html/guestbook/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
@@ -1397,7 +1399,7 @@
           <argument>/usr/share/nginx/html/guestbook/src/Resources/FrameworkBundle/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/vendor/doctrine/doctrine-bundle/Resources/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/src/Resources/DoctrineBundle/translations</argument>
-          <argument>/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle/Resources/translations</argument>
+          <argument>/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle/src/Resources/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/src/Resources/SensioFrameworkExtraBundle/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/vendor/symfony/twig-bundle/Resources/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/src/Resources/TwigBundle/translations</argument>
