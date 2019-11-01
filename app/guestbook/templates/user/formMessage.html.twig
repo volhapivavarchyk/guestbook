@@ -22,7 +22,7 @@
             <div class="add-message-box-field">
                 <div class="add-message-field">
                     {{ form_label(message.text) }}
-                    {{ form_widget(message.text, {'id':'text'})}}
+                    {{ form_widget(message.text, {'id':'text', 'attr':{'class':'add-message-field'}})}}
                     <br />
                     <input type="button" value="link" id="link-button" style="margin-left:205px; margin-top: 3px;"/>
                     <input type="button" value="code" id="code-button"/>
