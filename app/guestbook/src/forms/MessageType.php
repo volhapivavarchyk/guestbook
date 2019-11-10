@@ -49,6 +49,9 @@ class MessageType extends AbstractType
             ->add('pictures', FileType::class, [
                 'label' => 'message.add.picture',
                 'label_translation_parameters' => [],
+                'label_attr' => [
+                    'data-browse' => 'Выбрать',
+                ],
                 'translation_domain' => 'messages',
                 'required' => false,
                 'constraints' => [
@@ -65,6 +68,9 @@ class MessageType extends AbstractType
             ->add('filepath', FileType::class, [
               'label' => 'message.add.txt',
               'label_translation_parameters' => [],
+              'label_attr' => [
+                  'data-browse' => 'Выбрать',
+              ],
               'translation_domain' => 'messages',
               'required' => false,
                 'constraints' => [

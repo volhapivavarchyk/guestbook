@@ -5,6 +5,7 @@ user:
 message:
     theme: Тема сообщения
     text: Текст сообщения
+    button: Выбрать
     add:
         picture: Добавить изображение
         txt: Добавить txt файл

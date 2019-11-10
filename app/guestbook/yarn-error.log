@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add ekko-loghtbox
+  /usr/bin/node /usr/share/yarn/bin/yarn.js upgrate
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -14,17 +14,12 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/ekko-loghtbox: Not found
-      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66830:18)
-      at Request.self.callback (/usr/share/yarn/lib/cli.js:140464:22)
-      at Request.emit (events.js:209:13)
-      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141436:10)
-      at Request.emit (events.js:209:13)
-      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141358:12)
-      at Object.onceWrapper (events.js:297:20)
-      at IncomingMessage.emit (events.js:214:15)
-      at endReadableNT (_stream_readable.js:1178:12)
-      at processTicksAndRejections (internal/process/task_queues.js:77:11)
+  SyntaxError: /usr/share/nginx/html/guestbook/package.json: Unexpected string in JSON at position 363
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:304:30)
+      at /usr/share/yarn/lib/cli.js:315:13
 
 npm manifest: 
   {
@@ -37,10 +32,15 @@ npm manifest:
     },
     "dependencies": {
       "bootstrap": "^4.3.1",
+      "ekko-lightbox": "^5.3.0",
       "google-recaptcha": "^1.1.0",
       "popper.js": "^1.15.0",
       "webpack-notifier": "^1.8.0"
     }
+    "name": "guestbook",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
   }
 
 yarn manifest: 
@@ -2382,6 +2382,11 @@ Lockfile:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
     integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
+  
+  ekko-lightbox@^5.3.0:
+    version "5.3.0"
+    resolved "https://registry.yarnpkg.com/ekko-lightbox/-/ekko-lightbox-5.3.0.tgz#fbfcd9df93a8d1cdbf8770adc8c05aaac4d24f56"
+    integrity sha512-mbacwySuVD3Ad6F2hTkjSTvJt59bcVv2l/TmBerp4xZnLak8tPtA4AScUn4DL42c1ksTiAO6sGhJZ52P/1Qgew==
   
   electron-to-chromium@^1.3.191:
     version "1.3.238"
@@ -4871,6 +4876,11 @@ Lockfile:
     integrity sha1-Pgj7RhUlxEIWJKM7n35tCvWwWiY=
     dependencies:
       find-up "^1.0.0"
+  
+  popper.js@^1.15.0:
+    version "1.15.0"
+    resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
+    integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
   
   portfinder@^1.0.21:
     version "1.0.23"

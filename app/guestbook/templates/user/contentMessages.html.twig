@@ -1,6 +1,39 @@
+
+<div class="container">
+<div class="row justify-content-end ">
+  <ul class="pagination pagination-sm justify-content-end">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for i in 1..messages|length//25+1 %}
+        {% if i == count %}
+           <li class="page-item active" aria-current="page">
+               <span class="page-link">{{i}}
+                   <span class="sr-only">(current)</span>
+               </span>
+          </li>
+        {% else %}
+            <li class="page-item">
+                <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    {% set start = count*25 - 25 %}
+    {% set length = start + 25 %}
+    <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+    </ul>
+</div>
+
 {% set imgArrowUp='\\build\\images\\double-up.png' %}
 {% set imgArrowDown='\\build\\images\\double-down.png' %}
-<div class="title-message">
+
+<div class="row justify-content-end">
     {% if sortflag is same as ('ByNameAsc') %}
         {% set sortNameflag="ByNameDesc" %}
         {% set imgName=imgArrowUp %}
@@ -11,13 +44,15 @@
         {% set sortNameflag="ByNameAsc" %}
         {% set imgName=''%}
     {% endif %}
-    <div class="title-message-fields">
+    <div class="title-message-fields badge badge-primary mx-1">
         <a href = "{{ url('indexRoute', {'sortflag':sortNameflag, 'count':1})}} ">
             {{'sorting.name'|trans({},'messages')|raw}}
         </a>
-    </div>
-    <div class="arrows-title-message">
-        <div class="arrow-down"><img src = "{{ asset(imgName) }}" width="10" height="10"></div>
+        {% if imgName %}
+            <div class="arrows-title-message badge badge-light">
+                <img src = "{{ asset(imgName) }}" width="10" height="10">
+            </div>
+        {% endif %}
     </div>
 
     {% if sortflag is same as ('ByEmailAsc') %}
@@ -30,16 +65,17 @@
         {% set sortEmailflag="ByEmailAsc" %}
         {% set imgEmail=''%}
     {% endif %}
-    <div class="title-message-fields">
+    <div class="title-message-fields badge badge-primary mx-1">
         <a href = "{{url('indexRoute', {'sortflag':sortEmailflag, 'count':1})}}">
             {{'sorting.email'|trans({},'messages')|raw}}
         </a>
+        {% if imgEmail %}
+            <div class="arrows-title-message badge badge-light">
+                <img src = "{{ asset(imgEmail) }}" width="10" height="10">
+            </div>
+        {% endif %}
     </div>
-    <div class="arrows-title-message">
-      <div><img src = "{{asset(imgEmail)}}" width="10" height="10"></div>
-    </div>
-
-    {% if sortflag is same as ('ByDateAsc') %}
+  {% if sortflag is same as ('ByDateAsc') %}
         {% set sortDateflag="ByDateDesc" %}
         {% set imgDate=imgArrowUp %}
     {% elseif  sortflag is same as ('ByDateDesc')%}
@@ -49,48 +85,40 @@
         {% set sortDateflag="ByDateAsc" %}
         {% set imgDate=''%}
     {% endif %}
-    <div class="title-message-fields">
+    <div class="title-message-fields badge badge-primary mx-1">
         <a href = "{{url('indexRoute', {'sortflag':sortDateflag, 'count':1})}}">
             {{'sorting.date'|trans({},'messages')|raw}}
         </a>
-    </div>
-    <div class="arrows-title-message">
-      <div> <img src = "{{ asset(imgDate) }}" width="10" height="10"> </div>
-    </div>
-</div>
-<div class="title-message">
-    {% for i in 1..messages|length//25+1 %}
-        {% if i == count %}
-            <div class="count-messages-active">
-        {% else %}
-            <div class="count-messages">
+        {% if imgDate %}
+            <div class="arrows-title-message badge badge-light">
+                <img src = "{{ asset(imgDate) }}" width="10" height="10">
+            </div>
         {% endif %}
-        <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
-        </div>
-    {% endfor %}
-    {% set start = count*25 - 25 %}
-    {% set length = start + 25 %}
+    </div>
 </div>
-<div id="messages">
+
+<div id="messages" class="container">
     {% for message in messages|usort(sortflag)|slice(start, length) %}
-        <div class="box-message">
-            <div class="title-message">
-                <div>{{message.theme|upper}}</div>
-                <div class="title-message-fields" style="margin-left: auto;">
-                    {{message.user.getName()}}
-                </div>&nbsp;&brvbar;&nbsp;
-                <div class="title-message-fields">
-                    {{message.user.getEmail()}}
-                </div>&nbsp;&brvbar;&nbsp;
-                <div class="title-message-fields">
-                    {{message.date.format( 'Y-m-d H:i:s')}}
-                </div>
+        <div class="row justify-content-between mt-3">
+            <div class="col-6 text-dark">
+                {{message.theme|upper}}
+            </div>
+            <div class="col-5 text-dark">
+                {{message.user.getName()}}
+                &nbsp;&brvbar;&nbsp;
+                {{message.user.getEmail()}}
+                &nbsp;&brvbar;&nbsp;
+                {{message.date.format( 'Y-m-d H:i:s')}}
             </div>
         </div>
-        <div class="text-message">
-            <p>{{message.text|raw}}</p>
+        <div class="row">
+            <div class="col">
+                <p class="text-justify font-weight-normal text-secondary my-1">{{message.text|raw}}</p>
+            </div>
+        </div>
             {% if message.pictures or message.filepath %}
-                <div>
+            <div class="row">
+                <div class="col">
                     {% if message.pictures %}
                         <a href="{{ asset ('/upload/img/' ~ message.pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
                             <img src="{{ asset ('/upload/img/small/' ~ message.pictures)}}" class="img-fluid">
@@ -98,24 +126,43 @@
                     {% endif %}
                     {% if message.filepath %}
                         <a href=" {{ asset('/upload/txt/' ~ message.filepath) }}" type="application/file"
-                           style="text-decoration: none;">{{ message.filepath }}
+                           class="text-dark bg-light text-decoration-none">{{ message.filepath }}
                         </a>
                     {% endif %}
                 </div>
+            </div>
             {% endif %}
-        </div>
+
     {% endfor %}
 </div>
-<div class="title-message">
+
+<div class="row justify-content-end ">
+  <ul class="pagination pagination-sm justify-content-end">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
     {% for i in 1..messages|length//25+1 %}
         {% if i == count %}
-            <div class="count-messages-active">
+           <li class="page-item active" aria-current="page">
+               <span class="page-link">{{i}}
+                   <span class="sr-only">(current)</span>
+               </span>
+          </li>
         {% else %}
-            <div class="count-messages">
+            <li class="page-item">
+                <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+            </li>
         {% endif %}
-        <a href="{{url('indexRoute', {'sortflag':sortDateflag, 'count':i})}}" style="color:unset; text-decoration:none;">{{i}}</a>&nbsp;&nbsp;
-        </div>
     {% endfor %}
-    {% set start = count*25 - 24 %}
+    {% set start = count*25 - 25 %}
     {% set length = start + 25 %}
+    <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+    </ul>
+</div>
 </div>

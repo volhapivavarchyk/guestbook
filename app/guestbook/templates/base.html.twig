@@ -11,30 +11,35 @@
         {% endblock %}
   </head>
     <body>
-        <div class="grid">
             <!-- Заголовок -->
-            <div class="box grid-header">
-                <div class="header">
-                    <h1>Гостевая книга</h1>
-                </div>
-            </div>
+        <div class="jumbotron jumbotron-fluid">
+        <div class="conteiner">
+          <h1 class="display-6">Гостевая книга</h1>
+          <p class="lead">Оставьте свое мнение о ресурсе, а также любые другие записи</p>
+        </div>
+      </div>
             <!-- Форма для ввода нового сообщения -->
-            <div class="box grid-add-message">
-                <div id="contentForm">
+        <div class="conteiner my-2 my-lg-2 px-lg-5">
+            <div class="row mx-lg-3">
+                <div id="contentForm" class="col py-3 px-lg-1 border bg-light">
                     {% block contentForm %}
                     {% endblock %}
                 </div>
             </div>
+        </div>
             <!-- Вывод списка сообщений с учетом заданной сортировки -->
-            <div class="box grid-list-messages">
-                <div id="contentMessages">
+        <div class="conteiner my-2 my-lg-2 px-lg-5">
+            <div class="row mx-lg-3">
+                <div id="contentMessages" class="col py-3 px-lg-1 border bg-light">
                     {% block contentMessages %}
                     {% endblock %}
                 </div>
             </div>
+        </div>
             <!-- Подвал -->
-            <div class="box grid-footer">
-                <p class="text-footer">администратор: иван иванов +111 11 1111111</p>
+        <div class="conteiner my-2 my-lg-2 px-lg-5">
+            <div class="row mx-lg-3">
+                <p class="col py-3 px-lg-1 border bg-light text-footer ">администратор: иван иванов +111 11 1111111</p>
             </div>
         </div>
         {% block javascripts %}

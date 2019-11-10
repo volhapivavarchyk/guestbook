@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 use Doctrine\ORM\EntityManager;
-use Piv\Guestbook\Config\Config;
 use Piv\Guestbook\Entity\Message;
 use Piv\Guestbook\Entity\User;
 use Piv\Guestbook\Forms\UserType;
@@ -53,8 +52,8 @@ class GuestBookFormer
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $recaptchaResponse = $this->request->request->get('g-recaptcha-response');
             if (!empty($recaptchaResponse)) {
-                $captchaUrl= Config::getGlobalVariableEnv('GUESTBOOK_CAPTCHA_URL');
-                $captchaSecret = Config::getGlobalVariableEnv('GUESTBOOK_CAPTCHA_SECRET');
+                $captchaUrl= $_ENV['GUESTBOOK_CAPTCHA_URL'];
+                $captchaSecret = $_ENV['GUESTBOOK_CAPTCHA_SECRET'];
                 $url = $captchaUrl . "?secret="
                     . $captchaSecret . "&response="
                     . $recaptchaResponse . "&remoteip="

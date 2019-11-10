@@ -2,57 +2,64 @@
 
 <div id="form">
     {{ form_start(form) }}
-        <div class="add-message-field">
-          {{ form_label(form.name) }}
-          {{ form_widget(form.name) }}
-          <small>{{ form_help(form.name) }}</small>
-          {{ form_errors(form.name) }}
-        </div>
-        <div class="add-message-field">
-            {{ form_label(form.email) }}
-            {{ form_widget(form.email) }}
-            <small>{{ form_help(form.email) }}</small>
-            {{ form_errors(form.email) }}
+        <div class="form-row mx-2">
+            <div class="form-group col-6 text-dark">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                <small>{{ form_help(form.name) }}</small>
+               {{ form_errors(form.name) }}
+               <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+            </div>
+            <div class="form-group col-6 text-dark">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                <small>{{ form_help(form.email) }}</small>
+                {{ form_errors(form.email) }}
+            </div>
         </div>
         {% for message in form.messages %}
-            <div class="add-message-field">
+        <div class="form-row mx-2">
+            <div class="form-group col-12 text-dark">
                 {{ form_label(message.theme) }}
                 {{ form_widget(message.theme) }}
                 <small>{{ form_help(message.theme) }}</small>
                 {{ form_errors(message.theme) }}
             </div>
-            <div class="add-message-box-field">
-                <div class="add-message-field">
-                    {{ form_label(message.text) }}
-                    {{ form_widget(message.text, {'id':'text', 'attr':{'class':'add-message-field'}})}}
-                    <br />
-                    <input type="button" value="link" id="link-button" style="margin-left:205px; margin-top: 3px;"/>
-                    <input type="button" value="code" id="code-button"/>
-                    <input type="button" value="italic" id="italic-button"/>
-                    <input type="button" value="strike" id="strike-button"/>
-                    <input type="button" value="strong" id="strong-button"/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="button" value="отобразить" id="preview-button"/>
-                    <small>{{ form_help(message.text) }}</small>
-                    {{ form_errors(message.text) }}
-                </div>
-                <div id="preview-message" class="add-message-field preview-message"></div>
+        </div>
+        <div class="row mx-1">
+            <div class="form-group col-6 text-dark">
+                {{ form_label(message.text) }}
+                {{ form_widget(message.text, {'id':'text', 'attr':{'class':'add-message-field'}})}}
+                <div class="btn-group" role="group" style="margin-top: 3px;">
+                    <input type="button" value="link" id="link-button" class="btn btn-primary"/>
+                    <input type="button" value="code" id="code-button" class="btn btn-primary"/>
+                    <input type="button" value="italic" id="italic-button" class="btn btn-primary"/>
+                    <input type="button" value="strike" id="strike-button" class="btn btn-primary"/>
+                    <input type="button" value="strong" id="strong-button" class="btn btn-primary"/>
+                    <input type="button" value="отобразить" id="preview-button" class="btn btn-secondary"/>
+              </div>
+                <small>{{ form_help(message.text) }}</small>
+                {{ form_errors(message.text) }}
             </div>
-            <div class="add-message-field">
+            <div id="preview-message" class="form-group col-6 preview-message my-4"></div>
+        </div>
+        <div class="row mx-2">
+            <div class="form-group col-6 text-dark">
               {{ form_label(message.pictures) }}
               {{ form_widget(message.pictures) }}
               <small>{{ form_help(message.pictures) }}</small>
               {{ form_errors(message.pictures) }}
             </div>
-            <div class="add-message-field">
+            <div class="form-group col-6 text-dark">
                 {{ form_label(message.filepath)|trans({}, translation_domain|default('messages'))|raw }}
                 {{ form_widget(message.filepath, {'attr': {'accept': '.txt'}} ) }}
                 <small>{{ form_help(message.filepath) }}</small>
                 {{ form_errors(message.filepath) }}
             </div>
+          </div>
         {% endfor %}
-        <div class="g-recaptcha add-message-captcha" data-sitekey="{{ captchaKey }}"></div>
-        <div class="add-message-button">
+        <div class="g-recaptcha form-group mx-4" data-sitekey="{{ captchaKey }}"></div>
+        <div class="form-group mx-4">
             {{ form_row(form.submit) }}
         </div>
     {{ form_end(form) }}

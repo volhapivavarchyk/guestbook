@@ -5,6 +5,7 @@ user:
 message:
     theme: Theme of message
     text: Text
+    button: Browse
     add:
         picture: Add picture
         txt: Add txt filepath
