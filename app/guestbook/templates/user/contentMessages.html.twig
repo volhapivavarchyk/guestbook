@@ -1,5 +1,4 @@
 
-<div class="container">
 <div class="row justify-content-end ">
   <ul class="pagination pagination-sm justify-content-end">
     <li class="page-item">
@@ -97,13 +96,12 @@
     </div>
 </div>
 
-<div id="messages" class="container">
     {% for message in messages|usort(sortflag)|slice(start, length) %}
         <div class="row justify-content-between mt-3">
-            <div class="col-6 text-dark">
+            <div class="col-7 text-dark">
                 {{message.theme|upper}}
             </div>
-            <div class="col-5 text-dark">
+            <div class="col-5 text-dark text-right">
                 {{message.user.getName()}}
                 &nbsp;&brvbar;&nbsp;
                 {{message.user.getEmail()}}
@@ -112,7 +110,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <p class="text-justify font-weight-normal text-secondary my-1">{{message.text|raw}}</p>
             </div>
         </div>
@@ -134,7 +132,6 @@
             {% endif %}
 
     {% endfor %}
-</div>
 
 <div class="row justify-content-end ">
   <ul class="pagination pagination-sm justify-content-end">
@@ -164,5 +161,4 @@
         </a>
     </li>
     </ul>
-</div>
 </div>
