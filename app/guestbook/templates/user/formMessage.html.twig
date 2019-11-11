@@ -31,12 +31,12 @@
                 {{ form_label(message.text) }}
                 {{ form_widget(message.text, {'id':'text', 'attr':{'class':'add-message-field'}})}}
                 <div class="btn-group" role="group" style="margin-top: 3px;">
-                    <input type="button" value="link" id="link-button" class="btn btn-primary"/>
-                    <input type="button" value="code" id="code-button" class="btn btn-primary"/>
-                    <input type="button" value="italic" id="italic-button" class="btn btn-primary"/>
-                    <input type="button" value="strike" id="strike-button" class="btn btn-primary"/>
-                    <input type="button" value="strong" id="strong-button" class="btn btn-primary"/>
-                    <input type="button" value="отобразить" id="preview-button" class="btn btn-secondary"/>
+                    <input type="button" value="link" id="link-button" class="btn btn-light"/>
+                    <input type="button" value="code" id="code-button" class="btn btn-light"/>
+                    <input type="button" value="italic" id="italic-button" class="btn btn-light"/>
+                    <input type="button" value="strike" id="strike-button" class="btn btn-light"/>
+                    <input type="button" value="strong" id="strong-button" class="btn btn-light"/>
+                    <input type="button" value="отобразить" id="preview-button" class="btn btn-light"/>
               </div>
                 <small>{{ form_help(message.text) }}</small>
                 {{ form_errors(message.text) }}

@@ -1,100 +1,109 @@
 
-<div class="row justify-content-end ">
-  <ul class="pagination pagination-sm justify-content-end">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {% for i in 1..messages|length//25+1 %}
-        {% if i == count %}
-           <li class="page-item active" aria-current="page">
-               <span class="page-link">{{i}}
-                   <span class="sr-only">(current)</span>
-               </span>
-          </li>
-        {% else %}
+<div class="container" id="content">
+    <div class="row justify-content-end">
+        <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item">
-                <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+                {% if count == 1 %}
+                    <a class="page-link" aria-label="Previous" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': 1})}}" >
+                {% else %}
+                    <a class="page-link" aria-label="Previous" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count - 1})}}" >
+                {% endif %}
+                <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
-        {% endif %}
-    {% endfor %}
-    {% set start = count*25 - 25 %}
-    {% set length = start + 25 %}
-    <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-    </ul>
-</div>
-
-{% set imgArrowUp='\\build\\images\\double-up.png' %}
-{% set imgArrowDown='\\build\\images\\double-down.png' %}
-
-<div class="row justify-content-end">
-    {% if sortflag is same as ('ByNameAsc') %}
-        {% set sortNameflag="ByNameDesc" %}
-        {% set imgName=imgArrowUp %}
-    {% elseif  sortflag is same as ('ByNameDesc')%}
-        {% set sortNameflag="ByNameAsc" %}
-        {% set imgName=imgArrowDown %}
-    {% else %}
-        {% set sortNameflag="ByNameAsc" %}
-        {% set imgName=''%}
-    {% endif %}
-    <div class="title-message-fields badge badge-primary mx-1">
-        <a href = "{{ url('indexRoute', {'sortflag':sortNameflag, 'count':1})}} ">
-            {{'sorting.name'|trans({},'messages')|raw}}
-        </a>
-        {% if imgName %}
-            <div class="arrows-title-message badge badge-light">
-                <img src = "{{ asset(imgName) }}" width="10" height="10">
-            </div>
-        {% endif %}
+            {% for i in 1..messages|length//25+1 %}
+                {% if i == count %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{i}}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% set start = count*25 - 25 %}
+            {% set length = start + 25 %}
+            <li class="page-item">
+                {% if count == length//25 %}
+                    <a class="page-link" aria-label="Next" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count})}}" >
+                {% else %}
+                    <a class="page-link" aria-label="Next" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count + 1})}}" >
+                {% endif %}
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
-    {% if sortflag is same as ('ByEmailAsc') %}
-        {% set sortEmailflag="ByEmailDesc" %}
-        {% set imgEmail=imgArrowUp %}
-    {% elseif  sortflag is same as ('ByEmailDesc')%}
-        {% set sortEmailflag="ByEmailAsc" %}
-        {% set imgEmail=imgArrowDown %}
-    {% else %}
-        {% set sortEmailflag="ByEmailAsc" %}
-        {% set imgEmail=''%}
-    {% endif %}
-    <div class="title-message-fields badge badge-primary mx-1">
-        <a href = "{{url('indexRoute', {'sortflag':sortEmailflag, 'count':1})}}">
-            {{'sorting.email'|trans({},'messages')|raw}}
-        </a>
-        {% if imgEmail %}
-            <div class="arrows-title-message badge badge-light">
-                <img src = "{{ asset(imgEmail) }}" width="10" height="10">
-            </div>
+   {% set imgArrowUp='\\build\\images\\double-up.png' %}
+   {% set imgArrowDown='\\build\\images\\double-down.png' %}
+
+   <div class="row justify-content-end">
+       {% if sortflag is same as ('ByNameAsc') %}
+           {% set sortNameflag="ByNameDesc" %}
+           {% set imgName=imgArrowUp %}
+       {% elseif  sortflag is same as ('ByNameDesc')%}
+           {% set sortNameflag="ByNameAsc" %}
+           {% set imgName=imgArrowDown %}
+       {% else %}
+           {% set sortNameflag="ByNameAsc" %}
+           {% set imgName=''%}
+       {% endif %}
+       <div class="title-message-fields badge badge-light mx-1">
+           <a href = "{{ url('indexRoute', {'_fragment':'content', 'sortflag':sortNameflag, 'count':1})}} ">
+               {{'sorting.name'|trans({},'messages')|raw}}
+           </a>
+           {% if imgName %}
+               <div class="arrows-title-message badge badge-light">
+                   <img src = "{{ asset(imgName) }}" width="10" height="10">
+               </div>
+           {% endif %}
+       </div>
+
+       {% if sortflag is same as ('ByEmailAsc') %}
+           {% set sortEmailflag="ByEmailDesc" %}
+           {% set imgEmail=imgArrowUp %}
+       {% elseif  sortflag is same as ('ByEmailDesc')%}
+           {% set sortEmailflag="ByEmailAsc" %}
+           {% set imgEmail=imgArrowDown %}
+       {% else %}
+           {% set sortEmailflag="ByEmailAsc" %}
+           {% set imgEmail=''%}
+       {% endif %}
+       <div class="title-message-fields badge badge-light mx-1">
+           <a href = "{{url('indexRoute', {'_fragment':'content','sortflag':sortEmailflag, 'count':1})}}">
+               {{'sorting.email'|trans({},'messages')|raw}}
+           </a>
+           {% if imgEmail %}
+               <div class="arrows-title-message badge badge-light">
+                   <img src = "{{ asset(imgEmail) }}" width="10" height="10">
+               </div>
+           {% endif %}
+        </div>
+        {% if sortflag is same as ('ByDateAsc') %}
+           {% set sortDateflag="ByDateDesc" %}
+           {% set imgDate=imgArrowUp %}
+        {% elseif  sortflag is same as ('ByDateDesc')%}
+           {% set sortDateflag="ByDateAsc" %}
+           {% set imgDate=imgArrowDown %}
+        {% else %}
+           {% set sortDateflag="ByDateAsc" %}
+           {% set imgDate=''%}
         {% endif %}
+        <div class="title-message-fields badge badge-light mx-1">
+           <a href = "{{url('indexRoute', {'_fragment':'content','sortflag':sortDateflag, 'count':1})}}">
+               {{'sorting.date'|trans({},'messages')|raw}}
+           </a>
+           {% if imgDate %}
+               <div class="arrows-title-message badge badge-light">
+                   <img src = "{{ asset(imgDate) }}" width="10" height="10">
+               </div>
+           {% endif %}
+        </div>
     </div>
-  {% if sortflag is same as ('ByDateAsc') %}
-        {% set sortDateflag="ByDateDesc" %}
-        {% set imgDate=imgArrowUp %}
-    {% elseif  sortflag is same as ('ByDateDesc')%}
-        {% set sortDateflag="ByDateAsc" %}
-        {% set imgDate=imgArrowDown %}
-    {% else %}
-        {% set sortDateflag="ByDateAsc" %}
-        {% set imgDate=''%}
-    {% endif %}
-    <div class="title-message-fields badge badge-primary mx-1">
-        <a href = "{{url('indexRoute', {'sortflag':sortDateflag, 'count':1})}}">
-            {{'sorting.date'|trans({},'messages')|raw}}
-        </a>
-        {% if imgDate %}
-            <div class="arrows-title-message badge badge-light">
-                <img src = "{{ asset(imgDate) }}" width="10" height="10">
-            </div>
-        {% endif %}
-    </div>
-</div>
 
     {% for message in messages|usort(sortflag)|slice(start, length) %}
         <div class="row justify-content-between mt-3">
@@ -130,35 +139,43 @@
                 </div>
             </div>
             {% endif %}
-
     {% endfor %}
 
-<div class="row justify-content-end ">
-  <ul class="pagination pagination-sm justify-content-end">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {% for i in 1..messages|length//25+1 %}
-        {% if i == count %}
-           <li class="page-item active" aria-current="page">
-               <span class="page-link">{{i}}
-                   <span class="sr-only">(current)</span>
-               </span>
-          </li>
-        {% else %}
+    <div class="row justify-content-end">
+        <ul class="pagination pagination-sm justify-content-end">
             <li class="page-item">
-                <a href="{{url('indexRoute', {'sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+                {% if count == 1 %}
+                    <a class="page-link" aria-label="Previous" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': 1})}}" >
+                {% else %}
+                    <a class="page-link" aria-label="Previous" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count - 1})}}" >
+                {% endif %}
+                <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
-        {% endif %}
-    {% endfor %}
-    {% set start = count*25 - 25 %}
-    {% set length = start + 25 %}
-    <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-    </ul>
+            {% for i in 1..messages|length//25+1 %}
+                {% if i == count %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{i}}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count':i})}}" class="page-link" >{{i}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% set start = count*25 - 25 %}
+            {% set length = start + 25 %}
+            <li class="page-item">
+                {% if count == length//25 %}
+                    <a class="page-link" aria-label="Next" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count})}}" >
+                {% else %}
+                    <a class="page-link" aria-label="Next" href="{{url('indexRoute', {'_fragment':'content','sortflag':sortflag, 'count': count + 1})}}" >
+                {% endif %}
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

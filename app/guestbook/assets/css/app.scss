@@ -66,7 +66,7 @@ input:focus+label, textarea:focus+label {
   text-decoration:none;
 }
 .title-message-fields a:link, a:visited {
-  color: #ffffff;
+  color: #444444;
   text-decoration: none;
 }
 .title-message-fields a:hover, a:active {
@@ -83,11 +83,4 @@ p {
 /*-----------------------------------*/
 .displayNone {
   display: none;
-}
-.service-info {
-  font-family: "Space Mono", monospace;
-  font-size: 12px;
-  text-align: left;
-  color: red;
-  padding-right: 10px;
 }
