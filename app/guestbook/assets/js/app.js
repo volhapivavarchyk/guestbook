@@ -6,6 +6,9 @@ import 'bootstrap';
 import 'popper.js';
 import 'ekko-lightbox';
 
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
+
 $(function() {
     $.fn.addTag = function (tag, text) {
         var value ;

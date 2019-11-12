@@ -21,7 +21,7 @@ class UserController extends Controller
         $messages = $guestBookFormer->getAllMessages();
         // формирование контента
         $content = $this->render(
-            'user/index.html.twig',
+            'user.html.twig',
             [
                 'form' => $guestBookFormer->getForm()->createView(),
                 'messages' => $messages,

@@ -1,4 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "~font-awesome/fonts";
+
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
 @font-face {
   font-family: 'Space Mono';
   font-style: normal;
@@ -79,8 +89,4 @@ input:focus+label, textarea:focus+label {
 
 p {
   text-align: justify;
-}
-/*-----------------------------------*/
-.displayNone {
-  display: none;
 }

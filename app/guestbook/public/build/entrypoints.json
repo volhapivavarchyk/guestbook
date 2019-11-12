@@ -7,7 +7,7 @@
         "/build/app.js"
       ],
       "css": [
-        "/build/app.css"
+        "/build/vendors~app.css"
       ]
     }
   }

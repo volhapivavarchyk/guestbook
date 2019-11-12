@@ -22,7 +22,9 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // use Sass/SCSS files
-    .enableSassLoader()
+    .enableSassLoader(function(sassOptions) {}, {
+        resolveUrlLoader: false
+     })
 
     .enableBuildNotifications()
 ;

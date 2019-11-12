@@ -9,9 +9,11 @@
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}">
         {% endblock %}
-  </head>
-  <body>
-            <!-- Заголовок -->
+    </head>
+    <body>
+        {% block login %}
+        {% endblock %}
+        <!-- Заголовок -->
         <div class="jumbotron jumbotron-fluid mb-1 border bg-light">
         <div class="container">
           <h1 class="display-6 text-muted">Гостевая книга</h1>
