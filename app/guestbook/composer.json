@@ -37,7 +37,8 @@
         "symfony/http-foundation": "^4.3",
         "symfony/debug": "^4.3",
         "symfony/dotenv": "^4.3",
-        "symfony/web-profiler-bundle": "^4.3"
+        "symfony/web-profiler-bundle": "^4.3",
+        "symfony/security-bundle": "^4.3"
     },
     "require-dev": {
         "phpmd/phpmd": "^2.7",
