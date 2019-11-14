@@ -28,6 +28,8 @@ class Message
     protected $ipAdress;
     /** @ORM\Column(type="string", length=128) **/
     protected $browser;
+    /** @ORM\Column(type="integer") **/
+    protected $annotationForId;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
@@ -174,11 +176,28 @@ class Message
     {
         $this->browser = $browser;
     }
-
     /**
      * $user getter
      * @return User|null $user
      */
+     /**
+      * $annotationForId getter
+      * @return mixed $annotationForId
+      */
+     public function getAnnotationForId(): ?int
+     {
+         return $this->annotationForId;
+     }
+
+     /**
+      * $annotationForId setter
+      * @param string $annotationForId
+      * @return void
+      */
+     public function setAnnotationForId(string $annotationForId): void
+     {
+         $this->annotationForId = $annotationForId;
+     }
     public function getUser(): ?User
     {
         return $this->user;

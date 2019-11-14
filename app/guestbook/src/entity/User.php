@@ -19,6 +19,10 @@ class User
     protected $name;
     /** @ORM\Column(length=128) **/
     protected $email;
+    /** @ORM\Column(type="string", length=128) **/
+    protected $password;
+    /** @ORM\Column(type="string", length=10) **/
+    protected $role;
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
      */
@@ -71,6 +75,42 @@ class User
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+    /**
+     * $password getter
+     * @return string $password
+     */
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    /**
+     * $password setter
+     * @param string $password
+     * @return void
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+    }
+    /**
+     * $role getter
+     * @return string $role
+     */
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    /**
+     * $role setter
+     * @param string $role
+     * @return void
+     */
+    public function setRole(string $role = 'USER')
+    {
+        $this->role = $role;
     }
     /**
      * @return Collection|Message[]

@@ -11,6 +11,7 @@
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
+      <parameter key="DoctrineMigrationsBundle">Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="TwigBundle">Symfony\Bundle\TwigBundle\TwigBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
@@ -25,6 +26,10 @@
       <parameter key="DoctrineBundle" type="collection">
         <parameter key="path">/usr/share/nginx/html/guestbook/vendor/doctrine/doctrine-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
+      </parameter>
+      <parameter key="DoctrineMigrationsBundle" type="collection">
+        <parameter key="path">/usr/share/nginx/html/guestbook/vendor/doctrine/doctrine-migrations-bundle</parameter>
+        <parameter key="namespace">Doctrine\Bundle\MigrationsBundle</parameter>
       </parameter>
       <parameter key="SensioFrameworkExtraBundle" type="collection">
         <parameter key="path">/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle/src</parameter>
@@ -201,6 +206,16 @@
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.proxy_dir">/usr/share/nginx/html/guestbook/var/cache/dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
+    <parameter key="doctrine_migrations.dir_name">/usr/share/nginx/html/guestbook/src/Migrations</parameter>
+    <parameter key="doctrine_migrations.namespace">Piv\Guestbook\Migrations</parameter>
+    <parameter key="doctrine_migrations.table_name">migration_versions</parameter>
+    <parameter key="doctrine_migrations.column_name">version</parameter>
+    <parameter key="doctrine_migrations.column_length">14</parameter>
+    <parameter key="doctrine_migrations.executed_at_column_name">executed_at</parameter>
+    <parameter key="doctrine_migrations.all_or_nothing">false</parameter>
+    <parameter key="doctrine_migrations.name">Application Migrations</parameter>
+    <parameter key="doctrine_migrations.custom_template">null</parameter>
+    <parameter key="doctrine_migrations.organize_migrations">false</parameter>
     <parameter key="twig.exception_listener.controller">twig.controller.exception::showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
@@ -304,6 +319,8 @@
     <service id="Piv\Guestbook\Helpers\File\FileTxt" class="Piv\Guestbook\Helpers\File\FileTxt" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Helpers\GuestBookFormer" class="Piv\Guestbook\Helpers\GuestBookFormer" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Migrations\Version20190803213817" class="Piv\Guestbook\Migrations\Version20190803213817" public="false" autowire="true" autoconfigure="true"/>
+    <service id="Piv\Guestbook\Migrations\Version20191114131713" class="Piv\Guestbook\Migrations\Version20191114131713" public="false" autowire="true" autoconfigure="true"/>
+    <service id="Piv\Guestbook\Migrations\Version20191114135105" class="Piv\Guestbook\Migrations\Version20191114135105" public="false" autowire="true" autoconfigure="true"/>
     <service id="Piv\Guestbook\Twig\TwigFilterExtension" class="Piv\Guestbook\Twig\TwigFilterExtension" public="false" autowire="true" autoconfigure="true">
       <tag name="twig.extension"/>
     </service>
@@ -1062,9 +1079,6 @@
           <argument type="service" id="doctrine.orm.validator_initializer"/>
         </argument>
       </call>
-      <call method="addLoader">
-        <argument type="service" id="doctrine.orm.default_entity_manager.validator_loader"/>
-      </call>
       <factory class="Symfony\Component\Validator\Validation" method="createValidatorBuilder"/>
     </service>
     <service id="validator.mapping.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer" public="false">
@@ -1399,6 +1413,8 @@
           <argument>/usr/share/nginx/html/guestbook/src/Resources/FrameworkBundle/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/vendor/doctrine/doctrine-bundle/Resources/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/src/Resources/DoctrineBundle/translations</argument>
+          <argument>/usr/share/nginx/html/guestbook/vendor/doctrine/doctrine-migrations-bundle/Resources/translations</argument>
+          <argument>/usr/share/nginx/html/guestbook/src/Resources/DoctrineMigrationsBundle/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/vendor/sensio/framework-extra-bundle/src/Resources/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/src/Resources/SensioFrameworkExtraBundle/translations</argument>
           <argument>/usr/share/nginx/html/guestbook/vendor/symfony/twig-bundle/Resources/translations</argument>
@@ -2011,6 +2027,14 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument type="service" id="debug.debug_handlers_listener"/>
+          <argument>configure</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -2704,10 +2728,65 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
       <configurator service="doctrine.orm.default_manager_configurator" method="configure"/>
     </service>
-    <service id="doctrine.orm.default_entity_manager.validator_loader" class="Symfony\Bridge\Doctrine\Validator\DoctrineLoader">
-      <tag name="validator.auto_mapper" priority="-100"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument>null</argument>
+    <service id="doctrine_migrations.diff_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsDiffDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:diff</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.dump_schema_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsDumpSchemaDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:dump-schema</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.execute_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsExecuteDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:execute</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.generate_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsGenerateDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:generate</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.latest_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsLatestDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:latest</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.migrate_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsMigrateDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:migrate</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.rollup_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsRollupDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:rollup</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.status_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsStatusDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:status</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.up_to_date_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsUpToDateDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:up-to-date</argument>
+      </call>
+    </service>
+    <service id="doctrine_migrations.version_command" class="Doctrine\Bundle\MigrationsBundle\Command\MigrationsVersionDoctrineCommand">
+      <tag name="console.command"/>
+      <call method="setName">
+        <argument>doctrine:migrations:version</argument>
+      </call>
     </service>
     <service id="sensio_framework_extra.controller.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener" public="false">
       <tag name="kernel.event_subscriber"/>
@@ -3456,7 +3535,7 @@
       </argument>
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
-      <argument type="service" id=".service_locator.En4Gq8m"/>
+      <argument type="service" id=".service_locator.xU6aA2z"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -3498,12 +3577,22 @@
         <argument key="doctrine:schema:update">doctrine.schema_update_command</argument>
         <argument key="doctrine:schema:validate">doctrine.schema_validate_command</argument>
         <argument key="doctrine:mapping:import">doctrine.mapping_import_command</argument>
+        <argument key="doctrine:migrations:diff">doctrine_migrations.diff_command</argument>
+        <argument key="doctrine:migrations:dump-schema">doctrine_migrations.dump_schema_command</argument>
+        <argument key="doctrine:migrations:execute">doctrine_migrations.execute_command</argument>
+        <argument key="doctrine:migrations:generate">doctrine_migrations.generate_command</argument>
+        <argument key="doctrine:migrations:latest">doctrine_migrations.latest_command</argument>
+        <argument key="doctrine:migrations:migrate">doctrine_migrations.migrate_command</argument>
+        <argument key="doctrine:migrations:rollup">doctrine_migrations.rollup_command</argument>
+        <argument key="doctrine:migrations:status">doctrine_migrations.status_command</argument>
+        <argument key="doctrine:migrations:up-to-date">doctrine_migrations.up_to_date_command</argument>
+        <argument key="doctrine:migrations:version">doctrine_migrations.version_command</argument>
         <argument key="debug:twig">twig.command.debug</argument>
         <argument key="lint:twig">twig.command.lint</argument>
         <argument key="server:dump">var_dumper.command.server_dump</argument>
       </argument>
     </service>
-    <service id=".service_locator.En4Gq8m" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.xU6aA2z" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service" id="console.command.about"/>
@@ -3546,6 +3635,16 @@
         <argument key="doctrine.schema_drop_command" type="service" id="doctrine.schema_drop_command"/>
         <argument key="doctrine.schema_update_command" type="service" id="doctrine.schema_update_command"/>
         <argument key="doctrine.schema_validate_command" type="service" id="doctrine.schema_validate_command"/>
+        <argument key="doctrine_migrations.diff_command" type="service" id="doctrine_migrations.diff_command"/>
+        <argument key="doctrine_migrations.dump_schema_command" type="service" id="doctrine_migrations.dump_schema_command"/>
+        <argument key="doctrine_migrations.execute_command" type="service" id="doctrine_migrations.execute_command"/>
+        <argument key="doctrine_migrations.generate_command" type="service" id="doctrine_migrations.generate_command"/>
+        <argument key="doctrine_migrations.latest_command" type="service" id="doctrine_migrations.latest_command"/>
+        <argument key="doctrine_migrations.migrate_command" type="service" id="doctrine_migrations.migrate_command"/>
+        <argument key="doctrine_migrations.rollup_command" type="service" id="doctrine_migrations.rollup_command"/>
+        <argument key="doctrine_migrations.status_command" type="service" id="doctrine_migrations.status_command"/>
+        <argument key="doctrine_migrations.up_to_date_command" type="service" id="doctrine_migrations.up_to_date_command"/>
+        <argument key="doctrine_migrations.version_command" type="service" id="doctrine_migrations.version_command"/>
         <argument key="twig.command.debug" type="service" id="twig.command.debug"/>
         <argument key="twig.command.lint" type="service" id="twig.command.lint"/>
         <argument key="var_dumper.command.server_dump" type="service" id="var_dumper.command.server_dump"/>

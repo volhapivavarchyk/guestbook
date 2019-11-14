@@ -105,9 +105,11 @@ class GuestBookFormer
         }
 
         $usersRepository = $this->entityManager->getRepository(User::class);
+        $userRole = 'USER';
         $isUser = $usersRepository->findOneBy([
             'name' => $this->request->request->get('user')['name'],
-            'email' => $this->request->request->get('user')['email']
+            'email' => $this->request->request->get('user')['email'],
+            'role' => $userRole
         ]);
         $this->user = isset($isUser) ? $isUser : $this->user;
         $this->message->setUser($this->user);

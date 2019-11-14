@@ -1,5 +1,5 @@
 <?php
-use Piv\Guestbook\Src\Kernel;
+use Piv\Guestbook\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
