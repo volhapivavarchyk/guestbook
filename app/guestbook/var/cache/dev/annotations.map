@@ -1,6 +1,0 @@
-<?php return array (
-  0 => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController',
-  1 => 'Piv\\Guestbook\\Controller\\UserController',
-  2 => 'Piv\\Guestbook\\Entity\\Message',
-  3 => 'Piv\\Guestbook\\Entity\\User',
-);

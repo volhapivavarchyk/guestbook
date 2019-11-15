@@ -1,6 +1,5 @@
 .idea
 .env
-app/guestbook/config/config.php
 app/guestbook/public/upload/
 app/guestbook/var/
 app/guestbook/vendor/
