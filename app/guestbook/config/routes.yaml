@@ -7,3 +7,6 @@ indexRoute:
     requirements:
       sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
       count:    \d+
+loginRoute:      
+    path:     /login
+    controller: Piv\Guestbook\Controller\SecurityController::loginAction

@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Piv\Guestbook\Helpers\GuestBookFormer;
 use Piv\Guestbook\Entity\Message;
 
-
 class UserController extends Controller
 {
     public function show(Request $request, string $sortflag, string $count): Response

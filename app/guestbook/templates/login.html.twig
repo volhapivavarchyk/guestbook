@@ -8,7 +8,8 @@
               <a data-toggle="modal" data-target="#logoutModal">
               <span class="fa fa-sign-out-alt"></span> Log out</a>
           {% else  %}
-              <a data-toggle="modal" data-target="#loginModal">
+              <a href="{{url('loginRoute')}}">
+              <!--<a data-toggle="modal" data-target="#loginModal">-->
               <span class="fa fa-sign-in-alt"></span> Log in</a>
           {%  endif  %}
       </span>

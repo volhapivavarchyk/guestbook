@@ -1,0 +1,15 @@
+security:
+    providers:
+        in_memory: { memory: ~ }
+    access_control:
+        - { path: ^/login, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }               
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
