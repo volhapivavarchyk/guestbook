@@ -20,4 +20,17 @@ class SecurityController extends Controller
             'error'         => $error,
         ));
     }
+    public function loginCheckAction(Request $request, AuthenticationUtils $authUtils)
+    {
+        // получить ошибку входа, если она есть
+        $error = $authUtils->getLastAuthenticationError();
+
+        // последнее имя пользователя, введенное пользователем
+        $lastUsername = $authUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
+    }
 }

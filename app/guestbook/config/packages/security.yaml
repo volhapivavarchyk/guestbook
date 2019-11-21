@@ -1,15 +1,21 @@
 security:
     providers:
         in_memory: { memory: ~ }
+        users: 'Piv\Guestbook\Entity\User'
+        property: 'name'
+    encoders:
+        Piv\Guestbook\Entity\User:
+            algorithm: auto    
     access_control:
-        - { path: ^/login, roles: ROLE_ADMIN }
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }               
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: ~
+            pattern: ^/
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /login
+                check_path: /login-check

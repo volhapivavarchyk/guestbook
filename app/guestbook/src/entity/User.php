@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="users", indexes={@ORM\Index(name="search_idx", columns={"email"})})
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="user_id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $idUser;
@@ -98,7 +98,7 @@ class User
      * $role getter
      * @return string $role
      */
-    public function getRole(): ?string
+    public function getRoles(): ?string
     {
         return $this->role;
     }
@@ -108,7 +108,7 @@ class User
      * @param string $role
      * @return void
      */
-    public function setRole(string $role = 'USER')
+    public function setRoles(string $role = 'USER')
     {
         $this->role = $role;
     }
@@ -118,6 +118,13 @@ class User
     public function getMessages(): Collection
     {
         return $this->messages;
+    }
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+    public function eraseCredentials(): void
+    {
     }
 
     /**
@@ -136,4 +143,14 @@ class User
     {
         $this->messages->removeElement($message);
     }
+
+    public function eraseCredentials(): string
+    {
+        return serialize([$this->id, $this->name, $this->password]);
+    }
+    public function unserialize($serialized): void
+    {
+        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
 }
