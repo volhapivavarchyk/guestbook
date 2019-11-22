@@ -6,6 +6,7 @@ namespace Piv\Guestbook\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -16,7 +17,7 @@ class User implements UserInterface, \Serializable
     /** @ORM\Id @ORM\Column(name="user_id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $idUser;
     /** @ORM\Column(length=128) **/
-    protected $name;
+    protected $username;
     /** @ORM\Column(length=128) **/
     protected $email;
     /** @ORM\Column(type="string", length=128) **/
@@ -44,9 +45,9 @@ class User implements UserInterface, \Serializable
      * $name getter
      * @return string $name
      */
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
@@ -54,9 +55,9 @@ class User implements UserInterface, \Serializable
      * @param string $name
      * @return void
      */
-    public function setName(string $name)
+    public function setUsername(string $username)
     {
-        $this->name = $name;
+        $this->username = $username;
     }
     /**
      * $email getter
@@ -125,6 +126,7 @@ class User implements UserInterface, \Serializable
     }
     public function eraseCredentials(): void
     {
+      //
     }
 
     /**
@@ -144,7 +146,7 @@ class User implements UserInterface, \Serializable
         $this->messages->removeElement($message);
     }
 
-    public function eraseCredentials(): string
+    public function serialize(): string
     {
         return serialize([$this->id, $this->name, $this->password]);
     }
