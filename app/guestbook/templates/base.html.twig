@@ -29,16 +29,10 @@
                 </div>
             </div>
         </div>
-            <!-- Вывод списка сообщений с учетом заданной сортировки -->
-        <div class="container my-1 my-lg-1 px-lg-2">
-            <div class="row mx-lg-2">
-                <div id="contentMessages" class="col py-2 px-lg-1 border bg-light">
-                    {% block contentMessages %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
-            <!-- Подвал -->
+        <!-- Вывод списка сообщений с учетом заданной сортировки -->
+        {% block contentmessages %}
+        {% endblock %}
+        <!-- Подвал -->
         <div class="container my-1 my-lg-1 px-lg-2">
             <div class="row mx-lg-2">
                 <div class="col py-2 px-lg-1 border bg-light text-muted text-center">администратор: иван иванов +111 11 1111111</div>

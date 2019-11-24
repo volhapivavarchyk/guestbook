@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block login %}
-    {% include 'login.html.twig' %}
+    {% include 'user/form-login.html.twig' %}
 {% endblock %}
 
 {% block contentForm %}
     <h5 class="text-muted px-2">Добавить сообщение</h5>
-    {% include 'user/formMessage.html.twig' %}
+    {% include 'user/form-message.html.twig' %}
 {% endblock %}
 
-{% block contentMessages %}
-    {% include 'user/contentMessages.html.twig' %}
+{% block contentmessages %}
+    <div class="container my-1 my-lg-1 px-lg-2">
+        <div class="row mx-lg-2">
+            <div id="contentMessages" class="col py-2 px-lg-1 border bg-light">
+                {% include 'user/content-messages.html.twig' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

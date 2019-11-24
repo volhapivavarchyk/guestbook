@@ -28,7 +28,11 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Message", mappedBy="user")
      */
     protected $messages;
-
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private $apiToken;
+    
     public function __construct()
     {
         $this->messages = new ArrayCollection();
