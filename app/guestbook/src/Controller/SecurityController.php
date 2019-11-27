@@ -8,7 +8,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
-    public function loginAction(Request $request, AuthenticationUtils $authUtils): Response
+    public function login(Request $request, AuthenticationUtils $authUtils): Response
     {
         // получить ошибку входа, если она есть
         $error = $authUtils->getLastAuthenticationError();
@@ -30,6 +30,14 @@ class SecurityController extends Controller
         // последнее имя пользователя, введенное пользователем
         $lastUsername = $authUtils->getLastUsername();
 
+        return $this->render('security/login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
+    }
+
+    public function logout(Request $request, AuthenticationUtils $authUtils): Response
+    {
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,

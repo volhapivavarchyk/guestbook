@@ -8,8 +8,11 @@ indexRoute:
       sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
       count:    \d+
 login:
-    path:     /login
-    controller: Piv\Guestbook\Controller\SecurityController::loginAction
-loginCheck:
-    path:     /login-check
-    controller: Piv\Guestbook\Controller\SecurityController::loginCheckAction
+    path:  /login
+    controller: Piv\Guestbook\Controller\SecurityController::login
+logout:
+    path: /logout
+    controller: Piv\Guestbook\Controller\SecurityController::logout
+admin:
+    path: /admin
+    controller: Piv\Guestbook\Controller\AdminController::adminDashboard

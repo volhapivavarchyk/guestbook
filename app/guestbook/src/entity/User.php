@@ -32,7 +32,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
     private $apiToken;
-    
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -97,15 +97,15 @@ class User implements UserInterface, \Serializable
      */
     public function setPassword(string $password)
     {
-        $this->password = $password;
+        $this->password = password_hash($password);
     }
     /**
      * $role getter
      * @return string $role
      */
-    public function getRoles(): ?string
+    public function getRoles(): ?array
     {
-        return $this->role;
+        return (array) $this->role;
     }
 
     /**
@@ -113,7 +113,7 @@ class User implements UserInterface, \Serializable
      * @param string $role
      * @return void
      */
-    public function setRoles(string $role = 'USER')
+    public function setRoles(string $role = 'ROLE_USER')
     {
         $this->role = $role;
     }
@@ -152,11 +152,11 @@ class User implements UserInterface, \Serializable
 
     public function serialize(): string
     {
-        return serialize([$this->id, $this->name, $this->password]);
+        return serialize([$this->idUser, $this->username, $this->password]);
     }
     public function unserialize($serialized): void
     {
-        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->idUser, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
 
 }

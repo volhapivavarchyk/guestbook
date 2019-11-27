@@ -18,3 +18,6 @@ services:
         tags: [twig.extension]
     Piv\Guestbook\Twig\TwigFunctionExtension:
         tags: [twig.extension]
+    Piv\Guestbook\EventSubscriber\RequestSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }       
