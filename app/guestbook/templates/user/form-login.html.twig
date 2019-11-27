@@ -2,16 +2,29 @@
 {% set user = 'user' %}
 <nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
     <div class="container">
-      <span class="navbar-text">
-          {% if user is same as ('admin') %}
-              <span>{{ user }}</span>
-              <a data-toggle="modal" data-target="#logoutModal">
-              <span class="fa fa-sign-out-alt"></span> Log out</a>
-          {% else  %}
-              <a href="{{url('login')}}">
-              <span class="fa fa-sign-in-alt"></span> Log in</a>
-          {%  endif  %}
-      </span>
+        <div class="row">
+            <div class="col-2">
+                <span class="fa fa-home"></span>
+            </div>
+            <div class="col-2">
+                <span class="fa fa-unlock"></span>
+            </div>
+            <div class="col-2">
+                <span class="navbar-text">
+                    {% for role in app.user.roles %}
+                        {% if role is same as ('ROLE_ADMIN') %}
+                            <span>{{ app.user.username }}</span>
+                            <a data-toggle="modal" data-target="#logoutModal">
+                            <span class="fa fa-sign-out-alt"></span> Log out</a>
+                        {% else  %}
+                            <a href="{{url('login')}}">
+                            <span class="fa fa-sign-in-alt"></span> Log in
+                            </a>
+                        {%  endif  %}
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
     </div>
 </nav>
 <!-- Modal window logout -->
