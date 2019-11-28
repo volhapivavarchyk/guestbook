@@ -4,13 +4,17 @@
     Гостевая книга
 {% endblock %}
 
+{% block login %}
+    {% include 'user/form-login.html.twig' %}
+{% endblock %}
+
 {% block contentForm %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="ml-2"><p class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p></div>
     {% endif %}
 
     <div id="form" class="container">
-        <form method="post" action="{{url('indexRoute')}}">
+        <form method="post">
             <div class="form-row mx-2">
                 <div class="form-group col-6 text-dark">
                     <label for="username" class="required control-label">Имя пользователя</label>

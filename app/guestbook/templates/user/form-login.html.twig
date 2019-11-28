@@ -1,31 +1,43 @@
 <!-- navbar -->
-{% set user = 'user' %}
 <nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-2">
-                <span class="fa fa-home"></span>
-            </div>
-            <div class="col-2">
-                <span class="fa fa-unlock"></span>
-            </div>
-            <div class="col-2">
-                <span class="navbar-text">
-                    {% for role in app.user.roles %}
-                        {% if role is same as ('ROLE_ADMIN') %}
-                            <span>{{ app.user.username }}</span>
-                            <a data-toggle="modal" data-target="#logoutModal">
-                            <span class="fa fa-sign-out-alt"></span> Log out</a>
-                        {% else  %}
-                            <a href="{{url('login')}}">
-                            <span class="fa fa-sign-in-alt"></span> Log in
-                            </a>
-                        {%  endif  %}
-                    {% endfor %}
-                </span>
-            </div>
-        </div>
-    </div>
+<div class="collapse navbar-collapse mx-lg-5" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+        <li class="navbar-item
+            {% if app.request.getRequestUri() is same as ('/') %}
+                active
+            {% endif%}
+        ">
+            <a href = {{url('index')}} class="nav-link"><span class="fa fa-home"></span> Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="navbar-item
+            {% if app.request.getRequestUri() is same as ('/admin') %}
+                active
+            {% endif%}
+        ">
+            <a href = {{url('admin')}} class="nav-link"><span class="fa fa-unlock"></span> Administration </a>
+        </li>
+    </ul>
+    <span class="navbar-nav">
+        {% if app.user %}
+            <a href="{{path('logout')}}" class="nav-link
+                {% if app.request.getRequestUri() is same as ('/login') %}
+                   active
+                {% endif%}
+            ">
+                <span>{{ app.user.username }}</span>
+                <span class="fa fa-sign-out-alt"></span> Log out
+            </a>
+        {% else  %}
+            <a href="{{url('login')}}" class="nav-link
+                {% if app.request.getRequestUri() is same as ('/login') %}
+                    active
+                {% endif%}
+            ">
+                <span class="fa fa-sign-in-alt"></span> Log in
+            </a>
+        {% endif %}
+    </span>
+</div>
 </nav>
 <!-- Modal window logout -->
 <div id="logoutModal" class="modal fade" role="dialog">

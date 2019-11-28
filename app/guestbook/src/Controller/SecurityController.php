@@ -16,31 +16,20 @@ class SecurityController extends Controller
         // последнее имя пользователя, введенное пользователем
         $lastUsername = $authUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
-    }
+        $content = $this->render(
+            'security/login.html.twig',
+            [
+                'last_username' => $lastUsername,
+                'error'         => $error,
+            ]
+        );
+        $response = new Response($content);
+        return $response;
 
-    public function loginCheckAction(Request $request, AuthenticationUtils $authUtils)
-    {
-        // получить ошибку входа, если она есть
-        $error = $authUtils->getLastAuthenticationError();
-
-        // последнее имя пользователя, введенное пользователем
-        $lastUsername = $authUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
     }
 
     public function logout(Request $request, AuthenticationUtils $authUtils): Response
     {
-        return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }

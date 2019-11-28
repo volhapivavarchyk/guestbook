@@ -1,4 +1,4 @@
-indexRoute:
+index:
     path:     /{sortflag}/{count}
     controller: Piv\Guestbook\Controller\UserController::show
     defaults:
