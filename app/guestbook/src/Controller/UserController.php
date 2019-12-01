@@ -17,13 +17,28 @@ class UserController extends Controller
         if ($guestBookFormer->isFormSubmittedAndValid() === true) {
             $guestBookFormer->addMessage();
         }
-        $messages = $guestBookFormer->getAllMessages();
+        //$messages = $guestBookFormer->getAllMessages();
+        preg_match('/(Date|Username|Email)(Asc|Desc)/i', $sortflag, $matches);
+        $matches[1] = mb_strtolower($matches[1]);
+        $messages = $guestBookFormer->getMessagesBy(
+            ['annotationForId' => 0],
+            [$matches[1] => $matches[2]]
+        );
+        var_dump($messages[19]->getUser());
+        foreach ($messages as $message) {
+            $annotations = $guestBookFormer->getMessagesBy(
+                ['annotationForId' => $message->getId()],
+                ['date' => 'desc']
+            );
+            $messagesAnnotations [] = [$message, $annotations];
+        }
+        //var_dump($messagesAnnotations);
         // формирование контента
         $content = $this->render(
             'user/user.html.twig',
             [
                 'form' => $guestBookFormer->getForm()->createView(),
-                'messages' => $messages,
+                'messages' => $messagesAnnotations,
                 'sortflag' => $sortflag,
                 'count' => (int)$count,
                 'captchaKey' => $_ENV['GUESTBOOK_CAPTCHA_KEY'],

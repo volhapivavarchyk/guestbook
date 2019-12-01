@@ -16,23 +16,23 @@ class TwigFilterExtension extends AbstractExtension
         return $this->$funcName($array);
     }
 
-    protected function sortByNameAsc(array $array): array
+    protected function sortByUsernameAsc(array $array): array
     {
         usort(
             $array,
             function ($object1, $object2) {
-                return strcasecmp($object1->getUser()->getName(), $object2->getUser()->getName());
+                return strcasecmp($object1[0]->getUser()->getUsername(), $object2[0]->getUser()->getUsername());
             },
         );
         return $array;
     }
 
-    protected function sortByNameDesc(array $array): array
+    protected function sortByUsernameDesc(array $array): array
     {
         usort(
             $array,
             function ($object1, $object2) {
-                return strcasecmp($object2->getUser()->getName(), $object1->getUser()->getName());
+                return strcasecmp($object2[0]->getUser()->getUsername(), $object1[0]->getUser()->getUsername());
             },
         );
         return $array;
@@ -43,7 +43,7 @@ class TwigFilterExtension extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return strcasecmp($object1->getUser()->getEmail(), $object2->getUser()->getEmail());
+                return strcasecmp($object1[0]->getUser()->getEmail(), $object2[0]->getUser()->getEmail());
             },
         );
         return $array;
@@ -54,7 +54,7 @@ class TwigFilterExtension extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return strcasecmp($object2->getUser()->getEmail(), $object1->getUser()->getEmail());
+                return strcasecmp($object2[0]->getUser()->getEmail(), $object1[0]->getUser()->getEmail());
             },
         );
         return $array;
@@ -65,7 +65,7 @@ class TwigFilterExtension extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return $object1->getDate() <=> $object2->getDate();
+                return $object1[0]->getDate() <=> $object2[0]->getDate();
             },
         );
         return $array;
@@ -76,7 +76,7 @@ class TwigFilterExtension extends AbstractExtension
         usort(
             $array,
             function ($object1, $object2) {
-                return $object2->getDate() <=> $object1->getDate();
+                return $object2[0]->getDate() <=> $object1[0]->getDate();
             },
         );
         return $array;

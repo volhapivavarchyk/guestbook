@@ -106,39 +106,58 @@
     </div>
 
     {% for message in messages|usort(sortflag)|slice(start, length) %}
-        <div class="row justify-content-between mt-3">
+        <div class="row justify-content-between mt-3 alert-light">
             <div class="col-7 text-dark">
-                {{message.theme|upper}}
+                {{message[0].theme|upper}}
             </div>
             <div class="col-5 text-dark text-right">
-                {{message.user.getUsername()}}
+                {{message[0].user.getUsername()}}
                 &nbsp;&brvbar;&nbsp;
-                {{message.user.getEmail()}}
+                {{message[0].user.getEmail()}}
                 &nbsp;&brvbar;&nbsp;
-                {{message.date.format( 'Y-m-d H:i:s')}}
+                {{message[0].date.format( 'Y-m-d H:i:s')}}
             </div>
         </div>
-        <div class="row">
+        <div class="row alert-light">
             <div class="col-12">
-                <p class="text-justify font-weight-normal text-secondary my-1">{{message.text|raw}}</p>
+                <p class="text-justify font-weight-normal text-secondary my-1">{{message[0].text|raw}}</p>
             </div>
         </div>
-            {% if message.pictures or message.filepath %}
-            <div class="row">
+        {% if message[0].pictures or message[0].filepath %}
+            <div class="row alert-light">
                 <div class="col">
-                    {% if message.pictures %}
-                        <a href="{{ asset ('/upload/img/' ~ message.pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
-                            <img src="{{ asset ('/upload/img/small/' ~ message.pictures)}}" class="img-fluid">
+                    {% if message[0].pictures %}
+                        <a href="{{ asset ('/upload/img/' ~ message[0].pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
+                            <img src="{{ asset ('/upload/img/small/' ~ message[0].pictures)}}" class="img-fluid">
                         </a>
                     {% endif %}
-                    {% if message.filepath %}
-                        <a href=" {{ asset('/upload/txt/' ~ message.filepath) }}" type="application/file"
-                           class="text-dark bg-light text-decoration-none">{{ message.filepath }}
+                    {% if message[0].filepath %}
+                        <a href=" {{ asset('/upload/txt/' ~ message[0].filepath) }}" type="application/file"
+                           class="text-dark bg-light text-decoration-none">{{ message[0].filepath }}
                         </a>
                     {% endif %}
                 </div>
             </div>
-            {% endif %}
+        {% endif %}
+        {% for annotation in message[1] %}
+            <div class="row alert-success">
+                <div class="col-7 text-dark">
+                    {{annotation.theme|upper}}
+                </div>
+                <div class="col-5 text-dark text-right">
+                    {{annotation.user.getUsername()}}
+                    &nbsp;&brvbar;&nbsp;
+                    {{annotation.user.getEmail()}}
+                    &nbsp;&brvbar;&nbsp;
+                    {{annotation.date.format( 'Y-m-d H:i:s')}}
+                </div>
+            </div>
+            <div class="row alert-success">
+                <div class="col-12">
+                    <p class="text-justify font-weight-normal text-secondary my-1">{{annotation.text|raw}}</p>
+                </div>
+            </div>
+        {% endfor %}
     {% endfor %}
 
     <div class="row justify-content-end">

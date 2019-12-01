@@ -28,7 +28,7 @@ class Message
     protected $ipAdress;
     /** @ORM\Column(type="string", length=128) **/
     protected $browser;
-    /** @ORM\Column(type="integer") **/
+    /** @ORM\Column(name="annotation_for_id", type="integer") **/
     protected $annotationForId;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
@@ -40,7 +40,7 @@ class Message
      * $idMessage getter
      * @return integer $idMessage
      */
-    public function getId(): ?integer
+    public function getId(): int
     {
         return $this->idMessage;
     }
@@ -176,13 +176,10 @@ class Message
     {
         $this->browser = $browser;
     }
-    /**
-     * $user getter
-     * @return User|null $user
-     */
+
      /**
       * $annotationForId getter
-      * @return mixed $annotationForId
+      * @return integer $annotationForId
       */
      public function getAnnotationForId(): ?int
      {
@@ -191,13 +188,17 @@ class Message
 
      /**
       * $annotationForId setter
-      * @param string $annotationForId
+      * @param integer $annotationForId
       * @return void
       */
-     public function setAnnotationForId(string $annotationForId): void
+     public function setAnnotationForId(int $annotationForId): void
      {
          $this->annotationForId = $annotationForId;
      }
+     /**
+      * $user getter
+      * @return User|null $user
+      */
     public function getUser(): ?User
     {
         return $this->user;

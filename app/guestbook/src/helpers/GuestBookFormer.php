@@ -123,6 +123,13 @@ class GuestBookFormer
         // получение сообщений из БД
         $messagesRepository = $this->entityManager->getRepository(Message::class);
         return $messagesRepository->findAll();
+    }
 
+    public function getMessagesBy(array $criteria, array $orderBy = null, int $limit = null): array
+    {
+        // получение сообщений из БД
+        $messagesRepository = $this->entityManager->getRepository(Message::class);
+       //preg_match('/(Date|Username|Email)(Asc|Desc)/i', $this->request->attributes->get('sortflag'), $matches);
+        return $messagesRepository->findBy($criteria, $orderBy, $limit);
     }
 }
