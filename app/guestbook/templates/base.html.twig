@@ -11,7 +11,7 @@
         {% endblock %}
     </head>
     <body>
-        {% block login %}
+        {% block navbar %}
         {% endblock %}
         <!-- Заголовок -->
         <div class="jumbotron jumbotron-fluid mb-1 border bg-light">
@@ -20,15 +20,9 @@
                 <p class="lead text-black-50">Оставьте свое мнение о ресурсе, а также любые другие записи</p>
             </div>
         </div>
-            <!-- Форма для ввода нового сообщения -->
-        <div class="container my-1 my-lg-1 px-lg-2">
-            <div class="row mx-lg-2">
-                <div id="contentForm" class="col py-2 px-lg-1 border bg-light">
-                    {% block contentForm %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
+        <!-- Форма для ввода нового сообщения -->
+        {% block contentform %}
+        {% endblock %}
         <!-- Вывод списка сообщений с учетом заданной сортировки -->
         {% block contentmessages %}
         {% endblock %}

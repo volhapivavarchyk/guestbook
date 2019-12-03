@@ -5,7 +5,7 @@ index:
         sortflag: 'ByDateDesc'
         count: '1'
     requirements:
-      sortflag: '(ByName|ByEmail|ByDate)(Asc|Desc)'
+      sortflag: '(ByUsername|ByEmail|ByDate)(Asc|Desc)'
       count:    \d+
 login:
     path:  /login
@@ -14,5 +14,14 @@ logout:
     path: /logout
     controller: Piv\Guestbook\Controller\SecurityController::logout
 admin:
-    path: /admin
+    path: /admin/{sortflag}/{count}
     controller: Piv\Guestbook\Controller\AdminController::adminDashboard
+    defaults:
+        sortflag: 'ByDateDesc'
+        count: '1'
+    requirements:
+      sortflag: '(ByUsername|ByEmail|ByDate)(Asc|Desc)'
+      count:    \d+
+admin-action:
+    path: /admin/action
+    controller: Piv\Guestbook\Controller\AdminController::adminAction

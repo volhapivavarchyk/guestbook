@@ -19,12 +19,10 @@ class UserController extends Controller
         }
         //$messages = $guestBookFormer->getAllMessages();
         preg_match('/(Date|Username|Email)(Asc|Desc)/i', $sortflag, $matches);
-        $matches[1] = mb_strtolower($matches[1]);
         $messages = $guestBookFormer->getMessagesBy(
             ['annotationForId' => 0],
             [$matches[1] => $matches[2]]
         );
-        var_dump($messages[19]->getUser());
         foreach ($messages as $message) {
             $annotations = $guestBookFormer->getMessagesBy(
                 ['annotationForId' => $message->getId()],
@@ -32,7 +30,6 @@ class UserController extends Controller
             );
             $messagesAnnotations [] = [$message, $annotations];
         }
-        //var_dump($messagesAnnotations);
         // формирование контента
         $content = $this->render(
             'user/user.html.twig',

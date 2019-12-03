@@ -1,5 +1,5 @@
 user:
-    name: Имя пользователя
+    username: Имя пользователя
     email: Электронная почта
     message: Сообщение
 message:
@@ -10,6 +10,6 @@ message:
         picture: Добавить изображение
         txt: Добавить txt файл
 sorting:
-    name: Имя
+    username: Имя
     email: Элетронная почта
     date: Дата добавления

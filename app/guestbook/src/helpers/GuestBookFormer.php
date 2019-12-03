@@ -129,7 +129,9 @@ class GuestBookFormer
     {
         // получение сообщений из БД
         $messagesRepository = $this->entityManager->getRepository(Message::class);
-       //preg_match('/(Date|Username|Email)(Asc|Desc)/i', $this->request->attributes->get('sortflag'), $matches);
-        return $messagesRepository->findBy($criteria, $orderBy, $limit);
+        $function = 'findByOrderBy'.key($orderBy);
+        return $messagesRepository->$function($criteria, $orderBy[key($orderBy)]);
+        //preg_match('/(Date|Username|Email)(Asc|Desc)/i', $this->request->attributes->get('sortflag'), $matches);
+        //return $messagesRepository->findBy($criteria, $orderBy, $limit);
     }
 }

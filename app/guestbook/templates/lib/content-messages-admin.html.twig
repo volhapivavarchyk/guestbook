@@ -1,4 +1,3 @@
-
 <div class="container" id="content">
     <div class="row justify-content-end">
         <ul class="pagination pagination-sm justify-content-end">
@@ -106,54 +105,55 @@
     </div>
 
     {% for message in messages|usort(sortflag)|slice(start, length) %}
-        <div class="row justify-content-between mt-3 alert-light">
-            <div class="col-7 text-dark">
-                {{message[0].theme|upper}}
-            </div>
-            <div class="col-5 text-dark text-right">
-                {{message[0].user.getUsername()}}
-                &nbsp;&brvbar;&nbsp;
-                {{message[0].user.getEmail()}}
-                &nbsp;&brvbar;&nbsp;
-                {{message[0].date.format( 'Y-m-d H:i:s')}}
-            </div>
-        </div>
-        <div class="row alert-light">
-            <div class="col-12">
-                <p class="text-justify font-weight-normal text-secondary my-1">{{message[0].text|raw}}</p>
-            </div>
-        </div>
-        {% if message[0].pictures or message[0].filepath %}
-            <div class="row alert-light">
-                <div class="col">
-                    {% if message[0].pictures %}
-                        <a href="{{ asset ('/upload/img/' ~ message[0].pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
-                            <img src="{{ asset ('/upload/img/small/' ~ message[0].pictures)}}" class="img-fluid">
-                        </a>
-                    {% endif %}
-                    {% if message[0].filepath %}
-                        <a href=" {{ asset('/upload/txt/' ~ message[0].filepath) }}" type="application/file"
-                           class="text-dark bg-light text-decoration-none">{{ message[0].filepath }}
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
-        {% for annotation in message[1] %}
+        <form method="post" action="{{url('admin-action')}}">
+            <input type="hidden" name="message{{message[0].id}}" value="{{message[0].id}}">
             <div class="card border-secondary mb-3">
-                <div class="card-header">
-                    {{annotation.user.getUsername()}}
+                <div class="card-header bg-transparent border-secondary mb-3 text-secondary">
+                    {{message[0].user.getUsername()}}
                     &nbsp;&brvbar;&nbsp;
-                    {{annotation.user.getEmail()}}
+                    {{message[0].user.getEmail()}}
                     &nbsp;&brvbar;&nbsp;
-                    {{annotation.date.format( 'Y-m-d H:i:s')}}
+                    {{message[0].date.format( 'Y-m-d H:i:s')}}
                 </div>
-                <div class="card-body text-primary">
-                    <h5 class="card-title">{{annotation.theme|upper}}</h5>
-                    <p class="card-text">{{annotation.text|raw}}</p>
+                <div class="card-body text-secondary">
+                    <h5 class="card-title">{{message[0].theme|upper}}</h5>
+                    <p class="card-text">{{message[0].text|raw}}</p>
+
+                    {% if message[0].pictures or message[0].filepath %}
+                        {% if message[0].pictures %}
+                            <a href="{{ asset ('/upload/img/' ~ message[0].pictures)}}" data-toggle="lightbox" data-gallery="example-gallery" data-type="image">
+                                <img src="{{ asset ('/upload/img/small/' ~ message[0].pictures)}}" class="img-fluid">
+                            </a>
+                        {% endif %}
+                        {% if message[0].filepath %}
+                            <a href=" {{ asset('/upload/txt/' ~ message[0].filepath) }}" type="application/file"
+                                class="text-dark bg-light text-decoration-none">{{ message[0].filepath }}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent border-secondary">
+                    <button type="submit" class="btn-primary btn pull-right">Добавить аннотацию</button>
+                    <a href="{{url('admin', {'action':'addannotation'})}}" class="btn btn-primary">Редактировать</a>
+                    <a href="#" class="btn btn-primary">Удалить</a>
                 </div>
             </div>
-        {% endfor %}
+            {% for annotation in message[1] %}
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">
+                        {{annotation.user.getUsername()}}
+                        &nbsp;&brvbar;&nbsp;
+                        {{annotation.user.getEmail()}}
+                        &nbsp;&brvbar;&nbsp;
+                        {{annotation.date.format( 'Y-m-d H:i:s')}}
+                    </div>
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">{{annotation.theme|upper}}</h5>
+                        <p class="card-text">{{annotation.text|raw}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </form>
     {% endfor %}
 
     <div class="row justify-content-end">

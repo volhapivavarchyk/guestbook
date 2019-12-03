@@ -7,7 +7,7 @@ use \DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Piv\Guestbook\Repository\MessageRepository")
  * @ORM\Table(name="messages", indexes={@ORM\Index(name="search_idx", columns={"theme", "date"})})
  */
 class Message

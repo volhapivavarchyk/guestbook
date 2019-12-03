@@ -1,5 +1,5 @@
 user:
-    name: User name
+    username: User name
     email: Email
     message: Message
 message:
@@ -10,6 +10,6 @@ message:
         picture: Add picture
         txt: Add txt filepath
 sorting:
-    name: Name
+    username: Name
     email: Email
     date: Date
