@@ -40,30 +40,48 @@ class AdminController extends Controller
     public function adminAction(Request $request): Response
     {
         $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
-
-
-        preg_match('/(Date|Username|Email)(Asc|Desc)/i', $sortflag, $matches);
         $messages = $guestBookFormer->getMessagesBy(
             ['annotationForId' => 0],
             [$matches[1] => $matches[2]]
         );
-        //var_dump($messages[1]->getUser());
-        foreach ($messages as $message) {
-            $annotations = $guestBookFormer->getMessagesBy(
-                ['annotationForId' => $message->getId()],
-                ['date' => 'desc']
-            );
-            $messagesAnnotations [] = [$message, $annotations];
-        }
-        // формирование контента
-        $content = $this->render(
-            'admin/admin.html.twig',
-            [
-                'messages' => $messagesAnnotations,
-                'sortflag' => $sortflag,
-                'count' => (int)$count,
-            ]
+        $messages = $guestBookFormer->getMessagesBy(
+            ['annotationForId' => 0],
+            [$matches[1] => $matches[2]]
         );
+
+        $action = $request->request->get('action');
+        if (!strcmp($action, 'Добавить аннотацию')) {
+            // формирование контента
+            $content = $this->render(
+                'admin/admin.html.twig',
+                [
+                    'messages' => $messagesAnnotations,
+                    'sortflag' => $sortflag,
+                    'count' => (int)$count,
+                ]
+            );
+        } elseif (!strcmp($action, 'Редактировать')) {
+            // формирование контента
+            $content = $this->render(
+                'admin/admin.html.twig',
+                [
+                    'messages' => $messagesAnnotations,
+                    'sortflag' => $sortflag,
+                    'count' => (int)$count,
+                ]
+            );
+        } elseif (!strcmp($action, 'Удалить')) {
+            // формирование контента
+            $content = $this->render(
+                'admin/admin.html.twig',
+                [
+                    'messages' => $messagesAnnotations,
+                    'sortflag' => $sortflag,
+                    'count' => (int)$count,
+                ]
+            );
+        }
+
         $response = new Response($content);
         return $response;
     }
