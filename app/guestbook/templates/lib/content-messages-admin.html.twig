@@ -105,8 +105,7 @@
     </div>
 
     {% for message in messages|usort(sortflag)|slice(start, length) %}
-        <form method="post" action="{{url('admin-action')}}">
-            <input type="hidden" name="message{{message[0].id}}" value="{{message[0].id}}">
+            <input type="hidden" name="message" value="{{message[0].id}}">
             <div class="card border-secondary mb-3">
                 <div class="card-header bg-transparent border-secondary mb-3 text-secondary">
                     {{message[0].user.getUsername()}}
@@ -133,9 +132,102 @@
                     {% endif %}
                 </div>
                 <div class="card-footer bg-transparent border-secondary">
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addAnnotation">Добавить аннотацию</a>
+                    <!-- Modal window #addAnnotation -->
+                    <div id="addAnnotation" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg" role="content">
+                             <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Добавить аннотацию</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action={{ url('admin-action') }}>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-4">
+                                                <label class="sr-only" for="inputName">Аннотация</label>
+                                                <input type="text" class="form-control mr-1" id="addannotation" placeholder="Добавьте текст" name="text">
+                                                <input type="hidden" name="message" value="{{message[0].id}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Отмена</button>
+                                            <button type="submit" class="btn btn-primary ml-1" name="action" value="addAnnotation">Добавить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal window #addAnnotation -->
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#editMessage">Редактировать</a>
+                    <!-- Modal window #editMessage -->
+                    <div id="editMessage" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg" role="content">
+                             <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Редактировать сообщение</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action={{ url('admin-action') }}>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-4">
+                                                <label class="sr-only" for="editmessagetheme">Тема сообщения</label>
+                                                <input type="text" class="form-control mr-1" id="editmessagetheme" placeholder="Добавьте текст" name="theme" value="{{message[0].theme}}">
+                                                <label class="sr-only" for="editmessagetext">Сообщение</label>
+                                                <textarea id="editmessagetext" name="text">{{message[0].text}}</textarea>
+                                                <input type="hidden" name="message" value="{{message[0].id}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Отмена</button>
+                                            <button type="submit" class="btn btn-primary ml-1" name="action" value="editMessage">Редактировать</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal window #editMessage -->
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#delMessage">Удалить</a>
+                    <!-- Modal window #delMessage -->
+                    <div id="delMessage" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg" role="content">
+                             <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Подтверждение удаления сообщения</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action={{ url('admin-action') }}>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm-4">
+                                                <label class="sr-only" for="editmessagetheme">Тема сообщения</label>
+                                                <input type="text" class="form-control mr-1" id="editmessagetheme" placeholder="Добавьте текст" name="inputName" value="{{message[0].theme}}">
+                                                <label class="sr-only" for="editmessagetext">Сообщение</label>
+                                                <textarea id="editmessagetext">{{message[0].text}}</textarea>
+                                                <input type="hidden" name="message" value="{{message[0].id}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Отмена</button>
+                                            <button type="submit" class="btn btn-primary ml-1" name="action" value="delmessage">Удалить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal window #delMessage -->
+                    <!--
                     <input type="submit" class="btn-primary btn pull-right" name="action" value="Добавить аннотацию">
                     <input type="submit" class="btn-primary btn pull-right" name="action" value="Редактировать">
                     <input type="submit" class="btn-primary btn pull-right" name="action" value="Удалить">
+                    -->
                 </div>
             </div>
             {% for annotation in message[1] %}
@@ -153,7 +245,6 @@
                     </div>
                 </div>
             {% endfor %}
-        </form>
     {% endfor %}
 
     <div class="row justify-content-end">

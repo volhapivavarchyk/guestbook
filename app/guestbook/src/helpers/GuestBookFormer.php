@@ -134,4 +134,55 @@ class GuestBookFormer
         //preg_match('/(Date|Username|Email)(Asc|Desc)/i', $this->request->attributes->get('sortflag'), $matches);
         //return $messagesRepository->findBy($criteria, $orderBy, $limit);
     }
+
+    public function getMessageById(int $id): array
+    {
+        // получение сообщений из БД
+        $messagesRepository = $this->entityManager->getRepository(Message::class);
+        return $messagesRepository->find($id);
+    }
+
+    public function editMessage(array $params): array
+    {
+        $message = $this->entityManager->getRepository(Message::class)->find($params['id']);
+        $message->setTheme($params['theme']);
+        $message->setText($params['text']);
+        // ??? поставить отметку отредактировано администратором
+
+        $this->entityManager->flush();
+
+        return 'Сообщение изменено';
+    }
+
+    public function delMessage(array $params): array
+    {
+
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
+
+        return 'Сообщение удалено';
+    }
+
+    public function addAnnotation(array $params): array
+    {
+        $message = new Message();
+        $message->setTheme($params['theme']);
+        $message->setText($params['text']);
+
+        $usersRepository = $this->entityManager->getRepository(User::class);
+        $user = $usersRepository->findOneBy([
+            'username' => $this->request->request->get('user')['username'],
+            'email' => $this->request->request->get('user')['email'],
+            'role' =>  $this->request->request->get('user')['role'],
+        ]);
+
+        $user->getMessages()->add($message);
+        $message->setUser($user);
+
+        $this->entityManager->persist($message);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return 'Аннотация добавлена';
+    }
 }

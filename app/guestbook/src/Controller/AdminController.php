@@ -40,50 +40,39 @@ class AdminController extends Controller
     public function adminAction(Request $request): Response
     {
         $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
-        $messages = $guestBookFormer->getMessagesBy(
-            ['annotationForId' => 0],
-            [$matches[1] => $matches[2]]
-        );
-        $messages = $guestBookFormer->getMessagesBy(
-            ['annotationForId' => 0],
-            [$matches[1] => $matches[2]]
-        );
-
         $action = $request->request->get('action');
-        if (!strcmp($action, 'Добавить аннотацию')) {
-            // формирование контента
-            $content = $this->render(
-                'admin/admin.html.twig',
+        //$result = $guestBookFormer->$action();
+        if (!strcmp($action, 'addAnnotation') {
+            $result = $guestBookFormer->addAnnotation(
                 [
-                    'messages' => $messagesAnnotations,
-                    'sortflag' => $sortflag,
-                    'count' => (int)$count,
+                    'id' => $request->request->get('message'),
+                    'text' => $request->request->get('text')
+
                 ]
             );
-        } elseif (!strcmp($action, 'Редактировать')) {
-            // формирование контента
-            $content = $this->render(
-                'admin/admin.html.twig',
+        } elseif (!strcmp($action, 'editMessage') {
+            $result = $guestBookFormer->addAnnotation(
                 [
-                    'messages' => $messagesAnnotations,
-                    'sortflag' => $sortflag,
-                    'count' => (int)$count,
+                    'id' => $request->request->get('message'),
+                    'text' => $request->request->get('text'),
+                    'theme' => $request->request->get('theme'),
                 ]
             );
-        } elseif (!strcmp($action, 'Удалить')) {
-            // формирование контента
-            $content = $this->render(
-                'admin/admin.html.twig',
-                [
-                    'messages' => $messagesAnnotations,
-                    'sortflag' => $sortflag,
-                    'count' => (int)$count,
-                ]
-            );
-        }
+          } elseif (!strcmp($action, 'deleteMessage') {
+              $result = $guestBookFormer->addAnnotation(
+                  [
+                      'id' => $request->request->get('message'),
+                  ]
+              );
+          }
+        $content = $this->render(
+            'admin/admin-result.html.twig',
+            [
+                'result' => $result,
+            ]
+        );
 
         $response = new Response($content);
         return $response;
     }
-
 }
