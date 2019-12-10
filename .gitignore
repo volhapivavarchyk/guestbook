@@ -1,6 +1,8 @@
 .idea
 .env
 app/guestbook/public/upload/
+app/guestbook/src/Controller/UserController-new.php
+app/guestbook/src/Helpers/GuestBookFormer-new.php
 app/guestbook/var/
 app/guestbook/vendor/
 app/guestbook/.env
