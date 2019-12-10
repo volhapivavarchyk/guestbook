@@ -42,24 +42,24 @@ class AdminController extends Controller
         $guestBookFormer = new GuestBookFormer($request, $this->getDoctrine()->getManager());
         $action = $request->request->get('action');
         //$result = $guestBookFormer->$action();
-        if (!strcmp($action, 'addAnnotation') {
+        if (!strcmp($action, 'addAnnotation')) {
             $result = $guestBookFormer->addAnnotation(
                 [
                     'id' => $request->request->get('message'),
-                    'text' => $request->request->get('text')
-
-                ]
-            );
-        } elseif (!strcmp($action, 'editMessage') {
-            $result = $guestBookFormer->addAnnotation(
+                    'text' => $request->request->get('text'),
+                    'theme' => $request->request->get('theme'),
+                    'user' => $this->getUser(),
+                ]);
+        } elseif (!strcmp($action, 'editMessage')) {
+            $result = $guestBookFormer->editMessage(
                 [
                     'id' => $request->request->get('message'),
                     'text' => $request->request->get('text'),
                     'theme' => $request->request->get('theme'),
                 ]
             );
-          } elseif (!strcmp($action, 'deleteMessage') {
-              $result = $guestBookFormer->addAnnotation(
+          } elseif (!strcmp($action, 'delMessage')) {
+              $result = $guestBookFormer->delMessage(
                   [
                       'id' => $request->request->get('message'),
                   ]

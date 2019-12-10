@@ -19,37 +19,16 @@ class GuestBookFormer
 
     protected $entityManager;
     protected $request;
-    protected $user;
-    protected $message;
-    protected $form;
 
     public function __construct(Request $request, EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->request = $request;
-
-        $this->user = new User();
-        $this->message = new Message();
-        $this->user->getMessages()->add($this->message);
     }
 
-    public function createForm()
+    public function isFormSubmittedAndValid(Forms $form): bool
     {
-        $formFactory = Forms::createFormFactoryBuilder()
-            ->addExtension(new HttpFoundationExtension())
-            ->addExtension(new ValidatorExtension(Validation::createValidator()))
-            ->getFormFactory();
-        $this->form = $formFactory->createBuilder(UserType::class, $this->user)->getForm();
-    }
-
-    public function getForm()
-    {
-        return $this->form;
-    }
-
-    public function isFormSubmittedAndValid(): bool
-    {
-        if ($this->form->isSubmitted() && $this->form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $recaptchaResponse = $this->request->request->get('g-recaptcha-response');
             if (!empty($recaptchaResponse)) {
                 $captchaUrl= $_ENV['GUESTBOOK_CAPTCHA_URL'];
@@ -69,11 +48,11 @@ class GuestBookFormer
         return false;
     }
 
-    public function addMessage()
+    public function addMessage(Message $message, User $user = null): string
     {
-        $this->message->setIp($this->request->server->get('REMOTE_ADDR'));
-        $this->message->setBrowser($this->request->server->get('HTTP_USER_AGENT'));
-        $this->message->setDate(new DateTime("now"));
+        $message->setIp($this->request->server->get('REMOTE_ADDR'));
+        $message->setBrowser($this->request->server->get('HTTP_USER_AGENT'));
+        $message->setDate(new DateTime("now"));
         // загрузка изображения
         $imagePictureFile = $this->request->files->get('user')['messages']['0']['pictures'];
         if ($imagePictureFile && $imagePictureFile->getClientOriginalName() !== '') {
@@ -93,7 +72,7 @@ class GuestBookFormer
                 50
             );
             $image->deleteFileFrom($_ENV['DIR_TEMP_UPLOAD']);
-            $this->message->setPictures($image->getImage()->getClientOriginalName());
+            $message->setPictures($image->getImage()->getClientOriginalName());
         }
         // загрузка текстового файла
         $imageTxtFile = $this->request->files->get('user')['messages']['0']['filepath'];
@@ -101,7 +80,7 @@ class GuestBookFormer
         if ($imageTxtFile && $imageTxtFile->getClientOriginalName() !== '') {
             $file = new FileTxt($imageTxtFile);
             $file->moveFileTo($_ENV['DIR_FILE_TXT_UPLOAD']);
-            $this->message->setFilepath($file->getFile()->getClientOriginalName());
+            $message->setFilepath($file->getFile()->getClientOriginalName());
         }
 
         $usersRepository = $this->entityManager->getRepository(User::class);
@@ -111,11 +90,13 @@ class GuestBookFormer
             'email' => $this->request->request->get('user')['email'],
             'role' => $userRole
         ]);
-        $this->user = isset($isUser) ? $isUser : $user;
-        $this->message->setUser($this->user);
-        $this->entityManager->persist($this->message);
-        $this->entityManager->persist($this->user);
+        $user = isset($isUser) ? $isUser : $user;
+        $message->setUser($user);
+        $this->entityManager->persist($message);
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        return 'Сообщение добавлено'
     }
 
     public function getAllMessages(): array
