@@ -97,7 +97,7 @@ class GuestBookFormer
         }
         // загрузка текстового файла
         $imageTxtFile = $this->request->files->get('user')['messages']['0']['filepath'];
-        $this->message->setFilepath('');
+        $message->setFilepath('');
         if ($imageTxtFile && $imageTxtFile->getClientOriginalName() !== '') {
             $file = new FileTxt($imageTxtFile);
             $file->moveFileTo($_ENV['DIR_FILE_TXT_UPLOAD']);
@@ -111,7 +111,7 @@ class GuestBookFormer
             'email' => $this->request->request->get('user')['email'],
             'role' => $userRole
         ]);
-        $this->user = isset($isUser) ? $isUser : $this->user;
+        $this->user = isset($isUser) ? $isUser : $user;
         $this->message->setUser($this->user);
         $this->entityManager->persist($this->message);
         $this->entityManager->persist($this->user);
@@ -142,7 +142,7 @@ class GuestBookFormer
         return $messagesRepository->find($id);
     }
 
-    public function editMessage(array $params): array
+    public function editMessage(array $params): string
     {
         $message = $this->entityManager->getRepository(Message::class)->find($params['id']);
         $message->setTheme($params['theme']);
@@ -154,28 +154,27 @@ class GuestBookFormer
         return 'Сообщение изменено';
     }
 
-    public function delMessage(array $params): array
+    public function delMessage(array $params): string
     {
 
-        $this->entityManager->remove($product);
+        $message = $this->entityManager->getRepository(Message::class)->find($params['id']);
+        $this->entityManager->remove($message);
         $this->entityManager->flush();
 
         return 'Сообщение удалено';
     }
 
-    public function addAnnotation(array $params): array
+    public function addAnnotation(array $params): string
     {
         $message = new Message();
         $message->setTheme($params['theme']);
         $message->setText($params['text']);
+        $message->setAnnotationForId($params['id']);
+        $message->setDate(new DateTime("now"));
+        $message->setIp($this->request->server->get('REMOTE_ADDR'));
+        $message->setBrowser($this->request->server->get('HTTP_USER_AGENT'));
 
-        $usersRepository = $this->entityManager->getRepository(User::class);
-        $user = $usersRepository->findOneBy([
-            'username' => $this->request->request->get('user')['username'],
-            'email' => $this->request->request->get('user')['email'],
-            'role' =>  $this->request->request->get('user')['role'],
-        ]);
-
+        $user = $params['user'];
         $user->getMessages()->add($message);
         $message->setUser($user);
 
