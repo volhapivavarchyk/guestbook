@@ -1,5 +1,5 @@
 * linguist-vendored
 *.php linguist-detectable=true
-*.js linguist-detectable=false
-*.css linguist-vendored=false
-*.html linguist-vendored=false
+*.js linguist-detectable=true
+*.css linguist-detectable=true
+*.html linguist-detectable=true
